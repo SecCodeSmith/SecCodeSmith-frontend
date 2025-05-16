@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import "./BlogCard.module.css"
 
 export interface BlogPostProps {
   id: string;
