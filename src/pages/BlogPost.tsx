@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { blogPostsData } from '../data/blogPostsData';
 import { NotFound } from './NotFound';
 
+import './BlogPost.module.css';
+
 export const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState(blogPostsData.find(post => post.slug === slug));

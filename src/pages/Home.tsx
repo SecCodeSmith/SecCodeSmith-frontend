@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import styles from './Home.module.css';
+
 export const Home = () => {
   // Create binary background and particles effects
   useEffect(() => {
@@ -17,7 +19,7 @@ export const Home = () => {
       
       for (let i = 0; i < linesCount; i++) {
         const line = document.createElement('div');
-        line.className = 'binary-line';
+        line.className = styles.binaryLine;
         line.style.left = `${Math.random() * 100}%`;
         line.style.animationDuration = `${Math.random() * 10 + 15}s`;
         
@@ -44,7 +46,7 @@ export const Home = () => {
       for (let i = 0; i < particlesCount; i++) {
         setTimeout(() => {
           const particle = document.createElement('div');
-          particle.className = 'particle';
+          particle.className = styles.particle;
           
           // Random position at the bottom of the hero section
           const posX = Math.random() * window.innerWidth;
@@ -97,28 +99,28 @@ export const Home = () => {
     <>
       {/* Hero Section */}
       <section className="hero" id="home">
-        <div id="binary-bg" className="binary-bg"></div>
-        <div className="container text-center">
+        <div id="binary-bg" className={styles.binaryBg}></div>
+        <div className={`container text-center ${styles.heroContainer}`}>
           <div className="row justify-content-center">
             <div className="col-lg-10">
-              <h1 className="title-main">SecCodeSmith</h1>
-              <div className="blinking-cursor"></div>
-              <p className="subtitle mt-3">Forging Digital Solutions in the Fires of Innovation</p>
-              <Link to="/projects" className="btn btn-primary mt-4">
+              <h1 className={`${styles.titleMain}`}>SecCodeSmith</h1>
+              <div className={`${styles.blinkingCursor}`}></div>
+              <p className={`subtitle mt-3 ${styles.subtitle}`}>Forging Digital Solutions in the Fires of Innovation</p>
+              <Link to="/projects" className={`btn btn-primary mt-4 ${styles.btnPrimary}`}>
                 <i className="fas fa-fire-alt me-2"></i> View My Forge
               </Link>
             </div>
           </div>
         </div>
-        <div id="particles" className="particles"></div>
+        <div id="particles" className={`particles ${styles.particles}`}></div>
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="skills-section">
+      <section id="skills" className={`skills-section ${styles.skillsSection}`}>
         <div className="container">
           <div className="row justify-content-center mb-5">
             <div className="col-lg-6 text-center">
-              <h2 className="section-title">Technical Arsenal</h2>
+              <h2 className={`section-title ${styles.sectionTitle}`}>Technical Arsenal</h2>
             </div>
           </div>
           <div className="row g-4">
@@ -126,7 +128,7 @@ export const Home = () => {
             <div className="col-md-6 col-lg-4">
               <div className="card h-100">
                 <div className="card-header">
-                  <i className="fas fa-code category-icon"></i>
+                  <i className={`fas fa-code ${styles.categoryIcon}`}></i>
                   <h3 className="category-title">Languages</h3>
                 </div>
                 <div className="card-body">
@@ -152,7 +154,7 @@ export const Home = () => {
             <div className="col-md-6 col-lg-4">
               <div className="card h-100">
                 <div className="card-header">
-                  <i className="fas fa-microchip category-icon"></i>
+                    <i className={`fas fa-microchip ${styles.categoryIcon}`}></i>
                   <h3 className="category-title">Embedded Systems</h3>
                 </div>
                 <div className="card-body">
@@ -178,7 +180,7 @@ export const Home = () => {
             <div className="col-md-6 col-lg-4">
               <div className="card h-100">
                 <div className="card-header">
-                  <i className="fas fa-brain category-icon"></i>
+                  <i className={`fas fa-brain ${styles.categoryIcon}`}></i>
                   <h3 className="category-title">Data & ML</h3>
                 </div>
                 <div className="card-body">

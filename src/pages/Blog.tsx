@@ -3,6 +3,8 @@ import { PageHeader } from '../components/PageHeader';
 import { BlogCard } from '../components/BlogCard';
 import { blogPostsData } from '../data/blogPostsData';
 
+import './Blog.module.css';
+
 export const Blog = () => {
   const [searchQuery, setSearchQuery] = useState('');
   
@@ -50,9 +52,7 @@ export const Blog = () => {
               featuredPost.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
               featuredPost.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
             ) && (
-              <div className="card featured-card mb-5">
-                <BlogCard post={featuredPost} />
-              </div>
+              <BlogCard post={featuredPost} />
             )}
 
             {/* Regular Posts */}

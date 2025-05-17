@@ -1,6 +1,8 @@
 import { PageHeader } from '../components/PageHeader';
 import { ContactForm } from '../components/ContactForm';
 
+import './Contact.module.css';
+
 export const Contact = () => {
   return (
     <>
