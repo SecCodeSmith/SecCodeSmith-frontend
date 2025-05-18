@@ -1,0 +1,26 @@
+// Colors
+$primary-dark: #0a0a0a;
+$secondary-dark: #1a1a1a;
+$accent-fire: #ff6400;
+$accent-ember: #ff4500;
+$accent-dragon: #8B0000;
+$text-light: #f5f5f5;
+$text-ash: #aaaaaa;
+$card-bg: #141414;
+$card-border: #2a2a2a;
+
+// Effects
+$glow-effect: 0 0 10px $accent-fire, 0 0 20px rgba(255, 100, 0, 0.4);
+
+// Maps for easy access
+$colors: (
+    "primary-dark": $primary-dark,
+    "secondary-dark": $secondary-dark,
+    "accent-fire": $accent-fire,
+    "accent-ember": $accent-ember,
+    "accent-dragon": $accent-dragon,
+    "text-light": $text-light,
+    "text-ash": $text-ash,
+    "card-bg": $card-bg,
+    "card-border": $card-border
+);

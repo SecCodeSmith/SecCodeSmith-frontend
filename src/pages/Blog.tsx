@@ -3,7 +3,7 @@ import { PageHeader } from '../components/PageHeader';
 import { BlogCard } from '../components/BlogCard';
 import { blogPostsData } from '../data/blogPostsData';
 
-import './Blog.module.css';
+import '@styles/Blog.scss';
 
 export const Blog = () => {
   const [searchQuery, setSearchQuery] = useState('');

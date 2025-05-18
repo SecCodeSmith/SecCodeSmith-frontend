@@ -7,7 +7,7 @@ import { BlogPost } from './pages/BlogPost'
 import { Projects } from './pages/Projects'
 import { Contact } from './pages/Contact'
 import { NotFound } from './pages/NotFound'
-import './components/styles.css'
+import '@components/styles.css'
 
 function App() {
   return (
