@@ -129,21 +129,21 @@ export const Home = () => {
               <div className={`card h-100 ${styles.card}`}>
                 <div className={`card-header ${styles.cardHeader}`}>
                   <i className={`fas fa-code category-icon ${styles.categoryIcon}`}></i>
-                  <h3 className="category-title">Languages</h3>
+                        <h3 className={`${styles.categoryTitle}`}>Languages</h3>
                 </div>
                 <div className="card-body">
                   <ul className="list-unstyled">
                     <li className={`skill-item ${styles.skillItem}`}>
-                      <span className="skill-icon"><i className="devicon-cplusplus-plain colored"></i></span>
-                      <span className="skill-name">C/C++</span>
+                      <span className={`skill-icon ${styles.skillIcon}`}><i className="devicon-cplusplus-plain "></i></span>
+                      <span className={`skill-name ${styles.skillName}`}>C/C++</span>
                     </li>
-                    <li className="skill-item">
-                      <span className="skill-icon"><i className="devicon-python-plain colored"></i></span>
-                      <span className="skill-name">Python</span>
+                    <li className={`skill-item ${styles.skillItem}`}>
+                      <span className={`skill-icon ${styles.skillIcon}`}><i className="devicon-python-plain"></i></span>
+                      <span className={`skill-name ${styles.skillName}`}>Python</span>
                     </li>
-                    <li className="skill-item">
-                      <span className="skill-icon"><i className="devicon-csharp-plain colored"></i></span>
-                      <span className="skill-name">.NET</span>
+                    <li className={`skill-item ${styles.skillItem}`}>
+                      <span className={`skill-icon ${styles.skillIcon}`}><i className="devicon-csharp-plain"></i></span>
+                      <span className={`skill-name ${styles.skillName}`}>.NET</span>
                     </li>
                   </ul>
                 </div>
@@ -152,8 +152,8 @@ export const Home = () => {
 
             {/* Embedded Systems Card */}
             <div className="col-md-6 col-lg-4">
-              <div className="card h-100">
-                <div className="card-header">
+              <div className={`card h-100 ${styles.card}`}>
+                <div className={`card-header ${styles.cardHeader}`}>
                   <i className={`fas fa-microchip ${styles.categoryIcon}`}></i>
                   <h3 className="category-title">Embedded Systems</h3>
                 </div>
@@ -186,11 +186,11 @@ export const Home = () => {
                 <div className="card-body">
                   <ul className="list-unstyled">
                     <li className="skill-item">
-                      <span className="skill-icon"><i className="devicon-pandas-original colored"></i></span>
+                      <span className="skill-icon"><i className="devicon-pandas-plain"></i></span>
                       <span className="skill-name">Pandas</span>
                     </li>
                     <li className="skill-item">
-                      <span className="skill-icon"><i className="fas fa-cogs"></i></span>
+                      <span className="skill-icon"><i className="devicon-scikitlearn-plain"></i></span>
                       <span className="skill-name">Scikit-learn</span>
                     </li>
                     <li className="skill-item">
@@ -198,7 +198,7 @@ export const Home = () => {
                       <span className="skill-name">Scikit-image</span>
                     </li>
                     <li className="skill-item">
-                      <span className="skill-icon"><i className="devicon-pytorch-original colored"></i></span>
+                      <span className="skill-icon"><i className="devicon-pytorch-original"></i></span>
                       <span className="skill-name">PyTorch</span>
                     </li>
                   </ul>
