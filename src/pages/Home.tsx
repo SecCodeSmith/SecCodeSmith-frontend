@@ -2,9 +2,12 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from '@styles/Home.module.scss';
+import SkillCard from '../components/SkillCard'
+import { skillCardData } from '../data/skillCard';
 
 export const Home = () => {
-  // Create binary background and particles effects
+  const skills = skillCardData;
+
   useEffect(() => {
     // Create binary background
     const createBinaryBg = () => {
@@ -124,87 +127,13 @@ export const Home = () => {
             </div>
           </div>
           <div className="row g-4">
-            {/* Languages Card */}
-            <div className="col-md-6 col-lg-4">
-              <div className={`card h-100 ${styles.card}`}>
-                <div className={`card-header ${styles.cardHeader}`}>
-                  <i className={`fas fa-code category-icon ${styles.categoryIcon}`}></i>
-                        <h3 className={`${styles.categoryTitle}`}>Languages</h3>
-                </div>
-                <div className="card-body">
-                  <ul className="list-unstyled">
-                    <li className={`skill-item ${styles.skillItem}`}>
-                      <span className={`skill-icon ${styles.skillIcon}`}><i className="devicon-cplusplus-plain "></i></span>
-                      <span className={`skill-name ${styles.skillName}`}>C/C++</span>
-                    </li>
-                    <li className={`skill-item ${styles.skillItem}`}>
-                      <span className={`skill-icon ${styles.skillIcon}`}><i className="devicon-python-plain"></i></span>
-                      <span className={`skill-name ${styles.skillName}`}>Python</span>
-                    </li>
-                    <li className={`skill-item ${styles.skillItem}`}>
-                      <span className={`skill-icon ${styles.skillIcon}`}><i className="devicon-csharp-plain"></i></span>
-                      <span className={`skill-name ${styles.skillName}`}>.NET</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Embedded Systems Card */}
-            <div className="col-md-6 col-lg-4">
-              <div className={`card h-100 ${styles.card}`}>
-                <div className={`card-header ${styles.cardHeader}`}>
-                  <i className={`fas fa-microchip ${styles.categoryIcon}`}></i>
-                  <h3 className="category-title">Embedded Systems</h3>
-                </div>
-                <div className={`${styles.cardBody}`}>
-                  <ul className="list-unstyled">
-                    <li className="skill-item">
-                      <span className="skill-icon"><i className="fas fa-microchip"></i></span>
-                      <span className="skill-name">STM32 (I2C, SPI, UART)</span>
-                    </li>
-                    <li className="skill-item">
-                      <span className="skill-icon"><i className="fas fa-wifi"></i></span>
-                      <span className="skill-name">ESP32</span>
-                    </li>
-                    <li className="skill-item">
-                      <span className="skill-icon"><i className="fas fa-memory"></i></span>
-                      <span className="skill-name">Pico-SDK</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Data & ML Card */}
-            <div className="col-md-6 col-lg-4">
-              <div className="card h-100">
-                <div className="card-header">
-                  <i className={`fas fa-brain ${styles.categoryIcon}`}></i>
-                  <h3 className="category-title">Data & ML</h3>
-                </div>
-                <div className="card-body">
-                  <ul className="list-unstyled">
-                    <li className="skill-item">
-                      <span className="skill-icon"><i className="devicon-pandas-plain"></i></span>
-                      <span className="skill-name">Pandas</span>
-                    </li>
-                    <li className="skill-item">
-                      <span className="skill-icon"><i className="devicon-scikitlearn-plain"></i></span>
-                      <span className="skill-name">Scikit-learn</span>
-                    </li>
-                    <li className="skill-item">
-                      <span className="skill-icon"><i className="fas fa-image"></i></span>
-                      <span className="skill-name">Scikit-image</span>
-                    </li>
-                    <li className="skill-item">
-                      <span className="skill-icon"><i className="devicon-pytorch-original"></i></span>
-                      <span className="skill-name">PyTorch</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            {skills.map((skill, index) => (
+                <SkillCard
+                  categoryIcon={skill.categoryIcon}
+                  categoryTitle={skill.categoryTitle}
+                  skills={skill.skills}
+                />
+            ))}
           </div>
         </div>
       </section>
