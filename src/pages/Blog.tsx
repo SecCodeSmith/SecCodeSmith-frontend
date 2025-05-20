@@ -3,6 +3,7 @@ import { PageHeader } from '../components/PageHeader';
 import { BlogCard } from '../components/BlogCard';
 import { blogPostsData } from '../data/blogPostsData';
 
+import '@styles/_variables.scss';
 import '@styles/Blog.scss';
 
 export const Blog = () => {

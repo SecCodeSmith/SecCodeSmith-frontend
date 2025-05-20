@@ -1,0 +1,248 @@
+@use './variables' as *;
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-top: 76px;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/api/placeholder/1200/800') center/cover no-repeat;
+    opacity: 0.15;
+    filter: brightness(0.5) contrast(1.2);
+    z-index: -1;
+}
+
+.titleMain {
+    font-size: 4rem;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
+.titleMain::before {
+    content: "< ";
+    color: $accent-fire;
+    opacity: 0.8;
+}
+
+.titleMain::after {
+    content: " />";
+    color: $accent-fire;
+    opacity: 0.8;
+}
+
+.subtitle {
+    font-size: 1.6rem;
+    color: $text-ash;
+    margin-bottom: 2rem;
+}
+
+/* Binary Background */
+.binaryBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.07;
+    overflow: hidden;
+}
+
+.binaryLine {
+    position: absolute;
+    font-family: 'Fira Code', monospace;
+    color: $accent-fire;
+    font-size: 1rem;
+    animation: fall linear infinite;
+    opacity: 0.7;
+}
+
+/* Button Styling */
+.btnPrimary {
+    background: linear-gradient(45deg, $accent-dragon, $accent-fire);
+    border: none;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btnPrimary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 25px rgba(139, 0, 0, 0.5);
+    background-color: $accent-fire;
+    background-image: none;
+}
+
+.btnPrimary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.6s ease;
+}
+
+.btnPrimary:hover::before {
+    left: 100%;
+}
+
+/* Skills Section */
+.skillsSection {
+    padding: 6rem 0;
+    background-color: $secondary-dark;
+    position: relative;
+}
+
+.sectionTitle {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+}
+
+.sectionTitle::after {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 3px;
+    background: $accent-fire;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: $glow-effect;
+}
+
+.card {
+    background-color: $card-bg;
+    border: 1px solid $card-border;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(255, 100, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to right, $accent-dragon, $accent-fire);
+}
+
+.cardHeader {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.categoryIcon {
+    color: $accent-fire;
+    font-size: 1.5rem;
+}
+
+.categoryTitle {
+    font-size: 1.4rem;
+    margin-bottom: 0;
+}
+
+.skillItem {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.skillIcon {
+    color: $accent-fire;
+    font-size: 1.5rem;
+    min-width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skillIcon i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skillName {
+    color: $text-ash;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Blinking cursor effect */
+.blinkingCursor {
+    display: inline-block;
+    width: 10px;
+    height: 24px;
+    background-color: $accent-fire;
+    margin-left: 5px;
+    animation: blink 1s step-end infinite;
+    box-shadow: $glow-effect;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Particles effect */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: $accent-fire;
+    border-radius: 50%;
+    opacity: 0;
+    animation: rise linear forwards;
+}
