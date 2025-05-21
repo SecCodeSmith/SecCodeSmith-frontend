@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import styles from '@styles/Home.module.scss';
 import SkillCard from '../components/SkillCard'
-import { skillCardData } from '../data/skillCard';
+import { skillCardData } from '../data/skillCardData';
 
 export const Home = () => {
   const skills = skillCardData;
@@ -124,7 +124,7 @@ export const Home = () => {
             </div>
           </div>
           <div className="row g-4">
-            {skills.map((skill, index) => (
+            {skills.map((skill) => (
                 <SkillCard
                   categoryIcon={skill.categoryIcon}
                   categoryTitle={skill.categoryTitle}
