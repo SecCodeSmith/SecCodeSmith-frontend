@@ -1,6 +1,8 @@
+@use './variables' as *;
+
 body {
-    background-color: var(--primary-dark);
-    color: var(--text-light);
+    background-color: $primary-dark;
+    color: $text-light;
     background-image: url('../images/background.png');
     background-repeat: round;
     background-size: 300px 300px;
@@ -36,7 +38,7 @@ body::before {
 
 .navbar-toggler {
     border: 1px solid rgba(255, 100, 0, 0.5);
-    color: var(--accent-fire);
+    color: $accent-fire;
 }
 
 .navbar-toggler-icon {
@@ -44,7 +46,7 @@ body::before {
 }
 
 .nav-link {
-    color: var(--text-light) !important;
+    color: $text-light !important;
     position: relative;
     padding: 0.5rem 1rem;
     transition: color 0.3s;
@@ -52,7 +54,7 @@ body::before {
 
 .nav-link:hover,
 .nav-link.active {
-    color: var(--accent-fire) !important;
+    color: $accent-fire !important;
 }
 
 .nav-link::after {
@@ -62,7 +64,7 @@ body::before {
     height: 2px;
     bottom: 0;
     left: 0;
-    background: linear-gradient(to right, var(--accent-fire), transparent);
+    background: linear-gradient(to right, $accent-fire, transparent);
     transition: width 0.3s ease;
 }
 
@@ -72,10 +74,13 @@ body::before {
 }
 
 /* Logo styling */
+.logo-image{
+    height: 2rem;
+}
+
 .logo-icon {
     font-size: 2rem;
-    color: var(--accent-fire);
-    text-shadow: var(--glow-effect);
+    color: $accent-fire;
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -85,7 +90,7 @@ body::before {
 .logo-text {
     font-weight: 700;
     font-size: 1.5rem;
-    background: linear-gradient(to right, var(--accent-fire), var(--text-light));
+    background: linear-gradient(to right, $accent-fire, $text-light);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -93,42 +98,9 @@ body::before {
 }
 
 
-
-@keyframes fall {
-    0% {
-        transform: translateY(-100%);
-    }
-
-    100% {
-        transform: translateY(100vh);
-    }
-}
-
-
-
-@keyframes rise {
-    0% {
-        transform: translateY(0) translateX(0);
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 0.5;
-    }
-
-    90% {
-        opacity: 0.5;
-    }
-
-    100% {
-        transform: translateY(-100px) translateX(var(--x));
-        opacity: 0;
-    }
-}
-
 /* Footer */
 .footer {
-    background-color: var(--primary-dark);
+    background-color: $primary-dark;
     padding: 3rem 0;
     border-top: 1px solid rgba(255, 100, 0, 0.2);
     margin-top: 5rem;
@@ -143,17 +115,17 @@ body::before {
 
 .social-icon {
     font-size: 1.5rem;
-    color: var(--text-ash);
+    color: $text-ash;
     transition: all 0.3s ease;
 }
 
 .social-icon:hover {
-    color: var(--accent-fire);
+    color: $accent-fire;
     transform: translateY(-5px);
 }
 
 .copyright {
-    color: var(--text-ash);
+    color: $text-ash;
     font-size: 0.9rem;
     margin-top: 1rem;
     text-align: center;

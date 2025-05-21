@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
+import logo from '../assets/images/favicon.png'
 
 export const Header = () => {
   const location = useLocation()
@@ -15,17 +16,7 @@ export const Header = () => {
       <div className="container">
         <NavLink className="navbar-brand" to="/">
           <div className="logo-icon">
-            <i className="fas fa-hammer"></i>
-            <i 
-              className="fas fa-dragon" 
-              style={{ 
-                fontSize: '1.2rem', 
-                position: 'absolute', 
-                top: 0, 
-                right: '-12px', 
-                color: 'var(--accent-dragon)'
-              }}
-            ></i>
+            <img src={logo} alt="Logo" className='logo-image' height="100%" />
           </div>
           <div className="logo-text">SecCodeSmith</div>
         </NavLink>
