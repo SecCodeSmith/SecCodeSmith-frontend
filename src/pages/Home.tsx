@@ -4,30 +4,28 @@ import { Link } from 'react-router-dom';
 import styles from '@styles/Home.module.scss';
 import SkillCard from '../components/SkillCard'
 import { skillCardData } from '../data/skillCardData';
+import { randomCodeLineData } from '../data/randomCodeLineData';
 
 export const Home = () => {
   const skills = skillCardData;
-
+  const randomCodeLines = randomCodeLineData;
   useEffect(() => {
     const createBinaryBg = () => {
       const binaryBg = document.getElementById('binary-bg');
       if (!binaryBg) return;
-
-      const chars = '01';
       const linesCount = 20;
 
       binaryBg.innerHTML = '';
 
       for (let i = 0; i < linesCount; i++) {
+
         const line = document.createElement('div');
         line.className = styles.binaryLine;
         line.style.left = `${Math.random() * 100}%`;
         line.style.animationDuration = `${Math.random() * 10 + 15}s`;
 
-        let binaryString = '';
-        for (let j = 0; j < 100; j++) {
-          binaryString += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
+        let lineNumber = Math.floor(Math.random() * randomCodeLines.length);
+        let binaryString = randomCodeLines[lineNumber];
 
         line.textContent = binaryString;
         binaryBg.appendChild(line);
