@@ -9,7 +9,6 @@ export const Home = () => {
   const skills = skillCardData;
 
   useEffect(() => {
-    // Create binary background
     const createBinaryBg = () => {
       const binaryBg = document.getElementById('binary-bg');
       if (!binaryBg) return;
@@ -17,7 +16,6 @@ export const Home = () => {
       const chars = '01';
       const linesCount = 20;
 
-      // Clear existing lines
       binaryBg.innerHTML = '';
 
       for (let i = 0; i < linesCount; i++) {
@@ -36,7 +34,6 @@ export const Home = () => {
       }
     };
 
-    // Create particles effect (ember/spark effect)
     const createParticles = () => {
       const particlesContainer = document.getElementById('particles');
       if (!particlesContainer) return;

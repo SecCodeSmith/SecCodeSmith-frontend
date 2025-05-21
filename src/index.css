@@ -14,7 +14,7 @@
 body {
     background-color: var(--primary-dark);
     color: var(--text-light);
-    background-image: url('../images/background.png');
+    background-image: url('assets/images/background.png');
     background-repeat: round;
     background-size: 300px 300px;
     background-position: 0 0;
@@ -84,11 +84,12 @@ body::before {
     width: 100%;
 }
 
+.logo-image{
+    height: 2rem;
+}
 /* Logo styling */
 .logo-icon {
-    font-size: 2rem;
-    color: var(--accent-fire);
-    text-shadow: var(--glow-effect);
+    height: 2rem;
     position: relative;
     display: inline-flex;
     align-items: center;

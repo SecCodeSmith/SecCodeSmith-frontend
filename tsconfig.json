@@ -15,6 +15,7 @@
       "@data/*":        ["src/data/*"],
       "@styles/*":      ["src/styles/*"],
       "@tests/*":       ["src/tests/*"],
+      "@images/*":      ["src/assets/images/*"],
     },
     "moduleResolution": "node",
     "types": ["node"] 

@@ -7,7 +7,8 @@ export const skillCardData: SkillCardProps[] = [
         skills: [
             { name: "C/C++", icon: "devicon-cplusplus-plain" },
             { name: "Python", icon: "devicon-python-plain" },
-            { name: ".NET", icon: "devicon-dotnetcore-plain" }
+            { name: ".NET", icon: "devicon-dotnetcore-plain" },
+            { name: "C#", icon: "devicon-csharp-plain" },
         ]
     },
     {
@@ -24,7 +25,7 @@ export const skillCardData: SkillCardProps[] = [
         categoryTitle: "Data & ML",
         skills: [
             { name: "Pandas", icon: "devicon-pandas-plain" },
-            { name: "Scikit-learn", icon: "devicon-sklearn-plain" },
+            { name: "Scikit-learn", icon: "devicon-scikitlearn-plain" },
             { name: "Scikit-image", icon: "fas fa-image" },
             { name: "PyTorch", icon: "devicon-pytorch-plain" },
             { name: "OpenCV", icon: "devicon-opencv-plain" }
@@ -48,11 +49,12 @@ export const skillCardData: SkillCardProps[] = [
         skills: [
             { name: "Docker", icon: "devicon-docker-plain" },
             { name: "Docker-compose", icon: "fas fa-layer-group" },
-            { name: ">Linux CLI", icon: "devicon-bash-plain" },
+            { name: "Linux CLI", icon: "devicon-bash-plain" },
             { name: "Git", icon: "devicon-git-plain" },
             { name: "CI/CD", icon: "fas fa-cogs" },
             { name: "Cmake", icon: "devicon-cmake-plain" },
             { name: "Linux", icon: "devicon-linux-plain" },
+            { name: "Jenkins", icon: "devicon-jenkins-plain" },
         ]
     }
 ];
