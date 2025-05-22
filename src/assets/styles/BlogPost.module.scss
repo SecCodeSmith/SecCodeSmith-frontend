@@ -1,0 +1,815 @@
+@use './variables' as *;
+@use './Blog.module.scss' as Blog;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cinzel', serif;
+}
+
+.postContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 20px 60px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 40px;
+}
+
+.postMain {
+    background-color: $card-bg;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid $card-border;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.postHeader {
+    position: relative;
+}
+
+.postFeaturedImage {
+    height: 400px;
+    background: url('/api/placeholder/900/400') center/cover no-repeat;
+    position: relative;
+}
+
+.postFeaturedImage::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to top, $card-bg, transparent);
+}
+
+.postCategory {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(139, 0, 0, 0.9);
+    color: $text-light;
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    backdrop-filter: blur(5px);
+    z-index: 1;
+}
+
+.postInfo {
+    padding: 30px 40px;
+}
+
+.postTitle {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.postMeta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 0.9rem;
+    color: $text-ash;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $card-border;
+}
+
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.metaIcon {
+    color: $accent-fire;
+}
+
+.postContent {
+    padding: 0 40px 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.8;
+    color: #e0e0e0;
+}
+
+.postContent p {
+    margin-bottom: 20px;
+}
+
+.postContent h2 {
+    font-size: 1.8rem;
+    margin: 40px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $card-border;
+    font-family: 'Cinzel', serif;
+    color: $text-light;
+    position: relative;
+}
+
+.postContent h2::before {
+    content: "//";
+    margin-right: 10px;
+    color: $accent-fire;
+    font-weight: normal;
+    font-family: 'Fira Code', monospace;
+}
+
+.postContent h3 {
+    font-size: 1.4rem;
+    margin: 30px 0 15px;
+    font-family: 'Cinzel', serif;
+    color: $text-light;
+}
+
+.postContent ul,
+.postContent ol {
+    margin: 0 0 20px 20px;
+    padding-left: 20px;
+}
+
+.postContent li {
+    margin-bottom: 10px;
+}
+
+.postContent a {
+    color: $accent-fire;
+    text-decoration: none;
+    border-bottom: 1px dotted $accent-fire;
+    transition: all 0.3s ease;
+}
+
+.postContent a:hover {
+    border-bottom-style: solid;
+}
+
+.postContent blockquote {
+    margin: 30px 0;
+    padding: 20px 30px;
+    border-left: 4px solid $accent-fire;
+    background-color: rgba(255, 100, 0, 0.05);
+    font-style: italic;
+    color: $text-ash;
+    position: relative;
+}
+
+.postContent blockquote::before {
+    content: "\"";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 3rem;
+    color: rgba(255, 100, 0, 0.2);
+    font-family: Georgia, serif;
+}
+
+.postContent img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+    display: block;
+}
+
+.postContent pre {
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow-x: auto;
+    background-color: $code-bg;
+    font-family: 'Fira Code', monospace;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid $card-border;
+}
+
+.postContent code {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    padding: 0 4px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    color: $text-light;
+}
+
+.postContent pre code {
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+.postContent .highlight {
+    margin: 30px 0;
+    position: relative;
+}
+
+.postContent .highlight::before {
+    content: attr(data-language);
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: $accent-fire;
+    color: $text-light;
+    padding: 2px 10px;
+    font-size: 0.7rem;
+    border-radius: 0 8px 0 8px;
+    font-family: 'Fira Code', monospace;
+    text-transform: uppercase;
+    z-index: 1;
+}
+
+.codeTitle {
+    background-color: rgba(255, 100, 0, 0.1);
+    padding: 10px 15px;
+    border-radius: 8px 8px 0 0;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: $accent-fire;
+    border-bottom: 1px solid rgba(255, 100, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.postTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid $card-border;
+}
+
+.postTag {
+    background-color: rgba(255, 100, 0, 0.1);
+    color: $accent-fire;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.postTag:hover {
+    background-color: rgba(255, 100, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.shareSection {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid $card-border;
+}
+
+.shareTitle {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.shareButtons {
+    display: flex;
+    gap: 15px;
+}
+
+.shareButton {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text-ash;
+    transition: all 0.3s ease;
+}
+
+.shareButton:hover {
+    background-color: $accent-fire;
+    color: $text-light;
+    transform: translateY(-3px);
+}
+
+.authorSection {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.authorAvatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(255, 100, 0, 0.3);
+    flex-shrink: 0;
+}
+
+.authorAvatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.authorInfo {
+    flex-grow: 1;
+}
+
+.authorName {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.authorBio {
+    color: $text-ash;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.authorSocial {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.authorSocial a {
+    color: $text-ash;
+    transition: all 0.3s ease;
+}
+
+.authorSocial a:hover {
+    color: $accent-fire;
+}
+
+.commentsSection {
+    margin-top: 60px;
+}
+
+.commentsTitle {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+}
+
+.commentsTitle::after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background: $accent-fire;
+    bottom: -10px;
+    left: 0;
+}
+
+.comment {
+    padding: 20px 0;
+    border-bottom: 1px solid $card-border;
+    display: flex;
+    gap: 20px;
+}
+
+.commentAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.commentAvatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.commentContent {
+    flex-grow: 1;
+}
+
+.commentAuthor {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.commentDate {
+    font-size: 0.8rem;
+    color: $text-ash;
+    margin-bottom: 10px;
+}
+
+.commentText {
+    color: #e0e0e0;
+    line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.commentReply {
+    margin-top: 10px;
+    color: $accent-fire;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.commentForm {
+    margin-top: 40px;
+}
+
+.formTitle {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+.formGroup {
+    margin-bottom: 20px;
+}
+
+.formControl {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid $card-border;
+    border-radius: 4px;
+    padding: 12px 15px;
+    color: $text-light;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
+
+.formControl:focus {
+    outline: none;
+    border-color: $accent-fire;
+    box-shadow: 0 0 0 2px rgba(255, 100, 0, 0.2);
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.submitButton {
+    background-color: $accent-fire;
+    color: $text-light;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 1px;
+}
+
+.submitButton:hover {
+    background-color: $accent-dragon;
+    transform: translateY(-2px);
+}
+
+.postSidebar {
+    position: sticky;
+    top: 120px;
+    align-self: start;
+}
+
+.sidebarWidget {
+    background-color: $card-bg;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid $card-border;
+}
+
+.widgetTitle {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.widgetTitle::after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background: $accent-fire;
+    bottom: -1px;
+    left: 0;
+}
+
+.tocList {
+    list-style: none;
+}
+
+.tocItem {
+    margin-bottom: 12px;
+    padding-left: 15px;
+    position: relative;
+}
+
+.tocItem::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: $accent-fire;
+}
+
+.tocLink {
+    color: $text-ash;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    display: block;
+}
+
+.tocLink:hover {
+    color: $accent-fire;
+    transform: translateX(5px);
+}
+
+.tocSubitem {
+    margin-top: 8px;
+    padding-left: 15px;
+}
+
+.relatedPostsList {
+    list-style: none;
+}
+
+.relatedPostItem {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.relatedPostItem:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.relatedPostLink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: $text-ash;
+    transition: color 0.3s ease;
+}
+
+.relatedPostLink:hover {
+    color: $accent-fire;
+}
+
+.relatedPostThumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+.relatedPostInfo {
+    flex-grow: 1;
+}
+
+.relatedPostTitle {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 5px;
+}
+
+.relatedPostDate {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer {
+    background-color: $primary-dark;
+    padding: 50px 5% 30px;
+    text-align: center;
+    position: relative;
+    border-top: 1px solid rgba(255, 100, 0, 0.2);
+    margin-top: 80px;
+}
+
+.footerContent {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.socialLinks {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.socialIcon {
+    font-size: 1.5rem;
+    color: $text-ash;
+    transition: all 0.3s ease;
+}
+
+.socialIcon:hover {
+    color: $accent-fire;
+    transform: translateY(-5px);
+}
+
+.copyright {
+    color: $text-ash;
+    font-size: 0.9rem;
+    margin-top: 20px;
+}
+
+.binaryLine {
+    position: absolute;
+    font-family: 'Fira Code', monospace;
+    color: $accent-fire;
+    font-size: 0.8rem;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+@media (max-width: 992px) {
+    .postContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .postSidebar {
+        position: static;
+        order: -1;
+    }
+
+    .postFeaturedImage {
+        height: 300px;
+    }
+
+    .postTitle {
+        font-size: 2rem;
+    }
+
+    .postInfo,
+    .postContent {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .navLinks {
+        width: 100%;
+        justify-content: space-around;
+        font-size: 0.9rem;
+    }
+
+    .postFeaturedImage {
+        height: 250px;
+    }
+
+    .postTitle {
+        font-size: 1.8rem;
+    }
+
+    .formRow {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .authorSection {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .authorSocial {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .navLinks {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .postFeaturedImage {
+        height: 200px;
+    }
+
+    .postTitle {
+        font-size: 1.5rem;
+    }
+
+    .postMeta {
+        gap: 10px;
+    }
+
+    .comment {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .commentAvatar {
+        margin-bottom: 10px;
+    }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: $primary-dark;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $card-border;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: $accent-fire;
+}
+
+/* Code line numbers */
+.hljsLnNumbers {
+    user-select: none;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.3);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    vertical-align: top;
+    padding-right: 10px !important;
+}
+
+.hljsLnCode {
+    padding-left: 10px !important;
+}
+
+/* Tooltips */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    color: $accent-fire;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    cursor: help;
+}
+
+.tooltip .tooltipText {
+    visibility: hidden;
+    width: 200px;
+    background-color: $card-bg;
+    color: $text-light;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    border: 1px solid $card-border;
+    font-size: 0.8rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.tooltip .tooltipText::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: $card-border transparent transparent transparent;
+}
+
+.tooltip:hover .tooltipText {
+    visibility: visible;
+    opacity: 1;
+}
