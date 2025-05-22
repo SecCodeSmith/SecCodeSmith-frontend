@@ -75,9 +75,9 @@ export const Blog = () => {
                       <i className="fas fa-angle-left"></i>
                     </a>
                   </li>
-                  <li className={`page-item ${style.pageItem} active`}><a className="page-link" href="#">1</a></li>
-                  <li className={`page-item ${style.pageItem}`}><a className="page-link" href="#">2</a></li>
-                  <li className={`page-item ${style.pageItem}`}><a className="page-link" href="#">3</a></li>
+                  <li className={`page-item ${style.pageItem} ${style.active}`}><a className={`page-link ${style.pageLink}`} href="#">1</a></li>
+                  <li className={`page-item ${style.pageItem}`}><a className={`page-link ${style.pageLink}`} href="#">2</a></li>
+                  <li className={`page-item ${style.pageItem}`}><a className={`page-link ${style.pageLink}`} href="#">3</a></li>
                   <li className={`page-item ${style.pageItem}`}>
                     <a className={`page-link ${style.pageLink}`} href="#" aria-label="Next">
                       <i className="fas fa-angle-right"></i>
