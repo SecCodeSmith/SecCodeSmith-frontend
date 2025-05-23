@@ -6,6 +6,22 @@ import { NotFound } from './NotFound';
 
 import style from '@styles/BlogPost.module.scss';
 
+function dedent(str: string): string {
+  const lines = str.split('\n');
+  while (lines.length > 0 && lines[0].trim() === '') {
+    lines.shift();
+  }
+  while (lines.length > 0 && lines[lines.length - 1].trim() === '') {
+    lines.pop();
+  }
+
+  const indents = lines
+    .filter(line => line.trim().length > 0)
+    .map(line => line.match(/^ */)![0].length);
+  const minIndent = indents.length ? Math.min(...indents) : 0;
+
+  return lines.map(line => line.slice(minIndent)).join('\n');
+}
 
 export const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -13,14 +29,12 @@ export const BlogPost = () => {
   const [relatedPosts, setRelatedPosts] = useState(blogPostsData.slice(0, 3));
 
   useEffect(() => {
-    // Find the post by slug
     const currentPost = blogPostsData.find(post => post.slug === slug);
-
+    
     if (currentPost) {
-      // Set the post
       setPost(currentPost);
 
-      // Find related posts (same category or shared tags)
+
       const related = blogPostsData
         .filter(p => p.id !== currentPost.id)
         .filter(p =>
@@ -31,7 +45,6 @@ export const BlogPost = () => {
 
       setRelatedPosts(related);
 
-      // Scroll to top when new post is loaded
       window.scrollTo(0, 0);
     }
   }, [slug]);
@@ -134,14 +147,14 @@ export const BlogPost = () => {
                 <form>
                   <div className={`form-row ${style.formRow}`}>
                     <div className={`form-group ${style.formGroup}`}>
-                      <input type="text" className={`form-control ${style.formControl}`} placeholder="Your Name" />
+                      <input type="text" className={`${style.formControl}`} placeholder="Your Name" />
                     </div>
                     <div className={`form-group ${style.formGroup}`}>
-                      <input type="email" className={`form-control ${style.formControl}`} placeholder="Your Email" />
+                      <input type="email" className={`${style.formControl}`} placeholder="Your Email" />
                     </div>
                   </div>
                   <div className={`form-group ${style.formGroup}`}>
-                    <textarea className={`form-control ${style.formControl}`} rows={5} placeholder="Your Comment"></textarea>
+                    <textarea className={`${style.formControl}`} rows={5} placeholder="Your Comment"></textarea>
                   </div>
                   <button type="submit" className={`submit-button ${style.submitButton}`}>Post Comment</button>
                 </form>
@@ -151,25 +164,25 @@ export const BlogPost = () => {
         </article>
       </main>
 
-      <aside className="post-sidebar">
+      <aside className={style.postSidebar}>
         {/* Table of Contents */}
-        <div className="sidebar-widget">
-          <h3 className="widget-title">Table of Contents</h3>
-          <ul className="toc-list">
-            <li className="toc-item">
-              <a href="#" className="toc-link">Introduction</a>
+        <div className={style.sidebarWidget}>
+          <h3 className={style.widgetTitle}>Table of Contents</h3>
+          <ul className={style.tocList}>
+            <li className={style.tocItem}>
+              <a href="#" className={style.tocLink}>Introduction</a>
             </li>
-            <li className="toc-item">
-              <a href="#" className="toc-link">The Three Elemental Protocols</a>
+            <li className={style.tocItem}>
+              <a href="#" className={style.tocLink}>The Three Elemental Protocols</a>
             </li>
-            <li className="toc-item">
-              <a href="#" className="toc-link">Optimizing I2C for Reliable Field Operations</a>
-              <ul className="toc-list">
-                <li className="toc-subitem">
-                  <a href="#" className="toc-link">Hardware Incantations</a>
+            <li className={style.tocItem}>
+              <a href="#" className={style.tocLink}>Optimizing I2C for Reliable Field Operations</a>
+              <ul className={style.tocList}>
+                <li className={style.tocSubitem}>
+                  <a href="#" className={style.tocLink}>Hardware Incantations</a>
                 </li>
-                <li className="toc-subitem">
-                  <a href="#" className="toc-link">Software Rituals</a>
+                <li className={style.tocSubitem}>
+                  <a href="#" className={style.tocLink}>Software Rituals</a>
                 </li>
               </ul>
             </li>
@@ -177,16 +190,16 @@ export const BlogPost = () => {
         </div>
 
         {/* Related Posts */}
-        <div className="sidebar-widget">
-          <h3 className="widget-title">Related Scrolls</h3>
-          <ul className="related-posts-list">
+        <div className={style.sidebarWidget}>
+          <h3 className={style.widgetTitle}>Related Scrolls</h3>
+          <ul className={style.relatedPostsList}>
             {relatedPosts.map(relatedPost => (
-              <li className="related-post-item" key={relatedPost.id}>
-                <Link to={`/blog/${relatedPost.slug}`} className="related-post-link">
-                  <div className="related-post-thumb" style={{ backgroundImage: `url(${relatedPost.image})` }}></div>
-                  <div className="related-post-info">
-                    <h4 className="related-post-title">{relatedPost.title}</h4>
-                    <span className="related-post-date">{relatedPost.date}</span>
+              <li className={style.relatedPostItem} key={relatedPost.id}>
+                <Link to={`/blog/${relatedPost.slug}`} className={style.relatedPostLink}>
+                  <div className={style.relatedPostThumb} style={{ backgroundImage: `url(${relatedPost.image})` }}></div>
+                  <div className={style.relatedPostInfo}>
+                    <h4 className={style.relatedPostTitle}>{relatedPost.title}</h4>
+                    <span className={style.relatedPostDate}>{relatedPost.date}</span>
                   </div>
                 </Link>
               </li>

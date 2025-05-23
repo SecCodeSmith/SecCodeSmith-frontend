@@ -142,7 +142,6 @@
 .postContent a {
     color: $accent-fire;
     text-decoration: none;
-    border-bottom: 1px dotted $accent-fire;
     transition: all 0.3s ease;
 }
 
@@ -439,7 +438,7 @@
     border: 1px solid $card-border;
     border-radius: 4px;
     padding: 12px 15px;
-    color: $text-light;
+    color: $text-light !important;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     resize: vertical;
     transition: all 0.3s ease;
