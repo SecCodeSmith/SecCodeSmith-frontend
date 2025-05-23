@@ -8,23 +8,18 @@ export const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [selectedProject, setSelectedProject] = useState<ProjectProps | null>(null);
   
-  // Filter projects based on selected category
   const filteredProjects = activeFilter === 'all' 
     ? projectsData 
     : projectsData.filter(project => project.category.includes(activeFilter));
     
-  // Get the featured project
   const featuredProject = projectsData.find(project => project.featured);
   
-  // Get regular projects (non-featured)
   const regularProjects = filteredProjects.filter(project => !project.featured);
   
-  // Handle project filter click
   const handleFilterClick = (filter: string) => {
     setActiveFilter(filter);
   };
   
-  // Handle opening project details modal
   const handleOpenDetails = (id: string) => {
     const project = projectsData.find(p => p.id === id);
     if (project) {
@@ -32,7 +27,6 @@ export const Projects = () => {
     }
   };
   
-  // Handle closing project details modal
   const handleCloseDetails = () => {
     setSelectedProject(null);
   };
@@ -79,16 +73,13 @@ export const Projects = () => {
           </button>
         </div>
 
-        {/* Projects Grid */}
         <div className="row">
-          {/* Featured Project */}
           {featuredProject && (activeFilter === 'all' || featuredProject.category.includes(activeFilter)) && (
             <div className="col-12 mb-4">
               <ProjectCard project={featuredProject} onOpenDetails={handleOpenDetails} />
             </div>
           )}
 
-          {/* Regular Projects */}
           {regularProjects.map(project => (
             <div className="col-md-6 col-lg-4 mb-4" key={project.id}>
               <ProjectCard project={project} onOpenDetails={handleOpenDetails} />
@@ -96,14 +87,12 @@ export const Projects = () => {
           ))}
         </div>
 
-        {/* No Projects Message */}
         {filteredProjects.length === 0 && (
           <div className="text-center mt-5">
             <h3>No projects found for this category.</h3>
           </div>
         )}
 
-        {/* View All Button */}
         <div className="text-center mt-4">
           <a href="https://github.com/SecCodeSmith" className="btn btn-primary">
             <i className="fab fa-github me-2"></i> View All Projects on GitHub
@@ -111,7 +100,6 @@ export const Projects = () => {
         </div>
       </div>
       
-      {/* Project Modal */}
       {selectedProject && (
         <ProjectModal project={selectedProject} onClose={handleCloseDetails} />
       )}

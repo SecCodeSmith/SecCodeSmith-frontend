@@ -7,7 +7,7 @@ import style from '@styles/Blog.module.scss';
 
 export const Blog = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, /*setCurrentPage*/] = useState(1);
   
   const filteredPosts = searchQuery
     ? blogPostsData.filter(post => 
