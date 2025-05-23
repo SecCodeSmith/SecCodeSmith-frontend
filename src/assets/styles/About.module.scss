@@ -138,7 +138,7 @@
 }
 
 .valueText {
-  color: var(--text-ash);
+  color: $text-ash;
   line-height: 1.6;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -167,7 +167,7 @@
   height: 5px;
   top: 0;
   left: 0;
-  background: linear-gradient(to right, var(--accent-dragon), $accent-fire);
+  background: linear-gradient(to right, $accent-dragon, $accent-fire);
   border-radius: 8px 8px 0 0;
 }
 
@@ -209,7 +209,7 @@
   position: absolute;
   width: 3px;
   height: 100%;
-  background: linear-gradient(to bottom, $accent-fire, var(--accent-dragon), rgba(255, 100, 0, 0.2));
+  background: linear-gradient(to bottom, $accent-fire, $accent-dragon, rgba(255, 100, 0, 0.2));
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
@@ -221,13 +221,13 @@
   width: 100%;
 }
 
-.timelineItem:nth-child(odd) .timeline-content {
+.timelineItem:nth-child(odd) .timelineContent {
   margin-left: auto;
   padding-left: 3rem;
   border-radius: 8px;
 }
 
-.timelineItem:nth-child(even) .timeline-content {
+.timelineItem:nth-child(even) .timelineContent {
   margin-right: auto;
   padding-right: 3rem;
   border-radius: 8px;
@@ -242,7 +242,7 @@
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  box-shadow: var(--glow-effect);
+  box-shadow: $glow-effect;
   z-index: 2;
 }
 
@@ -456,7 +456,7 @@
 }
 
 .tocLink {
-  color: var(--text-ash);
+  color: $text-ash;
   text-decoration: none;
   transition: all 0.3s ease;
   font-size: 0.9rem;
@@ -495,7 +495,7 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: var(--text-ash);
+  color: $text-ash;
   transition: color 0.3s ease;
 }
 

@@ -76,6 +76,11 @@ export const aboutProps: AboutProps = {
     ],
     professionalJourney: [
         {
+            title: "Student at Rzeszów University of Technology",
+            description: "Specialization: Computer Science",
+            duration: "2021.10 - 2025.6",
+        },
+        {
             title: "intern software engineer at Opeteam S.A.",
             description:
                 `- Performing programming tasks in R&D projects within the product development department,
@@ -84,7 +89,8 @@ export const aboutProps: AboutProps = {
 - Selecting technologies for basic problems,
 - Documenting the source code (technical documentation).`,
             duration: "2022.8 - 2023.4",
-        }
+        },
+        
     ],
     testimonials: [
 

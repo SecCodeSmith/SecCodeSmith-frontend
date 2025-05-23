@@ -125,7 +125,7 @@ export const About = () => {
               <div className="col-md-6 col-lg-3" key={index}>
                 <div className={`h-100 ${style.skillCard}`} key={index}>
                   <div className={`${style.skillHeader}`}>
-                    <div className={`skill-icon ${style.skillIcon}`}>
+                    <div className={`${style.skillIcon}`}>
                       <i className={value.icon}></i>
                     </div>
                     <h3 className={`skill-title ${style.skillTitle}`}>{value.title}</h3>
@@ -156,56 +156,17 @@ export const About = () => {
           </div>
           <div className="row">
             <div className="col-12">
-              <ul className="timeline">
-                {/* Timeline Item 1 */}
-                <li className="timeline-item clearfix">
-                  <div className="timeline-dot"></div>
-                  <div className="timeline-content">
-                    <div className="timeline-date">2021 - Present</div>
-                    <h3 className="timeline-title">Lead Systems Engineer</h3>
-                    <p className="timeline-text">Architecting secure IoT solutions for critical infrastructure, combining embedded firmware expertise with cloud integration. Leading a team of 8 engineers across hardware and software disciplines.</p>
-                  </div>
-                </li>
-
-                {/* Timeline Item 2 */}
-                <li className="timeline-item clearfix">
-                  <div className="timeline-dot"></div>
-                  <div className="timeline-content">
-                    <div className="timeline-date">2018 - 2021</div>
-                    <h3 className="timeline-title">Senior Embedded Developer</h3>
-                    <p className="timeline-text">Developed firmware for next-generation industrial control systems. Implemented machine learning capabilities on resource-constrained devices, reducing predictive maintenance false positives by 87%.</p>
-                  </div>
-                </li>
-
-                {/* Timeline Item 3 */}
-                <li className="timeline-item clearfix">
-                  <div className="timeline-dot"></div>
-                  <div className="timeline-content">
-                    <div className="timeline-date">2015 - 2018</div>
-                    <h3 className="timeline-title">Full-Stack Developer</h3>
-                    <p className="timeline-text">Created web applications and APIs for data visualization and analysis. Specialized in integrating hardware systems with web interfaces, enabling real-time monitoring of distributed sensor networks.</p>
-                  </div>
-                </li>
-
-                {/* Timeline Item 4 */}
-                <li className="timeline-item clearfix">
-                  <div className="timeline-dot"></div>
-                  <div className="timeline-content">
-                    <div className="timeline-date">2012 - 2015</div>
-                    <h3 className="timeline-title">Firmware Engineer</h3>
-                    <p className="timeline-text">Designed and implemented firmware for medical devices, focusing on reliability and safety-critical operations. Reduced power consumption by 35% while improving processing performance.</p>
-                  </div>
-                </li>
-
-                {/* Timeline Item 5 */}
-                <li className="timeline-item clearfix">
-                  <div className="timeline-dot"></div>
-                  <div className="timeline-content">
-                    <div className="timeline-date">2010 - 2012</div>
-                    <h3 className="timeline-title">Junior Software Developer</h3>
-                    <p className="timeline-text">Began the journey into the digital forge, working on embedded C programming for consumer electronics. Learned the fundamentals of hardware-software integration and real-time systems.</p>
-                  </div>
-                </li>
+              <ul className={`${style.timeline}`}>
+                {data.professionalJourney.map((journey, index) => (
+                  <li className={`${style.timelineItem} clearfix`} key={index}>
+                    <div className={`${style.timelineDot}`}></div>
+                    <div className={`${style.timelineContent}`}>
+                      <div className={`${style.timelineDate}`}>{journey.duration}</div>
+                      <h3 className={`${style.timelineTitle}`}>{journey.title}</h3>
+                      <p className={`${style.timelineText}`}>{journey.description}</p>
+                    </div>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -213,66 +174,36 @@ export const About = () => {
       </section >
 
       {/* Testimonials Section */}
-      < section className="py-5" >
-        <div className="container">
-          <div className="row mb-4">
-            <div className="col-12">
-              <h2 className={`section-title ${style.sectionTitle}`}>Tales from the Guild</h2>
+      {data.testimonials.length > 0 && (
+        < section className="py-5" >
+          <div className="container">
+            <div className="row mb-4">
+              <div className="col-12">
+                <h2 className={`section-title ${style.sectionTitle}`}>Tales from the Guild</h2>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="col-lg-8 mx-auto">
-              {/* Testimonial 1 */}
-              <div className="testimonial">
-                <div className="testimonial-content">
-                  "Working with SecCodeSmith transformed our approach to IoT security. Their expertise in both embedded systems and network security allowed us to create a solution that our clients trust implicitly. The attention to detail and foresight regarding potential vulnerabilities saved us from what could have been catastrophic security incidents."
-                </div>
-                <div className="d-flex align-items-center gap-3 testimonial-author">
-                  <div className="author-avatar">
-                    <img src="/images/testimonials/alexandra.jpg" alt="Alexandra Foster" />
+            <div className="row">
+              <div className="col-lg-8 mx-auto">
+                {data.testimonials.map((testimonial, index) => (
+                  <div className="testimonial" key={index}>
+                    <div className="testimonial-content">
+                      {testimonial.content}
+                    </div>
+                    <div className="d-flex align-items-center gap-3 testimonial-author">
+                      <div className="author-avatar">
+                        <img src="/images/testimonials/james.jpg" alt={testimonial.author} />
+                      </div>
+                      <div className="author-info">
+                        <h4 className="author-name">{testimonial.author}</h4>
+                        <div className="author-title">{testimonial.position}</div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="author-info">
-                    <h4 className="author-name">Alexandra Foster</h4>
-                    <div className="author-title">CTO, ConnectedWorld Technologies</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Testimonial 2 */}
-              <div className="testimonial">
-                <div className="testimonial-content">
-                  "The custom firmware developed by SecCodeSmith for our industrial controllers exceeded all expectations. Not only was the code incredibly efficient, but the documentation was meticulous—something rare in our industry. Three years later, we're still building upon that solid foundation with minimal issues."
-                </div>
-                <div className="d-flex align-items-center gap-3 testimonial-author">
-                  <div className="author-avatar">
-                    <img src="/images/testimonials/marcus.jpg" alt="Marcus Chen" />
-                  </div>
-                  <div className="author-info">
-                    <h4 className="author-name">Marcus Chen</h4>
-                    <div className="author-title">Lead Engineer, Precision Automation Inc.</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Testimonial 3 */}
-              <div className="testimonial">
-                <div className="testimonial-content">
-                  "I've collaborated with numerous developers over my 20-year career, but SecCodeSmith stands apart for their ability to bridge the gap between theoretical concepts and practical implementation. Their machine learning models for anomaly detection operate efficiently even on our limited hardware, which competitors claimed was impossible."
-                </div>
-                <div className="d-flex align-items-center gap-3 testimonial-author">
-                  <div className="author-avatar">
-                    <img src="/images/testimonials/sophia.jpg" alt="Sophia Rodriguez" />
-                  </div>
-                  <div className="author-info">
-                    <h4 className="author-name">Sophia Rodriguez</h4>
-                    <div className="author-title">Research Director, Advanced Sensing Lab</div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
-        </div>
-      </section >
+        </section >)}
     </>
   );
 };
