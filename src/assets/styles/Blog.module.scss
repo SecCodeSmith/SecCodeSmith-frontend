@@ -1,0 +1,223 @@
+@use "./variables.scss" as *;
+
+/* Meta items */
+@mixin metaItem {
+    .metaItem {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-right: 1rem;
+        color: $text-ash;
+        font-size: 0.9rem;
+    }
+}
+
+
+@mixin metaIcon {
+    .metaIcon {
+        font-size: 1.2rem;
+        color: $text-ash;
+        transition: all 0.3s ease;
+    }
+
+    .metaIcon:hover {
+        color: $accent-fire;
+    }
+}
+
+
+/* Read more link */
+
+@mixin readMore {
+    .readMore {
+        display: inline-block;
+        color: $accent-fire;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .readMore::after {
+        content: "→";
+        margin-left: 5px;
+        transition: transform 0.3s ease;
+    }
+
+    .readMore:hover::after {
+        transform: translateX(5px);
+    }
+}
+
+/* Tags */
+@mixin postTag {
+    .postTag {
+        display: inline-block;
+        background-color: rgba(255, 100, 0, 0.1);
+        color: $accent-fire;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .postTag:hover {
+        background-color: rgba(255, 100, 0, 0.2);
+        transform: translateY(-2px);
+    }
+}
+
+@include metaItem;
+@include metaIcon;
+@include readMore;
+@include postTag;
+
+/* Sidebar */
+.sidebarWidget {
+    background-color: $card-bg;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid $card-border;
+}
+
+.widgetTitle {
+    font-size: 1.2rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.625rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.widgetTitle::after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background: $accent-fire;
+    bottom: -1px;
+    left: 0;
+}
+
+.searchForm .formControl {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid $card-border;
+    color: $text-light;
+}
+
+.searchForm .formControl:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 100, 0, 0.25);
+    border-color: $accent-fire;
+}
+
+.searchForm .btn {
+    background-color: $accent-fire;
+    border-color: $accent-fire;
+}
+
+.searchForm .btn:hover {
+    background-color: $accent-dragon;
+    border-color: $accent-dragon;
+}
+
+/* Lists in sidebar */
+.listGroupItem {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.05);
+    color: $text-ash;
+    transition: all 0.3s ease;
+}
+
+.listGroupItem:hover {
+    background-color: rgba(255, 100, 0, 0.1);
+}
+
+.listGroupItem a {
+    color: $text-ash;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.listGroup-item a:hover {
+    color: $accent-fire;
+}
+
+.categoryCount {
+    background-color: rgba(255, 100, 0, 0.1);
+    color: $accent-fire;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+/* Recent posts in sidebar */
+.recentPostItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.recentPostItem:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.recentPostThumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.recentPostInfo {
+    flex-grow: 1;
+}
+
+.recentPostTitle {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 5px;
+}
+
+.recentPostTitle a {
+    color: $text-ash;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.recentPostTitle a:hover {
+    color: $accent-fire;
+}
+
+.recentPostDate {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Pagination */
+.pageItem .pageLink {
+    background-color: $card-bg;
+    border-color: $card-border;
+    color: $text-ash;
+}
+
+.pageItem .pageLink:hover {
+    background-color: rgba(255, 100, 0, 0.1);
+    color: $accent-fire;
+    border-color: $accent-fire;
+}
+
+.pageItem.active .pageLink {
+    background-color: $accent-fire;
+    border-color: $accent-fire;
+    color: $text-light;
+}

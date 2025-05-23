@@ -15,19 +15,17 @@ export const blogPostsData: BlogPostProps[] = [
     featured: true,
     tags: ["STM32", "Embedded", "IoT", "Communication Protocols"],
     content: `
-      <p>In the digital forge where hardware meets software, the STM32 microcontroller family stands as a powerful conduit for summoning digital entities into our physical realm. Today, we shall delve into advanced techniques for establishing robust communication between these entities through the mystical arts of embedded systems programming.</p>
+      In the digital forge where hardware meets software, the STM32 microcontroller family stands as a powerful conduit for summoning digital entities into our physical realm. Today, we shall delve into advanced techniques for establishing robust communication between these entities through the mystical arts of embedded systems programming.
       
-      <p>The realm of IoT demands reliable, efficient communication protocols that can withstand the chaotic nature of real-world environments. Through careful implementation and optimization of the STM32's communication peripherals, we can craft resilient connections that bridge the gap between digital and physical domains.</p>
+      The realm of IoT demands reliable, efficient communication protocols that can withstand the chaotic nature of real-world environments. Through careful implementation and optimization of the STM32's communication peripherals, we can craft resilient connections that bridge the gap between digital and physical domains.
       
-      <h2>The Three Elemental Protocols: I2C, SPI, and UART</h2>
+      # The Three Elemental Protocols: I2C, SPI, and UART
       
-      <p>Before we forge ahead into advanced territory, let us briefly recall the elemental forces at our disposal. Each protocol serves as a channel through which our digital entities communicate, each with its unique strengths and limitations:</p>
-      
-      <ul>
-          <li><strong>I2C (Inter-Integrated Circuit)</strong> - A two-wire interface requiring minimal physical connections, ideal for communication with multiple peripheral devices over short distances.</li>
-          <li><strong>SPI (Serial Peripheral Interface)</strong> - A faster, full-duplex protocol with dedicated select lines for each peripheral, allowing simultaneous transmission and reception of data.</li>
-          <li><strong>UART (Universal Asynchronous Receiver-Transmitter)</strong> - A simple two-wire asynchronous interface, perfect for direct device-to-device communication without a shared clock.</li>
-      </ul>
+      Before we forge ahead into advanced territory, let us briefly recall the elemental forces at our disposal. Each protocol serves as a channel through which our digital entities communicate, each with its unique strengths and limitations:
+      * **I2C (Inter-Integrated Circuit)** - A two-wire interface requiring minimal physical connections, ideal for communication with multiple peripheral devices over short distances.
+      * **SPI (Serial Peripheral Interface)** - A faster, full-duplex protocol with dedicated select lines for each peripheral, allowing simultaneous transmission and reception of data.
+      * **UART (Universal Asynchronous Receiver-Transmitter)** - A simple two-wire asynchronous interface, perfect for direct device-to-device communication without a shared clock.
+
     `
   },
   {

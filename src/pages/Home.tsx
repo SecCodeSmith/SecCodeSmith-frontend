@@ -36,7 +36,6 @@ export const Home = () => {
       const particlesContainer = document.getElementById('particles');
       if (!particlesContainer) return;
 
-      // Clear existing particles
       particlesContainer.innerHTML = '';
 
       const particlesCount = 50;
@@ -46,29 +45,24 @@ export const Home = () => {
           const particle = document.createElement('div');
           particle.className = styles.particle;
 
-          // Random position at the bottom of the hero section
           const posX = Math.random() * window.innerWidth;
           const posY = window.innerHeight - 100 + (Math.random() * 50);
 
           particle.style.left = `${posX}px`;
           particle.style.top = `${posY}px`;
 
-          // Random size
           const size = Math.random() * 3 + 1;
           particle.style.width = `${size}px`;
           particle.style.height = `${size}px`;
 
-          // Random drift
           const xDrift = (Math.random() - 0.5) * 100;
           particle.style.setProperty('--x', `${xDrift}px`);
 
-          // Random animation duration
           const duration = Math.random() * 3 + 2;
           particle.style.animationDuration = `${duration}s`;
 
           particlesContainer.appendChild(particle);
 
-          // Remove particle after animation completes
           setTimeout(() => {
             particle.remove();
           }, duration * 1000);
@@ -79,7 +73,6 @@ export const Home = () => {
     createBinaryBg();
     createParticles();
 
-    // Create new particles periodically
     const particleInterval = setInterval(() => {
       const particlesContainer = document.getElementById('particles');
       if (particlesContainer && particlesContainer.childElementCount < 30) {
@@ -95,7 +88,6 @@ export const Home = () => {
 
   return (
     <>
-      {/* Hero Section */}
       <section className={styles.hero} id="home">
         <div id="binary-bg" className={styles.binaryBg}></div>
         <div className={`container text-center ${styles.heroContainer}`}>
@@ -113,7 +105,6 @@ export const Home = () => {
         <div id="particles" className={`particles ${styles.particles}`}></div>
       </section>
 
-      {/* Skills Section */}
       <section id="skills" className={`skills-section ${styles.skillsSection}`}>
         <div className="container">
           <div className="row justify-content-center mb-5">

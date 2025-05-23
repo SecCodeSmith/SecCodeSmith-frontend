@@ -1,0 +1,95 @@
+@use "./variables.scss" as *;
+@use "./Blog.module.scss" as Blog;
+
+@include Blog.metaItem;
+@include Blog.metaIcon;
+@include Blog.readMore;
+@include Blog.postTag;
+
+
+/* Card styling */
+.card {
+    background-color: $card-bg;
+    border: 1px solid $card-border;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 100, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.cardImgTop {
+    height: 200px;
+    object-fit: cover;
+}
+
+.featuredImg {
+    height: 300px;
+}
+
+.cardTitle {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.cardTitle a {
+    color: $text-light;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.cardTitle a:hover {
+    color: $accent-fire;
+}
+
+.cardText {
+    color: $text-ash;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
+.featuredCard .cardTitle {
+    font-size: 1.8rem;
+}
+
+.cardFooter {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid $card-border;
+}
+
+/* Category badges */
+.categoryBadge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: rgba(139, 0, 0, 0.9);
+    color: $text-light;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.featuredBadge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: linear-gradient(45deg, $accent-dragon, $accent-fire);
+    color: $text-light;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
