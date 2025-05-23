@@ -5,7 +5,6 @@ import { NotFound } from './NotFound';
 
 
 import style from '@styles/BlogPost.module.scss';
-import { get } from 'http';
 
 interface TableOfContentsItem {
   title: string;
@@ -28,6 +27,21 @@ function dedent(str: string): string {
   const minIndent = indents.length ? Math.min(...indents) : 0;
 
   return lines.map(line => line.slice(minIndent)).join('\n');
+}
+
+const TableOfContents = ({ toc }: { toc: TableOfContentsItem[] }) => {
+  return (
+    <ul className={style.tocList}>
+      {toc.map(item => (
+        <li key={item.id} className={style.tocItem}>
+          <a href={`#${item.id}`} className={style.tocLink}>{item.title}</a>
+          {item.children && item.children.length > 0 && (
+            <TableOfContents toc={item.children} />
+          )}
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 export const BlogPost = () => {
@@ -258,25 +272,7 @@ export const BlogPost = () => {
         {/* Table of Contents */}
         <div className={style.sidebarWidget}>
           <h3 className={style.widgetTitle}>Table of Contents</h3>
-          <ul className={style.tocList}>
-            <li className={style.tocItem}>
-              <a href="#" className={style.tocLink}>Introduction</a>
-            </li>
-            <li className={style.tocItem}>
-              <a href="#" className={style.tocLink}>The Three Elemental Protocols</a>
-            </li>
-            <li className={style.tocItem}>
-              <a href="#" className={style.tocLink}>Optimizing I2C for Reliable Field Operations</a>
-              <ul className={style.tocList}>
-                <li className={style.tocSubitem}>
-                  <a href="#" className={style.tocLink}>Hardware Incantations</a>
-                </li>
-                <li className={style.tocSubitem}>
-                  <a href="#" className={style.tocLink}>Software Rituals</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <TableOfContents toc={toc} />
         </div>
 
         {/* Related Posts */}
