@@ -7,6 +7,7 @@ import style from '@styles/Blog.module.scss';
 
 export const Blog = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
   
   const filteredPosts = searchQuery
     ? blogPostsData.filter(post => 
@@ -15,7 +16,9 @@ export const Blog = () => {
         post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
       )
     : blogPostsData;
-  
+
+    const filteredPostPageCount = Math.ceil(filteredPosts.length / 6);
+
   const featuredPost = blogPostsData.find(post => post.featured);
   
   const regularPosts = filteredPosts.filter(post => !post.featured);
@@ -67,22 +70,25 @@ export const Blog = () => {
               </div>
             )}
 
-            {filteredPosts.length > 0 && (
+            {filteredPostPageCount > 1 && (
               <nav className="mt-5" aria-label="Blog pagination">
                 <ul className="pagination justify-content-center">
-                  <li className={`page-item ${style.pageItem}`}>
+                  {(currentPage > 1) && ( <li className={`page-item ${style.pageItem}`}>
                     <a className={`page-link ${style.pageLink}`} href="#" aria-label="Previous">
                       <i className="fas fa-angle-left"></i>
                     </a>
-                  </li>
-                  <li className={`page-item ${style.pageItem} ${style.active}`}><a className={`page-link ${style.pageLink}`} href="#">1</a></li>
-                  <li className={`page-item ${style.pageItem}`}><a className={`page-link ${style.pageLink}`} href="#">2</a></li>
-                  <li className={`page-item ${style.pageItem}`}><a className={`page-link ${style.pageLink}`} href="#">3</a></li>
-                  <li className={`page-item ${style.pageItem}`}>
+                  </li>)}
+
+                  {Array.from({ length: filteredPostPageCount }, (_, index) => (
+                    <li className={`page-item ${style.pageItem}`} key={index}>
+                      <a className={`page-link ${style.pageLink}`} href="#">{index + 1}</a>
+                    </li>
+                  ))}
+                  {(currentPage < filteredPostPageCount) && ( <li className={`page-item ${style.pageItem}`}>
                     <a className={`page-link ${style.pageLink}`} href="#" aria-label="Next">
                       <i className="fas fa-angle-right"></i>
                     </a>
-                  </li>
+                  </li>)}
                 </ul>
               </nav>
             )}
