@@ -19,7 +19,7 @@ export const blogPostsData: BlogPostProps[] = [
       
       The realm of IoT demands reliable, efficient communication protocols that can withstand the chaotic nature of real-world environments. Through careful implementation and optimization of the STM32's communication peripherals, we can craft resilient connections that bridge the gap between digital and physical domains.
       
-      ## The Three Elemental Protocols: I2C, SPI, and UART
+      # The Three Elemental Protocols: I2C, SPI, and UART
       
       Before we forge ahead into advanced territory, let us briefly recall the elemental forces at our disposal. Each protocol serves as a channel through which our digital entities communicate, each with its unique strengths and limitations:
       * **I2C (Inter-Integrated Circuit)** - A two-wire interface requiring minimal physical connections, ideal for communication with multiple peripheral devices over short distances.

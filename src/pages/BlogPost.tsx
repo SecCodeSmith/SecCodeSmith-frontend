@@ -5,6 +5,13 @@ import { NotFound } from './NotFound';
 
 
 import style from '@styles/BlogPost.module.scss';
+import { get } from 'http';
+
+interface TableOfContentsItem {
+  title: string;
+  id: number;
+  children?: TableOfContentsItem[];
+}
 
 function dedent(str: string): string {
   const lines = str.split('\n');
@@ -27,10 +34,13 @@ export const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState(blogPostsData.find(post => post.slug === slug));
   const [relatedPosts, setRelatedPosts] = useState(blogPostsData.slice(0, 3));
+  const [toc, setToc] = useState<TableOfContentsItem[]>([]);
 
   useEffect(() => {
     const currentPost = blogPostsData.find(post => post.slug === slug);
-    
+    let id = 0;
+    const toc: TableOfContentsItem[] = [];
+
     if (currentPost) {
       setPost(currentPost);
 
@@ -44,6 +54,85 @@ export const BlogPost = () => {
         .slice(0, 3);
 
       setRelatedPosts(related);
+
+      let newContent = '';
+      if (currentPost.content) {
+        const content = dedent(currentPost.content);
+        const lines = content.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+          if (/^#\s/.test(lines[i])) {
+            newContent += `<h2 id="${id}">${lines[i].replace(/^#+\s*/, '')}</h2> \n`;
+            toc.push({ title: lines[i].replace(/^#+\s*/, ''), id });
+            id++;
+          }
+          else if (/^##\s/.test(lines[i])) {
+            newContent += `<h3 id="${id}">${lines[i].replace(/^#+\s*/, '')}</h3> \n`;
+            if (toc.length > 0) {
+              const parent = toc[toc.length - 1];
+              if (!parent.children) {
+              parent.children = [];
+              }
+              parent.children.push({ title: lines[i].replace(/^#+\s*/, ''), id });
+            }
+            id++;
+          }
+          else if (/^###\s/.test(lines[i])) {
+            newContent += `<h4 id="${id}">${lines[i].replace(/^#+\s*/, '')}</h4> \n`;
+            if (toc.length > 0) {
+              const h2Parent = toc[toc.length - 1];
+              if (h2Parent.children && h2Parent.children.length > 0) {
+              const h3Parent = h2Parent.children[h2Parent.children.length - 1];
+              if (!h3Parent.children) {
+                h3Parent.children = [];
+              }
+              h3Parent.children.push({ title: lines[i].replace(/^#+\s*/, ''), id });
+              }
+            }
+            id++;
+          }
+          else if (/^\*\s/.test(lines[i])) {
+            newContent += '<ul>\n';
+
+            for (; i < lines.length; i++) {
+              if (/^\*\s/.test(lines[i])) {
+                newContent += `<li>${lines[i].replace(/^\*\s/, '')}</li>\n`;
+              }
+              else {
+                break;
+              }
+            }
+            newContent += '</ul>\n';
+          } 
+          else if (/^\-\s/.test(lines[i])) {
+            newContent += '<ol>\n';
+
+            for (; i < lines.length; i++) {
+              if (/^\-\s/.test(lines[i])) {
+                newContent += `<li>${lines[i].replace(/^\-\s/, '')}</li>\n`;
+              }
+              else {
+                break;
+              }
+            }
+            newContent += '</ol>\n';
+          } 
+          else {
+            newContent += `<p>${lines[i]}</p>\n`;
+          }
+        }
+      }
+
+      newContent = newContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      newContent = newContent.replace(/__(.*?)__/g, '<strong>$1</strong>');
+      newContent = newContent.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      newContent = newContent.replace(/_(.*?)_/g, '<em>$1</em>');
+      newContent = newContent.replace(/`(.*?)`/g, '<code>$1</code>');
+      newContent = newContent.replace(/!\[(.*?)\]\((.*?)\)/g, '<img alt="$1" src="$2" />');
+      newContent = newContent.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
+
+      const contentElement = document.getElementById('postContent');
+      contentElement!.innerHTML = newContent;
+      setToc(toc);
 
       window.scrollTo(0, 0);
     }
@@ -86,7 +175,8 @@ export const BlogPost = () => {
             </div>
           </div>
 
-          <div className={style.postContent} dangerouslySetInnerHTML={{ __html: post.content }}></div>
+          <div className={style.postContent} id="postContent">
+          </div>
           <div className={style.postContent}>
             {/* Post Tags */}
             <div className={style.postTags}>
