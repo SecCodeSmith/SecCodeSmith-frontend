@@ -1,6 +1,6 @@
 @use './variables' as *;
 
-.profile-image {
+.profileImage {
   width: 100%;
   aspect-ratio: 1/1;
   border-radius: 8px;
@@ -10,7 +10,7 @@
   position: relative;
 }
 
-.profile-image::before {
+.profileImage::before {
   content: "";
   position: absolute;
   top: 0;
@@ -21,30 +21,30 @@
   z-index: 1;
 }
 
-.profile-image img {
+.profileImage img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   filter: contrast(1.1) brightness(0.9);
 }
 
-.intro-text {
+.introText {
   font-size: 1.1rem;
   line-height: 1.8;
   color: var(--text-ash);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.intro-text p {
+.introText p {
   margin-bottom: 1.25rem;
 }
 
-.intro-text strong {
-  color: var(--text-light);
+.introText strong {
+  color: $text-light;
 }
 
-.intro-text .accent {
-  color: var(--accent-fire);
+.introText .accent {
+  color: $accent-fire;
 }
 
 .connect-link {
@@ -55,30 +55,30 @@
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 4px;
   text-decoration: none;
-  color: var(--text-light);
+  color: $text-light;
   transition: all 0.3s ease;
-  border: 1px solid var(--card-border);
+  border: 1px solid $card-border;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
-.connect-link:hover {
+.connectLink:hover {
   background-color: rgba(255, 100, 0, 0.1);
   transform: translateY(-3px);
-  border-color: var(--accent-fire);
-  color: var(--text-light);
+  border-color: $accent-fire;
+  color: $text-light;
 }
 
-.connect-icon {
-  color: var(--accent-fire);
+.connectIcon {
+  color: $accent-fire;
 }
 
 /* Value cards */
-.value-card {
-  background-color: var(--card-bg);
+.valueCard {
+  background-color: $card-bg;
   border-radius: 8px;
   padding: 1.875rem;
-  border: 1px solid var(--card-border);
+  border: 1px solid $card-border;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -86,72 +86,72 @@
   height: 100%;
 }
 
-.value-card:hover {
+.valueCard:hover {
   transform: translateY(-5px);
   border-color: rgba(255, 100, 0, 0.3);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-.value-icon {
+.valueIcon {
   font-size: 2.5rem;
-  color: var(--accent-fire);
+  color: $accent-fire;
   margin-bottom: 1.25rem;
 }
 
-.value-title {
+.valueTitle {
   font-size: 1.3rem;
   margin-bottom: 1rem;
   position: relative;
   display: inline-block;
-  color: var(--text-light);
+  color: $text-light;
 }
 
-.value-title::after {
+.valueTitle::after {
   content: "";
   position: absolute;
   width: 40px;
   height: 2px;
-  background: var(--accent-fire);
+  background: $accent-fire;
   bottom: -5px;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.value-text {
+.valueText {
   color: var(--text-ash);
   line-height: 1.6;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Skills card */
-.skill-card {
-  background-color: var(--card-bg);
+.skillCard {
+  background-color: $card-bg;
   border-radius: 8px;
   padding: 1.875rem;
-  border: 1px solid var(--card-border);
+  border: 1px solid $card-border;
   transition: all 0.3s ease;
   position: relative;
   height: 100%;
 }
 
-.skill-card:hover {
+.skillCard:hover {
   transform: translateY(-10px);
   border-color: rgba(255, 100, 0, 0.3);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-.skill-card::before {
+.skillCard::before {
   content: "";
   position: absolute;
   width: 100%;
   height: 5px;
   top: 0;
   left: 0;
-  background: linear-gradient(to right, var(--accent-dragon), var(--accent-fire));
+  background: linear-gradient(to right, var(--accent-dragon), $accent-fire);
   border-radius: 8px 8px 0 0;
 }
 
-.skill-header {
+.skillHeader {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -160,19 +160,19 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.skill-icon {
+.skillIcon {
   font-size: 2rem;
-  color: var(--accent-fire);
+  color: $accent-fire;
 }
 
-.skill-title {
+.skillTitle {
   font-size: 1.3rem;
   margin-bottom: 0;
-  color: var(--text-light);
+  color: $text-light;
 }
 
-.skill-check {
-  color: var(--accent-fire);
+.skillCheck {
+  color: $accent-fire;
   margin-right: 0.625rem;
 }
 
@@ -189,34 +189,34 @@
   position: absolute;
   width: 3px;
   height: 100%;
-  background: linear-gradient(to bottom, var(--accent-fire), var(--accent-dragon), rgba(255, 100, 0, 0.2));
+  background: linear-gradient(to bottom, $accent-fire, var(--accent-dragon), rgba(255, 100, 0, 0.2));
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
 }
 
-.timeline-item {
+.timelineItem {
   position: relative;
   margin-bottom: 3rem;
   width: 100%;
 }
 
-.timeline-item:nth-child(odd) .timeline-content {
+.timelineItem:nth-child(odd) .timeline-content {
   margin-left: auto;
   padding-left: 3rem;
   border-radius: 8px;
 }
 
-.timeline-item:nth-child(even) .timeline-content {
+.timelineItem:nth-child(even) .timeline-content {
   margin-right: auto;
   padding-right: 3rem;
   border-radius: 8px;
 }
 
-.timeline-dot {
+.timelineDot {
   width: 16px;
   height: 16px;
-  background-color: var(--accent-fire);
+  background-color: $accent-fire;
   border-radius: 50%;
   position: absolute;
   top: 20px;
@@ -226,11 +226,11 @@
   z-index: 2;
 }
 
-.timeline-date {
+.timelineDate {
   display: inline-block;
   font-size: 0.9rem;
   background-color: rgba(255, 100, 0, 0.1);
-  color: var(--accent-fire);
+  color: $accent-fire;
   padding: 5px 10px;
   border-radius: 4px;
   margin-bottom: 1rem;
@@ -238,29 +238,29 @@
   letter-spacing: 1px;
 }
 
-.timeline-title {
+.timelineTitle {
   font-size: 1.3rem;
   margin-bottom: 0.625rem;
-  color: var(--text-light);
+  color: $text-light;
 }
 
-.timeline-text {
-  color: var(--text-ash);
+.timelineText {
+  color: $text-ash;
   line-height: 1.6;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.timeline-content {
-  background-color: var(--card-bg);
+.timelineContent {
+  background-color: $card-bg;
   border-radius: 8px;
   padding: 1.5rem;
-  border: 1px solid var(--card-border);
+  border: 1px solid $card-border;
   position: relative;
   transition: all 0.3s ease;
   width: 45%;
 }
 
-.timeline-content:hover {
+.timelineContent:hover {
   transform: translateY(-5px);
   border-color: rgba(255, 100, 0, 0.3);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -268,11 +268,11 @@
 
 /* Testimonials */
 .testimonial {
-  background-color: var(--card-bg);
+  background-color: $card-bg;
   border-radius: 8px;
   padding: 1.875rem;
   margin-bottom: 1.875rem;
-  border: 1px solid var(--card-border);
+  border: 1px solid $card-border;
   transition: all 0.3s ease;
   position: relative;
 }
@@ -283,44 +283,44 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-.testimonial-content {
+.testimonialContent {
   padding-left: 1.25rem;
-  border-left: 3px solid var(--accent-fire);
+  border-left: 3px solid $accent-fire;
   font-style: italic;
-  color: var(--text-ash);
+  color: $text-ash;
   margin-bottom: 1.25rem;
   line-height: 1.7;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.author-avatar {
+.authorAvatar {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   overflow: hidden;
 }
 
-.author-avatar img {
+.authorAvatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.author-name {
+.authorName {
   font-weight: 600;
   font-size: 1.1rem;
-  color: var(--text-light);
+  color: $text-light;
   margin-bottom: 0;
 }
 
-.author-title {
-  color: var(--text-ash);
+.authorTitle {
+  color: $text-ash;
   font-size: 0.9rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Blog post specific styles */
-.post-container {
+.postContainer {
   max-width: 1200px;
   margin: 0 auto;
   padding: 120px 20px 60px;
@@ -329,19 +329,19 @@
   gap: 40px;
 }
 
-.post-main {
-  background-color: var(--card-bg);
+.postMain {
+  background-color: $card-bg;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid var(--card-border);
+  border: 1px solid $card-border;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.post-header {
+.postHeader {
   position: relative;
 }
 
-.post-featured-image {
+.postFeaturedImage {
   height: 400px;
   background-position: center;
   background-size: cover;
@@ -349,44 +349,44 @@
   position: relative;
 }
 
-.post-featured-image::after {
+.postFeaturedImage::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 100px;
-  background: linear-gradient(to top, var(--card-bg), transparent);
+  background: linear-gradient(to top, $card-bg, transparent);
 }
 
-.post-info {
+.postInfo {
   padding: 30px 40px;
 }
 
-.post-content {
+.postContent {
   padding: 0 40px 40px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.8;
   color: #e0e0e0;
 }
 
-.share-section {
+.shareSection {
   margin-top: 40px;
   padding-top: 20px;
-  border-top: 1px solid var(--card-border);
+  border-top: 1px solid $card-border;
 }
 
-.share-title {
+.shareTitle {
   font-size: 1.2rem;
   margin-bottom: 15px;
 }
 
-.share-buttons {
+.shareButtons {
   display: flex;
   gap: 15px;
 }
 
-.share-button {
+.shareButton {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -394,17 +394,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-ash);
+  color: $text-ash;
   transition: all 0.3s ease;
 }
 
-.share-button:hover {
-  background-color: var(--accent-fire);
-  color: var(--text-light);
+.shareButton:hover {
+  background-color: $accent-fire;
+  color: $text-light;
   transform: translateY(-3px);
 }
 
-.author-section {
+.authorSection {
   margin-top: 40px;
   padding: 30px;
   background-color: rgba(255, 255, 255, 0.02);
@@ -414,17 +414,17 @@
   align-items: center;
 }
 
-.toc-list {
+.tocList {
   list-style: none;
 }
 
-.toc-item {
+.tocItem {
   margin-bottom: 12px;
   padding-left: 15px;
   position: relative;
 }
 
-.toc-item::before {
+.tocItem::before {
   content: "";
   position: absolute;
   left: 0;
@@ -432,10 +432,10 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background-color: var(--accent-fire);
+  background-color: $accent-fire;
 }
 
-.toc-link {
+.tocLink {
   color: var(--text-ash);
   text-decoration: none;
   transition: all 0.3s ease;
@@ -444,33 +444,33 @@
   display: block;
 }
 
-.toc-link:hover {
-  color: var(--accent-fire);
+.tocLink:hover {
+  color: $accent-fire;
   transform: translateX(5px);
 }
 
-.toc-subitem {
+.tocSubitem {
   margin-top: 8px;
   padding-left: 15px;
 }
 
-.related-posts-list {
+.relatedPostsList {
   list-style: none;
 }
 
-.related-post-item {
+.relatedPostItem {
   margin-bottom: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.related-post-item:last-child {
+.relatedPostItem:last-child {
   border-bottom: none;
   margin-bottom: 0;
   padding-bottom: 0;
 }
 
-.related-post-link {
+.relatedPostLink {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -479,11 +479,11 @@
   transition: color 0.3s ease;
 }
 
-.related-post-link:hover {
-  color: var(--accent-fire);
+.relatedPostLink:hover {
+  color: $accent-fire;
 }
 
-.related-post-thumb {
+.relatedPostThumb {
   width: 60px;
   height: 60px;
   border-radius: 4px;
@@ -492,30 +492,30 @@
   flex-shrink: 0;
 }
 
-.related-post-info {
+.relatedPostInfo {
   flex-grow: 1;
 }
 
-.related-post-title {
+.relatedPostTitle {
   font-size: 0.9rem;
   line-height: 1.4;
   margin-bottom: 5px;
 }
 
-.related-post-date {
+.relatedPostDate {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.5);
 }
 
 /* Social grid for contact page */
-.social-grid {
+.socialGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   gap: 15px;
   margin-top: 1.5rem;
 }
 
-.social-item {
+.socialItem {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -528,18 +528,18 @@
   text-decoration: none;
 }
 
-.social-item:hover {
+.socialItem:hover {
   background-color: rgba(255, 100, 0, 0.1);
   transform: translateY(-5px);
 }
 
-.social-icon-lg {
+.socialIconLg {
   font-size: 1.8rem;
-  color: var(--accent-fire);
+  color: $accent-fire;
 }
 
-.social-name {
-  color: var(--text-ash);
+.socialName {
+  color: $text-ash;
   font-size: 0.9rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
