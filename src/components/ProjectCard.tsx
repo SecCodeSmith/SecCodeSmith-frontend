@@ -64,13 +64,13 @@ const ProjectLinks: React.FC<{ links: { github?: string; demo?: string }, id: st
       className={`btn btn-outline-secondary  ${style.btnOutlineSecondary}`}
       onClick={() => onOpenDetails(id)}
     >
-      <i className={`fas fa-info-circle ${style.btnIcon}`}></i>
+      <i className={`fas fa-info-circle ${style.btnIcon}`} ></i>
       Project Details
     </button>
 
     {links.github && (
       <a href={links.github} className={`btn btn-outline-secondary  ${style.btnOutlineSecondary} `}>
-        <i className={`fab fa-github ${style.btnIcon}`}></i>
+        <i className={`fab fa-github ${style.btnIcon}`} ></i>
         View Code
       </a>
     )}

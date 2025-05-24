@@ -3,7 +3,6 @@ import { PageHeader } from '../components/PageHeader';
 import { ProjectCard, type ProjectProps } from '../components/ProjectCard';
 import { ProjectModal } from '../components/ProjectModal';
 import { projectsData, Categories } from '../data/projectsData';
-import { styleText } from 'util';
 
 import style from '@styles/Project.module.scss'
 
@@ -48,7 +47,7 @@ export const Projects = () => {
         {/* Projects Filter */}
         <div className={`filter-container ${style.filterContainer} text-center`}>
           <button
-            className={`filter-button  ${style.filterButton} ${activeFilter === 'all' ?  style.active : ''}`}
+            className={`filter-button  ${style.filterButton} ${activeFilter === 'all' ? style.active : ''}`}
             onClick={() => handleFilterClick('all')}
           >
             All Artifacts
@@ -56,7 +55,7 @@ export const Projects = () => {
           {Object.values(categories).map((category) => (
             <button
               key={category.shortName}
-              className={`filter-button ${style.filterButton} ${activeFilter === category.shortName.toLowerCase() ?  style.active : ''}`}
+              className={`filter-button ${style.filterButton} ${activeFilter === category.shortName.toLowerCase() ? style.active : ''}`}
               onClick={() => handleFilterClick(category.shortName.toLowerCase())}
             >
               {category.fullName}
@@ -83,8 +82,8 @@ export const Projects = () => {
           </div>
         )}
 
-        <div className="text-center mt-4">
-          <a href="https://github.com/SecCodeSmith" className="btn btn-primary">
+        <div className="text-center mt-4 mb-5">
+          <a href="https://github.com/SecCodeSmith" className={`btn btn-primary ${style.btnPrimary}`}>
             <i className="fab fa-github me-2"></i> View All Projects on GitHub
           </a>
         </div>

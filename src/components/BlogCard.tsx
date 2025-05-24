@@ -26,7 +26,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
     <div className={`card ${styles.card} ${post.featured ? styles.featuredCard : ''}`}>
       <div className="position-relative">
         <img src={post.image} className={`card-img-top ${post.featured ? styles.featuredImg : ''}`} alt={post.title} />
-        <div className="category-badge">{post.category}</div>
+        <div className={styles.categoryBadge}>{post.category}</div>
         
         {post.featured && (
           <div className={`featured-badge ${styles.featuredBadge}`}>
