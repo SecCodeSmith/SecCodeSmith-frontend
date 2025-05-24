@@ -42,7 +42,7 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-.cardImg-top {
+.cardImgTop {
     height: 200px;
     object-fit: cover;
 }
@@ -68,10 +68,18 @@
 }
 
 /* Category badges */
-.categoryBadge {
+.categoryBadgeContainer {
     position: absolute;
     top: 1rem;
     right: 1rem;
+
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
+    z-index: 1;
+}
+
+.categoryBadge {
     background-color: rgba(139, 0, 0, 0.9);
     color: $text-light;
     padding: 0.25rem 0.75rem;
@@ -80,7 +88,6 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    z-index: 1;
 }
 
 .featuredBadge {

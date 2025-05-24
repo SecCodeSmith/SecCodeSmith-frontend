@@ -2,88 +2,78 @@ import { useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { ProjectCard, type ProjectProps } from '../components/ProjectCard';
 import { ProjectModal } from '../components/ProjectModal';
-import { projectsData } from '../data/projectsData';
+import { projectsData, Categories } from '../data/projectsData';
+import { styleText } from 'util';
+
+import style from '@styles/Project.module.scss'
+
 
 export const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [selectedProject, setSelectedProject] = useState<ProjectProps | null>(null);
-  
-  const filteredProjects = activeFilter === 'all' 
-    ? projectsData 
-    : projectsData.filter(project => project.category.includes(activeFilter));
-    
+
+  const filteredProjects = activeFilter === 'all'
+    ? projectsData
+    : projectsData.filter(project => project.category.some(cat => cat.shortName.toLowerCase() === activeFilter));
+
+  const categories = Categories;
+
   const featuredProject = projectsData.find(project => project.featured);
-  
+
   const regularProjects = filteredProjects.filter(project => !project.featured);
-  
+
   const handleFilterClick = (filter: string) => {
     setActiveFilter(filter);
   };
-  
+
   const handleOpenDetails = (id: string) => {
     const project = projectsData.find(p => p.id === id);
     if (project) {
       setSelectedProject(project);
     }
   };
-  
+
   const handleCloseDetails = () => {
     setSelectedProject(null);
   };
-  
+
   return (
     <>
-      <PageHeader 
-        title="The Digital Forge" 
-        subtitle="Artifacts crafted with code, hammered with precision, and tempered in the fires of innovation" 
+      <PageHeader
+        title="The Digital Forge"
+        subtitle="Artifacts crafted with code, hammered with precision, and tempered in the fires of innovation"
       />
-      
+
       <div className="container mt-5">
         {/* Projects Filter */}
-        <div className="filter-container text-center">
-          <button 
-            className={`filter-button ${activeFilter === 'all' ? 'active' : ''}`} 
+        <div className={`filter-container ${style.filterContainer} text-center`}>
+          <button
+            className={`filter-button  ${style.filterButton} ${activeFilter === 'all' ?  style.active : ''}`}
             onClick={() => handleFilterClick('all')}
           >
             All Artifacts
           </button>
-          <button 
-            className={`filter-button ${activeFilter === 'embedded' ? 'active' : ''}`} 
-            onClick={() => handleFilterClick('embedded')}
-          >
-            Embedded Systems
-          </button>
-          <button 
-            className={`filter-button ${activeFilter === 'web' ? 'active' : ''}`} 
-            onClick={() => handleFilterClick('web')}
-          >
-            Web Development
-          </button>
-          <button 
-            className={`filter-button ${activeFilter === 'ml' ? 'active' : ''}`} 
-            onClick={() => handleFilterClick('ml')}
-          >
-            Machine Learning
-          </button>
-          <button 
-            className={`filter-button ${activeFilter === 'iot' ? 'active' : ''}`} 
-            onClick={() => handleFilterClick('iot')}
-          >
-            IoT
-          </button>
+          {Object.values(categories).map((category) => (
+            <button
+              key={category.shortName}
+              className={`filter-button ${style.filterButton} ${activeFilter === category.shortName.toLowerCase() ?  style.active : ''}`}
+              onClick={() => handleFilterClick(category.shortName.toLowerCase())}
+            >
+              {category.fullName}
+            </button>
+          ))}
         </div>
 
         <div className="row">
-          {featuredProject && (activeFilter === 'all' || featuredProject.category.includes(activeFilter)) && (
+          {featuredProject && (activeFilter === 'all' || featuredProject.category.some(cat => cat.shortName.toLowerCase() === activeFilter)) && (
             <div className="col-12 mb-4">
               <ProjectCard project={featuredProject} onOpenDetails={handleOpenDetails} />
             </div>
           )}
 
           {regularProjects.map(project => (
-            <div className="col-md-6 col-lg-4 mb-4" key={project.id}>
-              <ProjectCard project={project} onOpenDetails={handleOpenDetails} />
-            </div>
+
+            <ProjectCard project={project} onOpenDetails={handleOpenDetails} />
           ))}
         </div>
 
@@ -99,7 +89,7 @@ export const Projects = () => {
           </a>
         </div>
       </div>
-      
+
       {selectedProject && (
         <ProjectModal project={selectedProject} onClose={handleCloseDetails} />
       )}
