@@ -63,7 +63,7 @@ const ProjectLinks: React.FC<{ links: { github?: string; demo?: string }, id: st
     <button
       className={`btn btn-outline-secondary  ${style.btnOutlineSecondary}`}
       onClick={() => onOpenDetails(id)}
-    >
+       data-bs-toggle="modal" data-bs-target="#shadowguardianModal">
       <i className={`fas fa-info-circle ${style.btnIcon}`} ></i>
       Project Details
     </button>

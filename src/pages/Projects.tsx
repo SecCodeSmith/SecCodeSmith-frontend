@@ -32,10 +32,6 @@ export const Projects = () => {
     }
   };
 
-  const handleCloseDetails = () => {
-    setSelectedProject(null);
-  };
-
   return (
     <>
       <PageHeader
@@ -90,7 +86,7 @@ export const Projects = () => {
       </div>
 
       {selectedProject && (
-        <ProjectModal project={selectedProject} onClose={handleCloseDetails} />
+        <ProjectModal project={selectedProject} />
       )}
     </>
   );
