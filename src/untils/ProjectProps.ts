@@ -1,0 +1,39 @@
+
+export interface ProjectProps {
+  id: string;
+  title: string;
+  description: string;
+  projectDetails?: ProjectDetails;
+  image: string;
+  category: Category[];
+  featured?: boolean;
+  technologies: ProjectTech[];
+  links: {
+    github?: string;
+    demo?: string;
+  };
+}
+
+export interface ProjectDetails {
+  descriptions: string[];
+  startDate: string;
+  endDate: string;
+  dateFormatted?: string;
+  role: string;
+  status: string;
+  client: string;
+  keyFeatures: string[];
+  gallery: string[];
+}
+
+export interface Category {
+  [key: string]: string;
+  fullName: string;
+  shortName: string;
+  icon: string;
+}
+
+export interface ProjectTech {
+  name: string;
+  icon: string;
+}

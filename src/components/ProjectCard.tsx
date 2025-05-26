@@ -1,32 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import style from '@styles/Project.module.scss'
-
-export interface ProjectTech {
-  name: string;
-  icon: string;
-}
-
-export interface ProjectProps {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  category: Category[];
-  featured?: boolean;
-  technologies: ProjectTech[];
-  links: {
-    github?: string;
-    demo?: string;
-  };
-}
-
-export interface Category {
-  [key: string]: string;
-  fullName: string;
-  shortName: string;
-  icon: string;
-}
+import type {ProjectTech, Category, ProjectProps } from '../untils/ProjectProps'
 
 interface ProjectCardProps {
   project: ProjectProps;

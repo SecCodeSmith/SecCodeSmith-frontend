@@ -1,4 +1,4 @@
-import type { ProjectProps, Category } from "../components/ProjectCard";
+import type { ProjectProps, Category } from "../untils/ProjectProps";
 
 type CategoryMap = Record<string, Category>
 export const Categories: CategoryMap = {

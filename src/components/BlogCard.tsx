@@ -1,21 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from '@styles/BlogCard.module.scss';
 
-export interface BlogPostProps {
-  id: string;
-  slug: string;
-  title: string;
-  excerpt: string;
-  image: string;
-  category: string;
-  date: string;
-  author: string;
-  commentCount: number;
-  readTime: string;
-  featured?: boolean;
-  tags: string[];
-  content: string;
-}
+import type {BlogPostProps} from '../untils/BlogPostProps';
 
 interface BlogCardProps {
   post: BlogPostProps;

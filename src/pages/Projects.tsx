@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
-import { ProjectCard, type ProjectProps } from '../components/ProjectCard';
+import { ProjectCard } from '../components/ProjectCard';
 import { ProjectModal } from '../components/ProjectModal';
 import { projectsData, Categories } from '../data/projectsData';
+import type {ProjectProps} from '../untils/ProjectProps';
 
 import style from '@styles/Project.module.scss'
 
@@ -14,6 +15,10 @@ export const Projects = () => {
   const filteredProjects = activeFilter === 'all'
     ? projectsData
     : projectsData.filter(project => project.category.some(cat => cat.shortName.toLowerCase() === activeFilter));
+
+
+  if (selectedProject == null && filteredProjects.length > 0)
+    setSelectedProject(filteredProjects[0]);
 
   const categories = Categories;
 
