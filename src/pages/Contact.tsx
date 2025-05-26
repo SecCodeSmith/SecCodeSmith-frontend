@@ -1,14 +1,20 @@
 import { PageHeader } from '../components/PageHeader';
 import { ContactForm } from '../components/ContactForm';
+import style from '@styles/Contact.module.scss';
+
+import { contactData } from '../data/contactData'
+import type { ContactProps } from '../untils/ContactProps';
 
 export const Contact = () => {
+  const data: ContactProps = contactData;
+
   return (
     <>
-      <PageHeader 
-        title="Forge Connection" 
+      <PageHeader
+        title="Forge Connection"
         subtitle="Have a project in mind? Send a message to the forge and let's craft something extraordinary together"
       />
-      
+
       <section className="py-5">
         <div className="container">
           <div className="row g-4">
@@ -16,7 +22,7 @@ export const Contact = () => {
             <div className="col-lg-7">
               <ContactForm />
             </div>
-            
+
             {/* Contact Info Column */}
             <div className="col-lg-5">
               {/* Email Info */}
@@ -44,7 +50,7 @@ export const Contact = () => {
                   </div>
                 </div>
               </div>
-              
+
               {/* Connect Through Socials */}
               <div className="card">
                 <div className="card-body p-4">
@@ -89,7 +95,7 @@ export const Contact = () => {
           </div>
         </div>
       </section>
-      
+
       {/* FAQ Section */}
       <section className="py-5 bg-dark">
         <div className="container">
@@ -102,89 +108,40 @@ export const Contact = () => {
           <div className="row">
             <div className="col-lg-8 mx-auto">
               <div className="accordion" id="faqAccordion">
-                {/* FAQ Item 1 */}
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingOne">
-                    <button 
-                      className="accordion-button collapsed" 
-                      type="button" 
-                      data-bs-toggle="collapse" 
-                      data-bs-target="#collapseOne" 
-                      aria-expanded="false" 
-                      aria-controls="collapseOne"
-                    >
-                      What is your typical project timeline?
-                    </button>
-                  </h2>
-                  <div 
-                    id="collapseOne" 
-                    className="accordion-collapse collapse" 
-                    aria-labelledby="headingOne" 
-                    data-bs-parent="#faqAccordion"
-                  >
-                    <div className="accordion-body">
-                      Project timelines vary based on complexity and scope. Small projects typically take 2-4 weeks, medium-sized projects 1-2 months, and larger enterprise solutions 3-6 months. I provide detailed timeline estimates during the initial consultation, and maintain transparent communication about progress throughout the development cycle.
+                {
+                  data.questionsAndAnswers.map((item, index) => (
+                    <div className="accordion-item">
+                      <h2 className="accordion-header" id={`heading${index}`}>
+                        <button
+                          className="accordion-button collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#collapse${index}`}
+                          aria-expanded="false"
+                          aria-controls={`collapse${index}`}
+                        >
+                          {item.question}
+                        </button>
+                      </h2>
+                      <div
+                        id={`collapse${index}`}
+                        className="accordion-collapse collapse"
+                        aria-labelledby={`heading${index}`}
+                        data-bs-parent="#faqAccordion"
+                      >
+                        <div className="accordion-body">
+                          {item.answer}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                
-                {/* FAQ Item 2 */}
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingTwo">
-                    <button 
-                      className="accordion-button collapsed" 
-                      type="button" 
-                      data-bs-toggle="collapse" 
-                      data-bs-target="#collapseTwo" 
-                      aria-expanded="false" 
-                      aria-controls="collapseTwo"
-                    >
-                      How does your collaboration process work?
-                    </button>
-                  </h2>
-                  <div 
-                    id="collapseTwo" 
-                    className="accordion-collapse collapse" 
-                    aria-labelledby="headingTwo" 
-                    data-bs-parent="#faqAccordion"
-                  >
-                    <div className="accordion-body">
-                      My collaboration process consists of five phases: initial consultation, requirements gathering, design and planning, implementation, and testing/deployment. I use agile methodologies with regular check-ins to ensure your vision is being realized. Communication is maintained through your preferred channels (email, Slack, etc.), and you'll have access to development milestones through shared repositories and project management tools.
-                    </div>
-                  </div>
-                </div>
-                
-                {/* FAQ Item 3 */}
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingThree">
-                    <button 
-                      className="accordion-button collapsed" 
-                      type="button" 
-                      data-bs-toggle="collapse" 
-                      data-bs-target="#collapseThree" 
-                      aria-expanded="false" 
-                      aria-controls="collapseThree"
-                    >
-                      What are your payment terms and methods?
-                    </button>
-                  </h2>
-                  <div 
-                    id="collapseThree" 
-                    className="accordion-collapse collapse" 
-                    aria-labelledby="headingThree" 
-                    data-bs-parent="#faqAccordion"
-                  >
-                    <div className="accordion-body">
-                      I typically work with a milestone-based payment structure: 30% upfront to begin work, 30% at the midpoint after key deliverables are approved, and 40% upon project completion. For longer projects, we can establish additional milestones. I accept bank transfers, PayPal, and cryptocurrency payments. All payment terms are clearly outlined in the project contract before work begins.
-                    </div>
-                  </div>
-                </div>
+                  ))
+                }
               </div>
             </div>
           </div>
         </div>
       </section>
-      
+
       {/* Map Section */}
       <section className="py-5">
         <div className="container">
@@ -197,11 +154,11 @@ export const Contact = () => {
           <div className="row">
             <div className="col-12">
               <div className="map-container">
-                <iframe 
-                  className="map-frame" 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82077.2903513271!2d21.9433946!3d50.0411861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473cfae3cc14d449%3A0xd2240d31b33eb2ed!2zUnplc3rDs3c!5e0!3m2!1sen!2spl!4v1651813309336!5m2!1sen!2spl" 
-                  allowFullScreen 
-                  loading="lazy" 
+                <iframe
+                  className="map-frame"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82077.2903513271!2d21.9433946!3d50.0411861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473cfae3cc14d449%3A0xd2240d31b33eb2ed!2zUnplc3rDs3c!5e0!3m2!1sen!2spl!4v1651813309336!5m2!1sen!2spl"
+                  allowFullScreen
+                  loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
               </div>
