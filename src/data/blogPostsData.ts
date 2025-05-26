@@ -1,4 +1,4 @@
-import type { BlogPostProps } from "../components/BlogCard";
+import type {BlogPostProps} from '../untils/BlogPostProps'
 
 export const blogPostsData: BlogPostProps[] = [
   {

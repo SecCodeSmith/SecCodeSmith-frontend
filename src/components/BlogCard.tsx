@@ -1,21 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from '@styles/BlogCard.module.scss';
 
-export interface BlogPostProps {
-  id: string;
-  slug: string;
-  title: string;
-  excerpt: string;
-  image: string;
-  category: string;
-  date: string;
-  author: string;
-  commentCount: number;
-  readTime: string;
-  featured?: boolean;
-  tags: string[];
-  content: string;
-}
+import type {BlogPostProps} from '../untils/BlogPostProps';
 
 interface BlogCardProps {
   post: BlogPostProps;
@@ -26,7 +12,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
     <div className={`card ${styles.card} ${post.featured ? styles.featuredCard : ''}`}>
       <div className="position-relative">
         <img src={post.image} className={`card-img-top ${post.featured ? styles.featuredImg : ''}`} alt={post.title} />
-        <div className="category-badge">{post.category}</div>
+        <div className={styles.categoryBadge}>{post.category}</div>
         
         {post.featured && (
           <div className={`featured-badge ${styles.featuredBadge}`}>
