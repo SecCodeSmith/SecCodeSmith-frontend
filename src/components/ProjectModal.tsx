@@ -26,7 +26,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project }) => {
                             <div className={`row ${style.row}`}>
                                 <div className="col-md-8">
                                     {
-                                        project.projectDetails ? project.projectDetails.descriptions.map((desc, index) => (
+                                        project.projectDetails ? project.projectDetails.descriptions?.map((desc, index) => (
                                             <p key={index} className="mb-3">{desc}</p>
                                         )) :
                                             <p>{project.description}</p>
@@ -80,84 +80,76 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project }) => {
                                 )
                             }
 
-
-
-
                             <h4 className="mt-4 mb-3">Technologies Used</h4>
-                            <div className="mb-4">
-                                <span className="tech-chip">
-                                    <i className="devicon-cplusplus-plain tech-chip-icon"></i>
-                                    <span className="tech-chip-name">C++</span>
-                                </span>
-                                <span className="tech-chip">
-                                    <i className="fas fa-microchip tech-chip-icon"></i>
-                                    <span className="tech-chip-name">STM32F4</span>
-                                </span>
-                                <span className="tech-chip">
-                                    <i className="fas fa-wifi tech-chip-icon"></i>
-                                    <span className="tech-chip-name">ESP32</span>
-                                </span>
-                                <span className="tech-chip">
-                                    <i className="fas fa-shield-alt tech-chip-icon"></i>
-                                    <span className="tech-chip-name">AES-256</span>
-                                </span>
-                                <span className="tech-chip">
-                                    <i className="devicon-react-original tech-chip-icon"></i>
-                                    <span className="tech-chip-name">React Native</span>
-                                </span>
-                                <span className="tech-chip">
-                                    <i className="fas fa-broadcast-tower tech-chip-icon"></i>
-                                    <span className="tech-chip-name">BLE 5.0</span>
-                                </span>
-                                <span className="tech-chip">
-                                    <i className="fas fa-network-wired tech-chip-icon"></i>
-                                    <span className="tech-chip-name">Zigbee</span>
-                                </span>
-                                <span className="tech-chip">
-                                    <i className="fas fa-server tech-chip-icon"></i>
-                                    <span className="tech-chip-name">Node.js</span>
-                                </span>
-                                <span className="tech-chip">
-                                    <i className="fas fa-database tech-chip-icon"></i>
-                                    <span className="tech-chip-name">PostgreSQL</span>
-                                </span>
-                                <span className="tech-chip">
-                                    <i className="devicon-docker-plain tech-chip-icon"></i>
-                                    <span className="tech-chip-name">Docker</span>
-                                </span>
-                            </div>
-
+                            <div className="mb-4"></div>
                             {
-                                project.projectDetails?.gallery && project.projectDetails?.gallery.length > 0 && (
+                                project.projectDetails?.fullTechStack && project.projectDetails?.fullTechStack?.length > 0 ? (
                                     <>
-                                        <h4 className="mt-4 mb-3">Gallery</h4>
-                                        <div className="row">
-                                            <div className="col-md-4 col-6">
-                                                {
-                                                    project.projectDetails.gallery.map((image, index) => (
-                                                        <div key={index} className="gallery-item">
-                                                            <img src={image} alt={`Gallery Image ${index + 1}`} className="gallery-image"></img>
-                                                        </div>
-                                                    ))
-                                                }
-                                            </div>
-                                        </div>
+                                        {project.projectDetails.fullTechStack.map((tech, index) => (
+                                            <span key={index} className={`tech-chip ${style.techChip}`}>
+                                                <i className={`${tech.icons} tech-chip-icon`}></i>
+                                                <span className="tech-chip-name">{tech.name}</span>
+                                            </span>
+                                        ))}
+                                    </>
+                                ) : (
+                                    <>
+                                        {project.technologies && project.technologies.length > 0 ? (
+                                            project.technologies.map((tech, index) => (
+
+                                                <span key={index} className={`tech-chip ${style.techChip}`}>
+                                                    <i className={`${tech.icon} tech-chip-icon`}></i>
+                                                    <span className="tech-chip-name">{tech.name}</span>
+                                                </span>
+
+                                            ))
+                                        ) : (
+                                            <p className="text-muted">No technologies listed.</p>
+                                        )
+                                        }
                                     </>
                                 )
-                            }                            
+                            }
                         </div>
-                        <div className={`modal-footer ${style.modalFooter}`}>
-                            <a href="#" className={`btn btn-outline-secondary ${style.btnOutlineSecondary}`}>
+
+                        {
+                            project.projectDetails?.gallery && project.projectDetails?.gallery.length > 0 && (
+                                <>
+                                    <h4 className="mt-4 mb-3">Gallery</h4>
+                                    <div className="row">
+                                        {
+                                            project.projectDetails.gallery.map((image, index) => (
+                                                <div className="col-md-4 col-6">
+                                                    <div key={index} className={`gallery-item ${style.galleryItem}`}>
+                                                        <img src={image} alt={`Gallery Image ${index + 1}`} className={`gallery-image ${style.galleryImage}`}></img>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        }
+
+                                    </div>
+                                </>
+                            )
+                        }
+                    </div>
+                    <div className={`modal-footer ${style.modalFooter}`}>
+                        {project.links.github && (
+                            <a href={project.links.github} className={`btn btn-outline-secondary ${style.btnOutlineSecondary}`} target="_blank" rel="noopener noreferrer">
                                 <i className="fab fa-github btn-icon"></i>Source Code
                             </a>
-                            <a href="#" className={`btn btn-outline-secondary ${style.btnOutlineSecondary}`}>
+                        )}
+                        {project.links.demo && (
+                            <a href={project.links.demo} className={`btn btn-outline-secondary ${style.btnOutlineSecondary}`} target="_blank" rel="noopener noreferrer">
                                 <i className="fas fa-external-link-alt btn-icon"></i>Live Demo
                             </a>
-                            <a href="#" className={`btn btn-outline-secondary ${style.btnOutlineSecondary}`}>
+                        )}
+                        {project.links.documentation && (
+                            <a href={project.links.documentation} className={`btn btn-outline-secondary ${style.btnOutlineSecondary}`} target="_blank" rel="noopener noreferrer">
                                 <i className="fas fa-book btn-icon"></i>Documentation
                             </a>
-                            <button type="button" className={`btn btn-secondary`} data-bs-dismiss="modal">Close</button>
-                        </div>
+                        )}
+
+                        <button type="button" className={`btn btn-secondary`} data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

@@ -11,19 +11,21 @@ export interface ProjectProps {
   links: {
     github?: string;
     demo?: string;
+    documentation?: string;
   };
 }
 
 export interface ProjectDetails {
-  descriptions: string[];
-  startDate: string;
-  endDate: string;
+  descriptions?: string[];
+  startDate?: string;
+  endDate?: string;
   dateFormatted?: string;
-  role: string;
-  status: string;
-  client: string;
-  keyFeatures: string[];
-  gallery: string[];
+  role?: string;
+  status?: string;
+  client?: string;
+  keyFeatures?: string[];
+  gallery?: string[];
+  fullTechStack?: FullTechStack[];
 }
 
 export interface Category {
@@ -36,4 +38,9 @@ export interface Category {
 export interface ProjectTech {
   name: string;
   icon: string;
+}
+
+export interface FullTechStack {
+  name: string;
+  icons: string;
 }

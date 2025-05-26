@@ -13,3 +13,4 @@ export interface BlogPostProps {
   tags: string[];
   content: string;
 }
+
