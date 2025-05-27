@@ -1,4 +1,4 @@
-import {type SkillCardProps} from '../components/SkillCard';
+import {type SkillCardProps} from '../untils/SkillCardProps';
 
 export const skillCardData: SkillCardProps[] = [
     {

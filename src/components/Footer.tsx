@@ -1,11 +1,9 @@
 import {socialLinkData} from '../data/socialLinkData'
-export interface socialLink {
-  icon: string;
-  url: string;
-}
+import type {SocialLink} from '../untils/SocialLink'
+
 
 export const Footer = () => {
-  const socialLinks: socialLink[] = socialLinkData;
+  const socialLinks: SocialLink[] = socialLinkData;
 
   const currentYear = new Date().getFullYear()
   return (

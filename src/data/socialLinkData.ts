@@ -1,6 +1,6 @@
-import {type socialLink} from "../components/Footer";
+import {type SocialLink} from "../untils/SocialLink";
 
-export const socialLinkData: socialLink[] = [
+export const socialLinkData: SocialLink[] = [
     {
         icon: "fab fa-github",
         url: ""

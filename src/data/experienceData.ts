@@ -1,4 +1,5 @@
-import { type AboutProps } from "../pages/About";
+import type {AboutProps} from '../untils/AboutProps'
+
 
 export const aboutProps: AboutProps = {
     coreValues: [
