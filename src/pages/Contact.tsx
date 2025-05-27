@@ -26,23 +26,23 @@ export const Contact = () => {
             {/* Contact Info Column */}
             <div className="col-lg-5">
               {/* Email Info */}
-              <div className="card mb-4">
-                <div className="card-body p-4">
-                  <div className="contact-card">
-                    <div className="contact-icon">
+              <div className={`card mb-4 ${style.card}`}>
+                <div className={`card-body p-4 ${style.cardBody}`}>
+                  <div className={`${style.contactCard}`}>
+                    <div className={`${style.contactIcon}`}>
                       <i className="fas fa-envelope"></i>
                     </div>
-                    <h3 className="contact-title">Email</h3>
+                    <h3 className={style.contactTitle}>Email</h3>
                     <div className="contact-content">
                       <p>For project inquiries or questions:</p>
                       <p>
-                        <a href={`mailto:${data.email}`} className="contact-link">
+                        <a href={`mailto:${data.email}`} className={style.contactLink}>
                           {data.email}
                         </a>
                       </p>
                       <p>For business collaborations:</p>
                       <p>
-                        <a href={`mailto:${data.businessEmail}`} className="contact-link">
+                        <a href={`mailto:${data.businessEmail}`} className={style.contactLink}>
                           {data.businessEmail}
                         </a>
                       </p>
@@ -53,21 +53,21 @@ export const Contact = () => {
 
               {
                 data.socialLinks.length > 0 && (
-                  <div className="card">
-                    <div className="card-body p-4">
-                      <div className="contact-card">
-                        <div className="contact-icon">
+                  <div className={`card ${style.card}`}>
+                    <div className={`card-body p-4 ${style.cardBody}`}>
+                      <div className={style.contactCard}>
+                        <div className={style.contactIcon}>
                           <i className="fas fa-link"></i>
                         </div>
-                        <h3 className="contact-title">Connect Through the Ether</h3>
-                        <div className="contact-content">
+                        <h3 className={style.contactTitle}>Connect Through the Ether</h3>
+                        <div className={style.contactContent}>
                           <p>You can also reach me through these digital pathways:</p>
-                          <div className="social-grid">
+                          <div className={style.socialGrid}>
                           {data.socialLinks.map((link, index) => (
-                            
-                              <a key={index} href={link.url} className="social-item">
-                                <i className={`${link.icon} social-icon-lg`}></i>
-                                <span className="social-name">{link.platform}</span>
+
+                              <a key={index} href={link.url} className={`social-item ${style.socialItem}`}>
+                                <i className={`${link.icon} social-icon-lg ${style.socialIconLg}`}></i>
+                                <span className={`social-name ${style.socialName}`}>{link.platform}</span>
                               </a>
                             
                           ))}
@@ -98,10 +98,10 @@ export const Contact = () => {
               <div className="accordion" id="faqAccordion">
                 {
                   data.questionsAndAnswers.map((item, index) => (
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id={`heading${index}`}>
+                    <div className={`accordion-item ${style.accordionItem}`} key={index}>
+                      <h2 className={`accordion-header ${style.accordionHeader}`} id={`heading${index}`}>
                         <button
-                          className="accordion-button collapsed"
+                          className={`accordion-button collapsed ${style.accordionButton}`}
                           type="button"
                           data-bs-toggle="collapse"
                           data-bs-target={`#collapse${index}`}
@@ -117,7 +117,7 @@ export const Contact = () => {
                         aria-labelledby={`heading${index}`}
                         data-bs-parent="#faqAccordion"
                       >
-                        <div className="accordion-body">
+                        <div className={`accordion-body ${style.accordionBody}`}>
                           {item.answer}
                         </div>
                       </div>
@@ -141,9 +141,9 @@ export const Contact = () => {
           </div>
           <div className="row">
             <div className="col-12">
-              <div className="map-container">
+              <div className={style.mapContainer}>
                 <iframe
-                  className="map-frame"
+                  className={style.mapFrame}
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82077.2903513271!2d21.9433946!3d50.0411861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473cfae3cc14d449%3A0xd2240d31b33eb2ed!2zUnplc3rDs3c!5e0!3m2!1sen!2spl!4v1651813309336!5m2!1sen!2spl"
                   allowFullScreen
                   loading="lazy"
