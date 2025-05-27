@@ -21,5 +21,11 @@ export default defineConfig({
   plugins: [
     react(),
   ],
+
+  publicDir: 'public',
+
+  build: {
+    target: ['es2022', 'chrome100', 'firefox100', 'safari15']
+  },
   
 })

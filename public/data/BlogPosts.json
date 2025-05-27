@@ -1,0 +1,19 @@
+[
+    {
+        "id": "1",
+        "slug": "StartOFJurney",
+        "title": "Something ends, something begins.",
+        "excerpt": "",
+        "image": "images/Begining.jpg",
+        "category": "Story",
+        "date": "27-05-2025",
+        "author": "SecCodeSmith (Jakub)",
+        "commentCount": 0,
+        "readTime": "10m",
+        "featured": true,
+        "tags": [
+            "journey"
+        ],
+        "content": "# I created this blog as the start of building my professional image, \n a place to document my projects and share my experiences. It's also a personal challenge for me. \n I am about to finish my studies and step into a new chapter of my professional life. \n On this blog, I will describe my projects and the lessons I've learned along the way. \n My first project will be creating my own website, featuring a blog, information about me, and descriptions of my work. \n See you soon!"
+    }
+]
