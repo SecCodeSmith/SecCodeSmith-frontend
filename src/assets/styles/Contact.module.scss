@@ -1,0 +1,230 @@
+@use './variables' as *;
+@use './card.scss' as card;
+
+@include card.card;
+
+/* Card styling */
+.contactCard {
+    position: relative;
+    border-left: 3px solid $accent-fire;
+    padding-left: 1.5rem;
+}
+
+.contactIcon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 100, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $accent-fire;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.contactTitle {
+    font-size: 1.3rem;
+    color: $text-light;
+    margin-bottom: 1rem;
+}
+
+.contactContent {
+    color: $text-ash;
+    line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.contactLink {
+    color: $accent-fire;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.contactLink:hover {
+    text-decoration: underline;
+    color: $accent-ember;
+}
+
+/* Button styling */
+.btnPrimary {
+    background: linear-gradient(45deg, $accent-dragon, $accent-fire);
+    border: none;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btnPrimary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 25px rgba(139, 0, 0, 0.5);
+    background-color: $accent-fire;
+    background-image: none;
+}
+
+.btnPrimary:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 100, 0, 0.4);
+}
+
+.btnPrimary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.6s;
+}
+
+.btnPrimary:hover::before {
+    left: 100%;
+}
+
+.btnPrimary:disabled {
+    background: linear-gradient(45deg, rgba(139, 0, 0, 0.5), rgba(255, 100, 0, 0.5));
+    transform: none;
+}
+
+/* Social links styling */
+.socialGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+    margin-top: 1.5rem;
+}
+
+.socialItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.socialItem:hover {
+    background-color: rgba(255, 100, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.socialIconLg {
+    font-size: 1.8rem;
+    color: $accent-fire;
+}
+
+.socialName {
+    color: $text-ash;
+    font-size: 0.9rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Map styling */
+.mapContainer {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid $card-border;
+    margin-bottom: 2rem;
+}
+
+.mapContainer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, $accent-dragon, $accent-fire);
+    z-index: 1;
+}
+
+.mapFrame {
+    width: 100%;
+    height: 400px;
+    border: none;
+    background-color: $card-bg;
+    filter: grayscale(90%) invert(92%) hue-rotate(180deg);
+}
+
+/* Binary background effect */
+.binaryLine {
+    position: absolute;
+    font-family: 'Fira Code', monospace;
+    color: $accent-fire;
+    font-size: 0.8rem;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+/* Ember effect */
+.emberParticle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: $accent-fire;
+    border-radius: 50%;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 2;
+    box-shadow: 0 0 5px $accent-fire;
+    animation: float 3s linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Table styling */
+.table {
+    color: $text-ash;
+    margin-bottom: 0;
+}
+
+.table td {
+    padding: 0.5rem 0.25rem;
+    border-color: rgba(255, 255, 255, 0.05);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@media (max-width: 768px) {
+    .schedule-container {
+        overflow-x: auto;
+    }
+
+    .social-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .map-frame {
+        height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .social-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .form-floating>label {
+        padding: 0.75rem 0.75rem;
+    }
+}

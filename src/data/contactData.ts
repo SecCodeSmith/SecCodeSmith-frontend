@@ -1,0 +1,20 @@
+import type {ContactProps} from '../untils/ContactProps'
+
+export const contactData: ContactProps = {
+    email: 'forge@seccodesmith.pl',
+    businessEmail: 'business@seccodesmith.pl',
+    socialLinks: [
+        { platform: 'LinkedIn', url: 'https://www.linkedin.com/in/jakub-berechowski', icon: 'fab fa-linkedin' },
+        { platform: 'GitHub', url: 'https://github.com/seccodesmith', icon: 'fab fa-github' },
+        { platform: 'Facebook', url: 'https://www.facebook.com/people/Seccodesmith/61575058536717/', icon: 'fab fa-facebook' },
+    ],
+    questionsAndAnswers: [
+        { question: 'What is your typical project timeline?', answer: 'Project timelines vary based on complexity and scope. Small projects typically take 2-4 weeks, medium-sized projects 1-2 months, and larger enterprise solutions 3-6 months. I provide detailed timeline estimates during the initial consultation, and maintain transparent communication about progress throughout the development cycle.' },
+        { question: 'How does your collaboration process work?', answer: 'My collaboration process consists of five phases: initial consultation, requirements gathering, design and planning, implementation, and testing/deployment. I use agile methodologies with regular check-ins to ensure your vision is being realized. Communication is maintained through your preferred channels (email, Slack, etc.), and you\'ll have access to development milestones through shared repositories and project management tools.' },
+        { question: 'What are your payment terms and methods?', answer: 'I typically work with a milestone-based payment structure: 30% upfront to begin work, 30% at the midpoint after key deliverables are approved, and 40% upon project completion. For longer projects, we can establish additional milestones. I accept bank transfers, PayPal, and cryptocurrency payments. All payment terms are clearly outlined in the project contract before work begins.'},
+        { question: 'Who owns the code and deliverables?', answer: 'Upon final payment, you receive full ownership rights to all custom code and deliverables created specifically for your project. I maintain no proprietary claim to custom solutions developed for clients. For projects that incorporate open-source components, those elements remain under their original licenses, and I provide clear documentation of all third-party code used in your project.' },
+        { question: 'Do you offer support and maintenance?', answer: 'Yes, I offer a 30-day warranty period for all projects, during which bug fixes and minor adjustments are covered at no additional cost. For ongoing support, I provide maintenance packages that include regular updates, security patches, and priority response times. These can be tailored to your specific needs and budget, whether you require occasional support or dedicated monthly maintenance.'}
+    ],
+    MapIframeUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82077.2903513271!2d21.9433946!3d50.0411861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473cfae3cc14d449%3A0xd2240d31b33eb2ed!2zUnplc3rDs3c!5e0!3m2!1sen!2spl!4v1651813309336!5m2!1sen!2spl',
+    phone: '',
+};

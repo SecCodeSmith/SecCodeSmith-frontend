@@ -68,14 +68,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project }) => {
                                 project.projectDetails?.keyFeatures && project.projectDetails.keyFeatures.length > 0 && (
                                     <>
                                         <h4 className="mt-4 mb-3">Key Features</h4>
+                                        <ul className={style.featuresList}>
                                         {
                                             project.projectDetails?.keyFeatures.map((feature, index) => (
-                                                <p key={index} className="mb-2">
-                                                    <i className="fas fa-check-circle text-success me-2"></i>
+                                                <li key={index}>
                                                     {feature}
-                                                </p>
+                                                </li>
                                             ))
                                         }
+                                        </ul>
                                     </>
                                 )
                             }

@@ -1,4 +1,6 @@
 import { useState, type FormEvent } from 'react';
+import '@styles/FormControl.scss'
+import styles from '@styles/Contact.module.scss'
 
 export const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -47,11 +49,11 @@ export const ContactForm = () => {
   };
   
   return (
-    <div className="card h-100">
-      <div className="card-header bg-transparent">
+    <div className={`card h-100 ${styles.card}`}>
+      <div className={`card-header bg-transparent ${styles.cardHeader}`}>
         <h2 className="mb-0 py-2">Send a Message to the Forge</h2>
       </div>
-      <div className="card-body p-4">
+      <div className={`card-body p-4 ${styles.cardBody}`}>
         {/* Success message */}
         {showSuccess && (
           <div className="alert alert-success" role="alert">
@@ -176,7 +178,7 @@ export const ContactForm = () => {
           <div className="text-center">
             <button 
               type="submit" 
-              className="btn btn-primary position-relative" 
+              className={`btn btn-primary position-relative ${styles.btnPrimary}`}
               id="submit-button"
               disabled={isSubmitting}
             >
