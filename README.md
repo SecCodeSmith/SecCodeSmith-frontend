@@ -138,7 +138,7 @@ While this is a personal portfolio project, suggestions and feedback are welcome
 
 **SecCodeSmith** - [contact@seccodesmith.pl](mailto:contact@seccodesmith.pl)
 
-Project Link: [https://git.seccodesmith.pl/seccodesmith/seccodesmith-frontend](https://git.seccodesmith.pl/seccodesmith/seccodesmith-frontend)
+Project Link: [https://github.com/SecCodeSmith/SecCodeSmith-frontend](https://github.com/SecCodeSmith/SecCodeSmith-frontend)
 
 ## 🙏 Acknowledgments
 
