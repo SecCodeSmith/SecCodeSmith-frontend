@@ -36,14 +36,14 @@ export const Contact = () => {
                     <div className="contact-content">
                       <p>For project inquiries or questions:</p>
                       <p>
-                        <a href="mailto:forge@seccodesmtih.com" className="contact-link">
-                          forge@seccodesmtih.com
+                        <a href={`mailto:${data.email}`} className="contact-link">
+                          {data.email}
                         </a>
                       </p>
                       <p>For business collaborations:</p>
                       <p>
-                        <a href="mailto:business@seccodesmtih.com" className="contact-link">
-                          business@seccodesmtih.com
+                        <a href={`mailto:${data.businessEmail}`} className="contact-link">
+                          {data.businessEmail}
                         </a>
                       </p>
                     </div>
@@ -51,53 +51,41 @@ export const Contact = () => {
                 </div>
               </div>
 
-              {/* Connect Through Socials */}
-              <div className="card">
-                <div className="card-body p-4">
-                  <div className="contact-card">
-                    <div className="contact-icon">
-                      <i className="fas fa-link"></i>
-                    </div>
-                    <h3 className="contact-title">Connect Through the Ether</h3>
-                    <div className="contact-content">
-                      <p>You can also reach me through these digital pathways:</p>
-                      <div className="social-grid">
-                        <a href="#" className="social-item">
-                          <i className="fab fa-github social-icon-lg"></i>
-                          <span className="social-name">GitHub</span>
-                        </a>
-                        <a href="#" className="social-item">
-                          <i className="fab fa-linkedin social-icon-lg"></i>
-                          <span className="social-name">LinkedIn</span>
-                        </a>
-                        <a href="#" className="social-item">
-                          <i className="fab fa-twitter social-icon-lg"></i>
-                          <span className="social-name">Twitter</span>
-                        </a>
-                        <a href="#" className="social-item">
-                          <i className="fab fa-discord social-icon-lg"></i>
-                          <span className="social-name">Discord</span>
-                        </a>
-                        <a href="#" className="social-item">
-                          <i className="fab fa-telegram social-icon-lg"></i>
-                          <span className="social-name">Telegram</span>
-                        </a>
-                        <a href="#" className="social-item">
-                          <i className="fab fa-stack-overflow social-icon-lg"></i>
-                          <span className="social-name">Stack Overflow</span>
-                        </a>
+              {
+                data.socialLinks.length > 0 && (
+                  <div className="card">
+                    <div className="card-body p-4">
+                      <div className="contact-card">
+                        <div className="contact-icon">
+                          <i className="fas fa-link"></i>
+                        </div>
+                        <h3 className="contact-title">Connect Through the Ether</h3>
+                        <div className="contact-content">
+                          <p>You can also reach me through these digital pathways:</p>
+                          <div className="social-grid">
+                          {data.socialLinks.map((link, index) => (
+                            
+                              <a key={index} href={link.url} className="social-item">
+                                <i className={`${link.icon} social-icon-lg`}></i>
+                                <span className="social-name">{link.platform}</span>
+                              </a>
+                            
+                          ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                )
+              }
+              
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* FAQ Section */}
-      <section className="py-5 bg-dark">
+      < section className="py-5 bg-dark" >
         <div className="container">
           <div className="row mb-4">
             <div className="col-12 text-center">
@@ -140,10 +128,10 @@ export const Contact = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Map Section */}
-      <section className="py-5">
+      < section className="py-5" >
         <div className="container">
           <div className="row mb-4">
             <div className="col-12 text-center">
@@ -165,7 +153,7 @@ export const Contact = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section >
     </>
   );
 };
