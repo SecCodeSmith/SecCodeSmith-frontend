@@ -124,7 +124,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}>
         <div className={`position-relative`}>
-          <img src={project.image} className={style.cardImgTop} alt={project.title} />
+          <img src={`${import.meta.env.BASE_URL}${project.image}`} className={style.cardImgTop} alt={project.title} />
           <CategoryBadge category={project.category} />
         </div>
         <div className={`card-body d-flex flex-column ${style.cardBody}`}>
