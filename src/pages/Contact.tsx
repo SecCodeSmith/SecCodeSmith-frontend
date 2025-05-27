@@ -1,6 +1,7 @@
 import { PageHeader } from '../components/PageHeader';
 import { ContactForm } from '../components/ContactForm';
 import style from '@styles/Contact.module.scss';
+import '@styles/Accordion.scss';
 
 import { contactData } from '../data/contactData'
 import type { ContactProps } from '../untils/ContactProps';
@@ -98,10 +99,10 @@ export const Contact = () => {
               <div className="accordion" id="faqAccordion">
                 {
                   data.questionsAndAnswers.map((item, index) => (
-                    <div className={`accordion-item ${style.accordionItem}`} key={index}>
-                      <h2 className={`accordion-header ${style.accordionHeader}`} id={`heading${index}`}>
+                    <div className={`accordion-item`} key={index}>
+                      <h2 className={`accordion-header`} id={`heading${index}`}>
                         <button
-                          className={`accordion-button collapsed ${style.accordionButton}`}
+                          className={`accordion-button collapsed`}
                           type="button"
                           data-bs-toggle="collapse"
                           data-bs-target={`#collapse${index}`}
@@ -117,7 +118,7 @@ export const Contact = () => {
                         aria-labelledby={`heading${index}`}
                         data-bs-parent="#faqAccordion"
                       >
-                        <div className={`accordion-body ${style.accordionBody}`}>
+                        <div className={`accordion-body`}>
                           {item.answer}
                         </div>
                       </div>
