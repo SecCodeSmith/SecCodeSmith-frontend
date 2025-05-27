@@ -162,7 +162,7 @@ export const BlogPost = () => {
         <article>
           {/* Post Header */}
           <div className={style.postHeader}>
-            <div className={style.postFeaturedImage} style={{ backgroundImage: `url(${post.image})` }}></div>
+            <div className={style.postFeaturedImage} style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${post.image})` }}></div>
             <div className={style.postCategory}>{post.category}</div>
           </div>
 
@@ -227,8 +227,8 @@ export const BlogPost = () => {
                 </div>
               </div>
             </div>
-
-            {/* Comments Section */}
+            {/*Temporarily disable comments section */}
+            {  0 && (
             <div className={style.commentsSection}>
               <h3 className={style.commentsTitle}>Discussions ({post.commentCount})</h3>
 
@@ -264,6 +264,7 @@ export const BlogPost = () => {
                 </form>
               </div>
             </div>
+            )}
           </div>
         </article>
       </main>

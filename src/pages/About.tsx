@@ -1,5 +1,5 @@
 import { PageHeader } from '../components/PageHeader';
-import { aboutProps } from '../data/experienceData';
+import { aboutProps } from '../data/AboutProps';
 
 import style from '@styles/About.module.scss';
 

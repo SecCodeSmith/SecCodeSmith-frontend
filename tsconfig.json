@@ -1,23 +1,46 @@
 {
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
   ],
-
   "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@/*":            ["src/*"],
-      "@assets/*":      ["src/assets/*"],
-      "@components/*":  ["src/components/*"],
-      "@pages/*":       ["src/pages/*"],
-      "@data/*":        ["src/data/*"],
-      "@styles/*":      ["src/styles/*"],
-      "@tests/*":       ["src/tests/*"],
-      "@images/*":      ["src/assets/images/*"],
+      "@/*": [
+        "src/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@data/*": [
+        "src/data/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ],
+      "@tests/*": [
+        "src/tests/*"
+      ],
+      "@images/*": [
+        "src/assets/images/*"
+      ],
     },
     "moduleResolution": "node",
-    "types": ["node"] 
+    "types": [
+      "node"
+    ]
   }
 }
