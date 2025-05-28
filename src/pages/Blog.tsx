@@ -5,6 +5,7 @@ import { fetchBlogPosts } from '../data/blogPostsData';
 
 import style from '@styles/Blog.module.scss';
 import type { BlogPostProps } from '../untils/BlogPostProps';
+import { Spinner } from '../components/Spinner';
 
 export const Blog = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -20,7 +21,7 @@ export const Blog = () => {
   }, []);
 
   if (!blogPostsData) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
   
   const filteredPosts = searchQuery

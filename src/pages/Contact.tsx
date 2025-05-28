@@ -6,6 +6,7 @@ import '@styles/Accordion.scss';
 import { fetchContactData } from '../data/contactData'
 import type { ContactProps } from '../untils/ContactProps';
 import { useEffect, useState } from 'react';
+import { Spinner } from '../components/Spinner';
 
 export const Contact = () => {
   const [ContactProps, setContactProps] = useState<ContactProps>();
@@ -19,7 +20,7 @@ export const Contact = () => {
   }, []);
 
   if (!ContactProps) {
-    return <div>Loading...</div>; 
+    return <Spinner />;
   }
 
   return (

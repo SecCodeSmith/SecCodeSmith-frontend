@@ -6,6 +6,7 @@ import { fetchProjectsData, Categories } from '../data/projectsData';
 import type { ProjectProps } from '../untils/ProjectProps';
 
 import style from '@styles/Project.module.scss'
+import { Spinner } from '../components/Spinner';
 
 
 export const Projects = () => {
@@ -22,7 +23,7 @@ export const Projects = () => {
   }, []);
 
   if (!projectsData) {
-    return <div className="text-center mt-5">Loading projects...</div>;
+    return <Spinner />;
   }
 
   const filteredProjects = activeFilter === 'all'

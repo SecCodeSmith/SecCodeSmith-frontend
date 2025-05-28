@@ -1,0 +1,420 @@
+@use './variables.scss' as *;
+
+.bodySpinner {
+    background-color: $primary-dark;
+    color: $text-light;
+    font-family: 'Cinzel', serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Background gradient overlay */
+.bodySpinner::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.08), rgba(10, 10, 10, 0.4));
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Binary falling background */
+.binaryBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.07;
+    overflow: hidden;
+}
+
+.binaryLine {
+    position: absolute;
+    font-family: 'Fira Code', monospace;
+    color: $accent-fire;
+    font-size: 0.8rem;
+    animation: fall linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+/* Main loader container */
+.loaderContainer {
+    text-align: center;
+    z-index: 10;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Anvil and hammer loader */
+.forgeLoader {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem;
+    position: relative;
+}
+
+/* Anvil icon container */
+.anvilContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+}
+
+/* Fire glow effect */
+.fireGlow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(255, 100, 0, 0.3), transparent 70%);
+    filter: blur(20px);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* Central icon */
+.forgeIcon {
+    font-size: 60px;
+    color: $accent-fire;
+    text-shadow: $glow-effect;
+    animation: forge 2s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes forge {
+
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    25% {
+        transform: scale(0.95) rotate(-5deg);
+    }
+
+    50% {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    75% {
+        transform: scale(0.95) rotate(-3deg);
+    }
+}
+
+/* Sparks container */
+.sparks {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.spark {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: $accent-fire;
+    border-radius: 50%;
+    box-shadow: 0 0 6px $accent-fire;
+    opacity: 0;
+}
+
+.spark:nth-child(1) {
+    top: 50%;
+    left: 50%;
+    animation: spark1 2s ease-out infinite;
+}
+
+.spark:nth-child(2) {
+    top: 50%;
+    left: 50%;
+    animation: spark2 2s ease-out infinite 0.2s;
+}
+
+.spark:nth-child(3) {
+    top: 50%;
+    left: 50%;
+    animation: spark3 2s ease-out infinite 0.4s;
+}
+
+.spark:nth-child(4) {
+    top: 50%;
+    left: 50%;
+    animation: spark4 2s ease-out infinite 0.6s;
+}
+
+@keyframes spark1 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-40px, -60px);
+        opacity: 0;
+    }
+}
+
+@keyframes spark2 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(40px, -50px);
+        opacity: 0;
+    }
+}
+
+@keyframes spark3 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-30px, -70px);
+        opacity: 0;
+    }
+}
+
+@keyframes spark4 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(35px, -65px);
+        opacity: 0;
+    }
+}
+
+/* Logo and text */
+.logoWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 1rem;
+}
+
+.logoIcon img {
+    width: 50px;
+    height: 50px;
+    filter: drop-shadow(0 0 10px rgba(255, 100, 0, 0.5));
+}
+
+.logoText {
+    font-weight: 700;
+    font-size: 2.5rem;
+    background: linear-gradient(to right, $accent-fire, $text-light);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: $text-ash;
+    margin-bottom: 2rem;
+}
+
+/* Progress bar */
+.progressContainer {
+    width: 300px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 0 auto 1.5rem;
+    position: relative;
+}
+
+.progressBar {
+    height: 100%;
+    background: linear-gradient(90deg, $accent-dragon, $accent-fire);
+    border-radius: 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: loading 2.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% {
+        width: 0%;
+        left: 0;
+    }
+
+    50% {
+        width: 70%;
+        left: 0;
+    }
+
+    100% {
+        width: 30%;
+        left: 100%;
+    }
+}
+
+/* Status message */
+.statusMessage {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: $text-ash;
+    transition: opacity 0.3s ease;
+}
+
+.statusMessage::before {
+    content: "< ";
+    color: $accent-fire;
+    opacity: 0.8;
+}
+
+.statusMessage::after {
+    content: " />";
+    color: $accent-fire;
+    opacity: 0.8;
+}
+
+/* Blinking cursor */
+.blinkingCursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background-color: $accent-fire;
+    margin-left: 5px;
+    animation: blink 1s step-end infinite;
+    box-shadow: $glow-effect;
+    vertical-align: middle;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Particles effect */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: $accent-fire;
+    border-radius: 50%;
+    opacity: 0;
+    animation: rise linear forwards;
+}
+
+@keyframes rise {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-100px) translateX(var(--x));
+        opacity: 0;
+    }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .logoText {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .progressContainer {
+        width: 250px;
+    }
+
+    .forgeLoader {
+        width: 150px;
+        height: 150px;
+    }
+
+    .forgeIcon {
+        font-size: 45px;
+    }
+}

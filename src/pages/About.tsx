@@ -1,6 +1,6 @@
 import { PageHeader } from '../components/PageHeader';
 import { fetchAboutProps } from '../data/AboutProps';
-
+import { Spinner } from '../components/Spinner';
 import style from '@styles/About.module.scss';
 import { useEffect, useState } from 'react';
 import type { AboutProps } from '../untils/AboutProps';
@@ -21,7 +21,7 @@ export const About = () => {
     fetchData();
   }, []);
   if (!data) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
   return (
     <>

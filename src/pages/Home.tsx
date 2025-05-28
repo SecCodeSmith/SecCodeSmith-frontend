@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import styles from '@styles/Home.module.scss';
 import SkillCard from '../components/SkillCard'
+import { Spinner } from '../components/Spinner';
 import { fetchSkillCardData } from '../data/skillCardData';
 import { randomCodeLineData } from '../data/randomCodeLineData';
 import type { SkillCardProps } from '../untils/SkillCardProps';
@@ -96,6 +97,10 @@ export const Home = () => {
       clearInterval(particleInterval);
     };
   }, []);
+
+  if (!skills) {
+    return <Spinner />;
+  }
 
   return (
     <>
