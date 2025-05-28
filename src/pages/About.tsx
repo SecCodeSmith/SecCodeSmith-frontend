@@ -4,14 +4,19 @@ import { fetchAboutProps } from '../data/AboutProps';
 import style from '@styles/About.module.scss';
 import { useEffect, useState } from 'react';
 import type { AboutProps } from '../untils/AboutProps';
+import type { ContactProps } from '../untils/ContactProps';
+import { fetchContactData } from '../data/contactData';
 
 export const About = () => {
   const [data, setData] = useState<AboutProps>();
-
+  const [ContactProps, setContactProps] = useState<ContactProps>();
+  
   useEffect(() => {
     const fetchData = async () => {
       const aboutData = await fetchAboutProps();
       setData(aboutData);
+      const data = await fetchContactData();
+      setContactProps(data);
     };
     fetchData();
   }, []);
@@ -46,22 +51,16 @@ export const About = () => {
                 <p className={style.introText}>Beyond the technical realms, I am a devoted practitioner of open-source sorcery, contributing to projects that empower others to create and innovate. When not at the forge, I can be found exploring the ancient texts of computer science, delving into new programming languages, or mentoring apprentices on their own journey.</p>
 
                 <div className="mt-4">
-                  <a href="#" className={style.connectLink}>
-                    <i className={`fab fa-github ${style.connectIcon}`}></i>
-                    <span>GitHub</span>
-                  </a>
-                  <a href="#" className={style.connectLink}>
-                    <i className={`fab fa-linkedin ${style.connectIcon}`}></i>
-                    <span>LinkedIn</span>
-                  </a>
-                  <a href="#" className={style.connectLink}>
-                    <i className={`fab fa-twitter ${style.connectIcon}`}></i>
-                    <span>Twitter</span>
-                  </a>
-                  <a href="#" className={style.connectLink}>
-                    <i className={`fas fa-envelope ${style.connectIcon}`}></i>
-                    <span>Email</span>
-                  </a>
+                  {
+                    ContactProps?.socialLinks && 
+                    ContactProps.socialLinks.length > 0 && 
+                    ContactProps.socialLinks.map((link, index) => (
+                      <a key={index} href={link.url} className={`${style.connectLink}`}>
+                        <i className={`${link.icon} ${style.connectIcon}`}></i>
+                        <span>{link.platform}</span>
+                      </a>
+                    ))
+                  }
                 </div>
               </div>
             </div>
