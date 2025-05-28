@@ -13,7 +13,7 @@
       { "name": "Vite",        "icon": "devicon-vitejs-plain tech-icon" }
     ],
     "links": {
-      "github": "https://github.com/SecCodeSmith/",
+      "github": "https://github.com/SecCodeSmith/SecCodeSmith-frontend",
       "demo":   "https://seccodesmith.pl"
     },
     "projectDetails": {
@@ -22,8 +22,8 @@
         "The project utilizes React for building the user interface, TypeScript for type safety, and SCSS for styling. The use of Vite ensures fast development and build times."
       ],
       "startDate": "12-05-2025",
-      "endDate": "",
-      "dateFormatted": "DD MMMM YYYY",
+      "endDate": "28-05-2025",
+      "dateFormatted": "DD-MM-YYYY",
       "role": "Frontend Developer",
       "status": "In Progress",
       "keyFeatures": [

@@ -1,4 +1,5 @@
 import type { ProjectProps } from '../untils/ProjectProps';
+import moment from "moment";
 
 import style from '@styles/Project.module.scss'
 
@@ -9,6 +10,12 @@ interface ProjectModalProps {
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project }) => {
     if (!project) return null;
+
+    const startDate = moment(project.projectDetails?.startDate, project.projectDetails?.dateFormatted);
+    const endDate = moment(project.projectDetails?.endDate, project.projectDetails?.dateFormatted);
+    const duration = startDate.isValid() && endDate.isValid()
+        ? Math.ceil(endDate.diff(startDate, 'days') / 7) + ' weeks'
+        : 'Ongoing';
 
     return (
         <div className="modal fade" id="shadowguardianModal" tabIndex={-1} aria-labelledby="shadowguardianModalLabel" aria-hidden="true">
@@ -39,7 +46,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project }) => {
                                         </div>
                                         <div className="card-body">
                                             {project.projectDetails && project.projectDetails.startDate && project.projectDetails.endDate ? (
-                                                <p><strong>Duration:</strong> {new Date(project.projectDetails.startDate).toLocaleDateString()} - {new Date(project.projectDetails.endDate).toLocaleDateString()}</p>
+                                                <p><strong>Duration:</strong> {duration}</p>
                                             ) : (
                                                 <p><strong>Duration:</strong> Ongoing</p>
                                             )
