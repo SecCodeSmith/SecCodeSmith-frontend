@@ -6,6 +6,7 @@ import { fetchBlogPosts } from '../data/blogPostsData';
 import style from '@styles/Blog.module.scss';
 import type { BlogPostProps } from '../untils/BlogPostProps';
 import { Spinner } from '../components/Spinner';
+import { redirect } from 'react-router-dom';
 
 export const Blog = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -15,6 +16,10 @@ export const Blog = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchBlogPosts();
+      if (!data || data.length === 0) {
+        console.error('No blog posts found');
+        redirect('/404');
+      }
       setBlogPostsData(data);
     };
     fetchData();
