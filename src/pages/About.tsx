@@ -1,10 +1,23 @@
 import { PageHeader } from '../components/PageHeader';
-import { aboutProps } from '../data/AboutProps';
+import { fetchAboutProps } from '../data/AboutProps';
 
 import style from '@styles/About.module.scss';
+import { useEffect, useState } from 'react';
+import type { AboutProps } from '../untils/AboutProps';
 
 export const About = () => {
-  const data = aboutProps;
+  const [data, setData] = useState<AboutProps>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const aboutData = await fetchAboutProps();
+      setData(aboutData);
+    };
+    fetchData();
+  }, []);
+  if (!data) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <PageHeader
@@ -19,7 +32,7 @@ export const About = () => {
             <div className="col-lg-4">
               <h2 className={`${style.sectionTitle}`}>The Master Behind the Mask</h2>
               <div className={style.profileImage}>
-                <img src="/images/profile.jpg" alt="SecCodeSmith" />
+                <img src="/images/profile.webp" alt="SecCodeSmith" />
               </div>
             </div>
             <div className="col-lg-8">

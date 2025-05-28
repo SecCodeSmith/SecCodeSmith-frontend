@@ -1,13 +1,24 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from '@styles/Home.module.scss';
 import SkillCard from '../components/SkillCard'
-import { skillCardData } from '../data/skillCardData';
+import { fetchSkillCardData } from '../data/skillCardData';
 import { randomCodeLineData } from '../data/randomCodeLineData';
+import type { SkillCardProps } from '../untils/SkillCardProps';
 
 export const Home = () => {
-  const skills = skillCardData;
+  const [skills, setSkills] = useState<SkillCardProps[]>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchSkillCardData();
+      setSkills(data);
+    };
+    fetchData();
+  }, []);
+
+
   const randomCodeLines = randomCodeLineData;
   useEffect(() => {
     const createBinaryBg = () => {
@@ -113,7 +124,7 @@ export const Home = () => {
             </div>
           </div>
           <div className="row g-4">
-            {skills.map((skill) => (
+            {skills && skills.map((skill) => (
                 <SkillCard
                   categoryIcon={skill.categoryIcon}
                   categoryTitle={skill.categoryTitle}

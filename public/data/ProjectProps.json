@@ -31,7 +31,7 @@
         "Dynamic project showcase with filtering options",
         "Interactive blog section with latest posts"
       ],
-      "gallery": ["/images/SecCodeSmithFrontProj/1.png", "/images/SecCodeSmithFrontProj/2.png", "/images/SecCodeSmithFrontProj/3.png", "/images/SecCodeSmithFrontProj/4.png" ],
+      "gallery": ["/images/SecCodeSmithFrontProj/1.webp", "/images/SecCodeSmithFrontProj/2.webp", "/images/SecCodeSmithFrontProj/3.webp", "/images/SecCodeSmithFrontProj/4.webp" ],
       "fullTechStack": [
         { "name": "React", "icons": "devicon-react-original" },
         { "name": "TypeScript", "icons": "devicon-typescript-plain" },

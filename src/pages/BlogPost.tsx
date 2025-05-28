@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { blogPostsData } from '../data/blogPostsData';
+import { fetchBlogPosts } from '../data/blogPostsData';
 import { NotFound } from './NotFound';
 
 
@@ -44,7 +44,9 @@ const TableOfContents = ({ toc }: { toc: TableOfContentsItem[] }) => {
   );
 }
 
-export const BlogPost = () => {
+export const BlogPost = async () => {
+  const blogPostsData = await fetchBlogPosts();
+
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState(blogPostsData.find(post => post.slug === slug));
   const [relatedPosts, setRelatedPosts] = useState(blogPostsData.slice(0, 3));

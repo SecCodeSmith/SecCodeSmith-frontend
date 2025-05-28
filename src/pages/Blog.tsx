@@ -1,13 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { BlogCard } from '../components/BlogCard';
-import { blogPostsData } from '../data/blogPostsData';
+import { fetchBlogPosts } from '../data/blogPostsData';
 
 import style from '@styles/Blog.module.scss';
+import type { BlogPostProps } from '../untils/BlogPostProps';
 
 export const Blog = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, /*setCurrentPage*/] = useState(1);
+  const [blogPostsData, setBlogPostsData] = useState<BlogPostProps[]>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchBlogPosts();
+      setBlogPostsData(data);
+    };
+    fetchData();
+  }, []);
+
+  if (!blogPostsData) {
+    return <div>Loading...</div>;
+  }
   
   const filteredPosts = searchQuery
     ? blogPostsData.filter(post => 

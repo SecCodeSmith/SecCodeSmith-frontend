@@ -3,11 +3,24 @@ import { ContactForm } from '../components/ContactForm';
 import style from '@styles/Contact.module.scss';
 import '@styles/Accordion.scss';
 
-import { contactData } from '../data/contactData'
+import { fetchContactData } from '../data/contactData'
 import type { ContactProps } from '../untils/ContactProps';
+import { useEffect, useState } from 'react';
 
 export const Contact = () => {
-  const data: ContactProps = contactData;
+  const [ContactProps, setContactProps] = useState<ContactProps>();
+
+  useEffect(() => {
+    const getContactData = async () => {
+      const data = await fetchContactData();
+      setContactProps(data);
+    };
+    getContactData();
+  }, []);
+
+  if (!ContactProps) {
+    return <div>Loading...</div>; 
+  }
 
   return (
     <>
@@ -37,14 +50,14 @@ export const Contact = () => {
                     <div className="contact-content">
                       <p>For project inquiries or questions:</p>
                       <p>
-                        <a href={`mailto:${data.email}`} className={style.contactLink}>
-                          {data.email}
+                        <a href={`mailto:${ContactProps.email}`} className={style.contactLink}>
+                          {ContactProps.email}
                         </a>
                       </p>
                       <p>For business collaborations:</p>
                       <p>
-                        <a href={`mailto:${data.businessEmail}`} className={style.contactLink}>
-                          {data.businessEmail}
+                        <a href={`mailto:${ContactProps.businessEmail}`} className={style.contactLink}>
+                          {ContactProps.businessEmail}
                         </a>
                       </p>
                     </div>
@@ -53,7 +66,7 @@ export const Contact = () => {
               </div>
 
               {
-                data.socialLinks.length > 0 && (
+                ContactProps.socialLinks.length > 0 && (
                   <div className={`card ${style.card}`}>
                     <div className={`card-body p-4 ${style.cardBody}`}>
                       <div className={style.contactCard}>
@@ -64,7 +77,7 @@ export const Contact = () => {
                         <div className={style.contactContent}>
                           <p>You can also reach me through these digital pathways:</p>
                           <div className={style.socialGrid}>
-                          {data.socialLinks.map((link, index) => (
+                          {ContactProps.socialLinks.map((link, index) => (
 
                               <a key={index} href={link.url} className={`social-item ${style.socialItem}`}>
                                 <i className={`${link.icon} social-icon-lg ${style.socialIconLg}`}></i>
@@ -98,7 +111,7 @@ export const Contact = () => {
             <div className="col-lg-8 mx-auto">
               <div className="accordion" id="faqAccordion">
                 {
-                  data.questionsAndAnswers.map((item, index) => (
+                  ContactProps.questionsAndAnswers.map((item, index) => (
                     <div className={`accordion-item`} key={index}>
                       <h2 className={`accordion-header`} id={`heading${index}`}>
                         <button
