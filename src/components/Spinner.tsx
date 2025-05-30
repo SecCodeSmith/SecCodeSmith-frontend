@@ -30,7 +30,7 @@ export const Spinner : React.FC = () => {
         }
 
         const particlesContainer = document.getElementById('particles');
-        const particlesCount = 30;
+        const particlesCount = 100;
 
         function createParticle() {
             if (!particlesContainer) return;
