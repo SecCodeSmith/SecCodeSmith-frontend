@@ -43,14 +43,14 @@ export const Home = () => {
         binaryBg.appendChild(line);
       }
     };
-
+    const particlesCount = 200;
     const createParticles = () => {
       const particlesContainer = document.getElementById('particles');
       if (!particlesContainer) return;
 
       particlesContainer.innerHTML = '';
 
-      const particlesCount = 50;
+      
 
       for (let i = 0; i < particlesCount; i++) {
         setTimeout(() => {
@@ -78,7 +78,7 @@ export const Home = () => {
           setTimeout(() => {
             particle.remove();
           }, duration * 1000);
-        }, i * 100);
+        }, i * 1000);
       }
     };
 
@@ -87,7 +87,7 @@ export const Home = () => {
 
     const particleInterval = setInterval(() => {
       const particlesContainer = document.getElementById('particles');
-      if (particlesContainer && particlesContainer.childElementCount < 30) {
+      if (particlesContainer && particlesContainer.childElementCount < particlesCount) {
         createParticles();
       }
     }, 5000);
@@ -142,3 +142,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;

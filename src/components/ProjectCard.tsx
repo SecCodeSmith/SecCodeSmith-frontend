@@ -139,3 +139,5 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
     </div>
   )
 };
+
+export default ProjectCard;

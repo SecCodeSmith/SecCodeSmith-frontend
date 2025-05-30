@@ -145,3 +145,5 @@ export const Spinner : React.FC = () => {
         </div>
     );
 }
+
+export default Spinner;

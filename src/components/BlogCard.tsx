@@ -52,3 +52,5 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
     </div>
   );
 }
+
+export default BlogCard;

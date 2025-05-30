@@ -164,3 +164,5 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project }) => {
         </div>
     );
 };
+
+export default ProjectModal;

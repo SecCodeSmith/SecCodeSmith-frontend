@@ -1,11 +1,13 @@
-import { PageHeader } from '../components/PageHeader';
+import { lazy } from 'react';
 import { fetchAboutProps } from '../data/AboutProps';
-import { Spinner } from '../components/Spinner';
 import style from '@styles/About.module.scss';
 import { useEffect, useState } from 'react';
 import type { AboutProps } from '../untils/AboutProps';
 import type { ContactProps } from '../untils/ContactProps';
 import { fetchContactData } from '../data/contactData';
+
+const PageHeader = lazy(() => import('../components/PageHeader'));
+const Spinner = lazy(() => import('../components/Spinner'));
 
 export const About = () => {
   const [data, setData] = useState<AboutProps>();
@@ -188,3 +190,5 @@ export const About = () => {
     </>
   );
 };
+
+export default About;

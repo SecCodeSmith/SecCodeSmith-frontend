@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom'
-import { Header } from './Header'
-import { Footer } from './Footer'
+import { lazy } from 'react'
+
+const Header = lazy(() => import('./Header').then(module => ({ default: module.Header })))
+const Footer = lazy(() => import('./Footer').then(module => ({ default: module.Footer })))
 
 export const Layout = () => {
   return (
@@ -13,3 +15,5 @@ export const Layout = () => {
     </>
   )
 }
+
+export default Layout
