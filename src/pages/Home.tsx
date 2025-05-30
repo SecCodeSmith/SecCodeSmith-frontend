@@ -43,64 +43,49 @@ export const Home = () => {
         binaryBg.appendChild(line);
       }
     };
+
+
     const particlesCount = 200;
-    const createParticles = () => {
-      const particlesContainer = document.getElementById('particles');
+    const particlesContainer = document.getElementById('particles');
+
+    function createParticle(i: number) {
       if (!particlesContainer) return;
-
-      particlesContainer.innerHTML = '';
-
       
+      const particle = document.createElement('div');
+      particle.className = styles.particle;
 
-      for (let i = 0; i < particlesCount; i++) {
-        setTimeout(() => {
-          const particle = document.createElement('div');
-          particle.className = styles.particle;
+      const posX = Math.random() * window.innerWidth;
+      const posY = window.innerHeight - 100 + (Math.random() * 50);
 
-          const posX = Math.random() * window.innerWidth;
-          const posY = window.innerHeight - 100 + (Math.random() * 50);
+      particle.style.left = `${posX}px`;
+      particle.style.top = `${posY}px`;
 
-          particle.style.left = `${posX}px`;
-          particle.style.top = `${posY}px`;
+      const size = Math.random() * 3 + 1;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
 
-          const size = Math.random() * 3 + 1;
-          particle.style.width = `${size}px`;
-          particle.style.height = `${size}px`;
+      const xDrift = (Math.random() - 0.5) * 100;
+      particle.style.setProperty('--x', `${xDrift}px`);
 
-          const xDrift = (Math.random() - 0.5) * 100;
-          particle.style.setProperty('--x', `${xDrift}px`);
+      const duration = Math.random() * 5 + 1;
+      particle.style.animationDuration = `${duration}s`;
+      particle.id = `particle-${i}`;
 
-          const duration = Math.random() * 3 + 2;
-          particle.style.animationDuration = `${duration}s`;
+      particlesContainer.appendChild(particle);
 
-          particlesContainer.appendChild(particle);
-
-          setTimeout(() => {
-            particle.remove();
-          }, duration * 1000);
-        }, i * 1000);
-      }
+      setTimeout(() => {
+        particle.remove();
+        createParticle(i);
+      }, duration * 1000);
     };
 
     createBinaryBg();
-    createParticles();
 
-    const particleInterval = setInterval(() => {
-      const particlesContainer = document.getElementById('particles');
-      if (particlesContainer && particlesContainer.childElementCount < particlesCount) {
-        createParticles();
-      }
-    }, 5000);
+    for (let i = 0; i < particlesCount; i++) {
+      setTimeout(() => createParticle(i), i * 100);
+    }
 
-    // Cleanup
-    return () => {
-      clearInterval(particleInterval);
-    };
   }, []);
-
-  if (!skills) {
-    return <Spinner />;
-  }
 
   return (
     <>
@@ -130,11 +115,11 @@ export const Home = () => {
           </div>
           <div className="row g-4">
             {skills && skills.map((skill) => (
-                <SkillCard
-                  categoryIcon={skill.categoryIcon}
-                  categoryTitle={skill.categoryTitle}
-                  skills={skill.skills}
-                />
+              <SkillCard
+                categoryIcon={skill.categoryIcon}
+                categoryTitle={skill.categoryTitle}
+                skills={skill.skills}
+              />
             ))}
           </div>
         </div>
