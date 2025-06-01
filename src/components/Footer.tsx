@@ -1,16 +1,25 @@
-import {socialLinkData} from '../data/socialLinkData'
+import { useEffect, useState } from 'react';
+import {fetchSocialLinkData} from '../data/socialLinkData'
 import type {SocialLink} from '../untils/SocialLink'
 
 
 export const Footer = () => {
-  const socialLinks: SocialLink[] = socialLinkData;
-
+   const [SocialLinks, setSocialLinks] = useState<SocialLink[]>();
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        const data = await fetchSocialLinkData();
+        setSocialLinks(data);
+      };
+      fetchData();
+    }, []);
+    
   const currentYear = new Date().getFullYear()
   return (
     <footer className="footer">
       <div className="container">
         <div className="social-links">
-          {socialLinks.map((link, index) => (
+          {SocialLinks && SocialLinks.map((link, index) => (
             <a key={index} href={link.url} className="social-icon">
               <i className={link.icon}></i>
             </a>
@@ -21,3 +30,5 @@ export const Footer = () => {
     </footer>
   )
 }
+
+export default Footer;

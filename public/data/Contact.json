@@ -4,7 +4,8 @@
     "socialLinks": [
         { "platform": "LinkedIn", "url": "https://www.linkedin.com/in/jakub-berechowski", "icon": "fab fa-linkedin" },
         { "platform": "GitHub", "url": "https://github.com/seccodesmith", "icon": "fab fa-github" },
-        { "platform": "Facebook", "url": "https://www.facebook.com/people/Seccodesmith/61575058536717/", "icon": "fab fa-facebook" }
+        { "platform": "Facebook", "url": "https://www.facebook.com/people/Seccodesmith/61575058536717/", "icon": "fab fa-facebook" },
+        { "platform": "Mastodon", "url": "https://mastodon.social/@seccodesmith", "icon": "fab fa-mastodon" }
     ],
     "questionsAndAnswers": [
         { "question": "What is your typical project timeline?", "answer": "Project timelines vary based on complexity and scope. Small projects typically take 2-4 weeks, medium-sized projects 1-2 months, and larger enterprise solutions 3-6 months. I provide detailed timeline estimates during the initial consultation, and maintain transparent communication about progress throughout the development cycle." },

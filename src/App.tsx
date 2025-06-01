@@ -1,12 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { lazy } from 'react'
 import { Layout } from './components/Layout'
-import { Home } from './pages/Home'
-import { About } from './pages/About'
-import { Blog } from './pages/Blog'
-import { BlogPost } from './pages/BlogPost'
-import { Projects } from './pages/Projects'
-import { Contact } from './pages/Contact'
-import { NotFound } from './pages/NotFound'
+
+const Home = lazy(() => import('./pages/Home'))
+const About = lazy(() => import('./pages/About'))
+const Blog = lazy(() => import('./pages/Blog'))
+const BlogPost = lazy(() => import('./pages/BlogPost'))
+const Projects = lazy(() => import('./pages/Projects'))
+const Contact = lazy(() => import('./pages/Contact'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 import '@components/styles.css'
 
 function App() {

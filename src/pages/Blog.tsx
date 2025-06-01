@@ -1,13 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { BlogCard } from '../components/BlogCard';
-import { blogPostsData } from '../data/blogPostsData';
+import { fetchBlogPosts } from '../data/blogPostsData';
 
 import style from '@styles/Blog.module.scss';
+import type { BlogPostProps } from '../untils/BlogPostProps';
+import { Spinner } from '../components/Spinner';
+import { redirect } from 'react-router-dom';
 
 export const Blog = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, /*setCurrentPage*/] = useState(1);
+  const [blogPostsData, setBlogPostsData] = useState<BlogPostProps[]>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchBlogPosts();
+      if (!data || data.length === 0) {
+        console.error('No blog posts found');
+        redirect('/404');
+      }
+      setBlogPostsData(data);
+    };
+    fetchData();
+  }, []);
+
+  if (!blogPostsData) {
+    return <Spinner />;
+  }
   
   const filteredPosts = searchQuery
     ? blogPostsData.filter(post => 
@@ -168,3 +188,5 @@ export const Blog = () => {
     </>
   );
 };
+
+export default Blog;

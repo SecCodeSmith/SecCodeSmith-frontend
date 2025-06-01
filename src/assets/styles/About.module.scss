@@ -565,16 +565,12 @@
 }
 
 @media (max-width: 992px) {
-  .pageTitle {
-    font-size: 2.5rem;
-  }
-
   .timeline:before {
     left: 2rem;
   }
 
-  .timelineItem:nth-child(odd) .timeline-content,
-  .timelineItem:nth-child(even) .timeline-content {
+  .timelineItem:nth-child(odd) .timelineContent,
+  .timelineItem:nth-child(even) .timelineContent {
     width: calc(100% - 3rem);
     margin-left: 3rem;
     padding-left: 1.5rem;
@@ -587,9 +583,6 @@
 }
 
 @media (max-width: 768px) {
-  .pageTitle {
-    font-size: 2rem;
-  }
 
   .introText {
     margin-top: 2rem;
@@ -597,10 +590,6 @@
 }
 
 @media (max-width: 576px) {
-  .pageTitle {
-    font-size: 1.8rem;
-  }
-
   .sectionTitle {
     font-size: 1.8rem;
   }

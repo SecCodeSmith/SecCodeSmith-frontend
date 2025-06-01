@@ -23,3 +23,5 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle }) => {
     </section>
   )
 }
+
+export default PageHeader;

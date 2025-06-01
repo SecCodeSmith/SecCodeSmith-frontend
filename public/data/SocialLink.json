@@ -1,22 +1,22 @@
 [
   {
     "icon": "fab fa-github",
-    "url": ""
+    "url": "https://github.com/SecCodeSmith"
   },
   {
     "icon": "fab fa-linkedin",
-    "url": ""
-  },
-  {
-    "icon": "fab fa-twitter",
-    "url": ""
+    "url": "https://www.facebook.com/profile.php?id=61575058536717"
   },
   {
     "icon": "fab fa-discord",
-    "url": ""
+    "url": "https://discord.gg/EPd7GqsR"
+  },
+  {
+    "url": "https://www.facebook.com/people/Seccodesmith/61575058536717/",
+    "icon": "fab fa-facebook"
   },
   {
     "icon": "fas fa-envelope",
-    "url": ""
+    "url": "mailto:contact@seccodesmith.pl"
   }
 ]

@@ -1,32 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { blogPostsData } from '../data/blogPostsData';
-import { NotFound } from './NotFound';
+import { fetchBlogPosts } from '../data/blogPostsData';
 
 
 import style from '@styles/BlogPost.module.scss';
+import type { BlogPostProps } from '../untils/BlogPostProps';
+import { Spinner } from '../components/Spinner';
+import { NotFound } from './NotFound';
 
 interface TableOfContentsItem {
   title: string;
-  id: number;
+  id: string;
   children?: TableOfContentsItem[];
-}
-
-function dedent(str: string): string {
-  const lines = str.split('\n');
-  while (lines.length > 0 && lines[0].trim() === '') {
-    lines.shift();
-  }
-  while (lines.length > 0 && lines[lines.length - 1].trim() === '') {
-    lines.pop();
-  }
-
-  const indents = lines
-    .filter(line => line.trim().length > 0)
-    .map(line => line.match(/^ */)![0].length);
-  const minIndent = indents.length ? Math.min(...indents) : 0;
-
-  return lines.map(line => line.slice(minIndent)).join('\n');
 }
 
 const TableOfContents = ({ toc }: { toc: TableOfContentsItem[] }) => {
@@ -45,115 +30,126 @@ const TableOfContents = ({ toc }: { toc: TableOfContentsItem[] }) => {
 }
 
 export const BlogPost = () => {
+
   const { slug } = useParams<{ slug: string }>();
-  const [post, setPost] = useState(blogPostsData.find(post => post.slug === slug));
-  const [relatedPosts, setRelatedPosts] = useState(blogPostsData.slice(0, 3));
+  const [post, setPost] = useState<BlogPostProps | null>();
+  const [relatedPosts, setRelatedPosts] = useState<BlogPostProps[] | null>();
   const [toc, setToc] = useState<TableOfContentsItem[]>([]);
+  const [body, setBody] = useState<string>();
+  const [found, setFound] = useState<boolean>(true);
+
 
   useEffect(() => {
-    const currentPost = blogPostsData.find(post => post.slug === slug);
-    let id = 0;
-    const toc: TableOfContentsItem[] = [];
-
-    if (currentPost) {
-      setPost(currentPost);
-
-
-      const related = blogPostsData
-        .filter(p => p.id !== currentPost.id)
-        .filter(p =>
-          p.category === currentPost.category ||
-          p.tags.some(tag => currentPost.tags.includes(tag))
-        )
-        .slice(0, 3);
-
-      setRelatedPosts(related);
-
-      let newContent = '';
-      if (currentPost.content) {
-        const content = dedent(currentPost.content);
-        const lines = content.split('\n');
-        for (let i = 0; i < lines.length; i++) {
-          if (/^#\s/.test(lines[i])) {
-            newContent += `<h2 id="${id}">${lines[i].replace(/^#+\s*/, '')}</h2> \n`;
-            toc.push({ title: lines[i].replace(/^#+\s*/, ''), id });
-            id++;
-          }
-          else if (/^##\s/.test(lines[i])) {
-            newContent += `<h3 id="${id}">${lines[i].replace(/^#+\s*/, '')}</h3> \n`;
-            if (toc.length > 0) {
-              const parent = toc[toc.length - 1];
-              if (!parent.children) {
-              parent.children = [];
-              }
-              parent.children.push({ title: lines[i].replace(/^#+\s*/, ''), id });
-            }
-            id++;
-          }
-          else if (/^###\s/.test(lines[i])) {
-            newContent += `<h4 id="${id}">${lines[i].replace(/^#+\s*/, '')}</h4> \n`;
-            if (toc.length > 0) {
-              const h2Parent = toc[toc.length - 1];
-              if (h2Parent.children && h2Parent.children.length > 0) {
-              const h3Parent = h2Parent.children[h2Parent.children.length - 1];
-              if (!h3Parent.children) {
-                h3Parent.children = [];
-              }
-              h3Parent.children.push({ title: lines[i].replace(/^#+\s*/, ''), id });
-              }
-            }
-            id++;
-          }
-          else if (/^\*\s/.test(lines[i])) {
-            newContent += '<ul>\n';
-
-            for (; i < lines.length; i++) {
-              if (/^\*\s/.test(lines[i])) {
-                newContent += `<li>${lines[i].replace(/^\*\s/, '')}</li>\n`;
-              }
-              else {
-                break;
-              }
-            }
-            newContent += '</ul>\n';
-          } 
-          else if (/^\-\s/.test(lines[i])) {
-            newContent += '<ol>\n';
-
-            for (; i < lines.length; i++) {
-              if (/^\-\s/.test(lines[i])) {
-                newContent += `<li>${lines[i].replace(/^\-\s/, '')}</li>\n`;
-              }
-              else {
-                break;
-              }
-            }
-            newContent += '</ol>\n';
-          } 
-          else {
-            newContent += `<p>${lines[i]}</p>\n`;
-          }
-        }
+    const fetchData = async () => {
+      const blogPostsData = await fetchBlogPosts();
+      if (!blogPostsData || blogPostsData.length === 0) {
+        setFound(false);
+        console.error('No blog posts found');
+        return;
       }
 
-      newContent = newContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      newContent = newContent.replace(/__(.*?)__/g, '<strong>$1</strong>');
-      newContent = newContent.replace(/\*(.*?)\*/g, '<em>$1</em>');
-      newContent = newContent.replace(/_(.*?)_/g, '<em>$1</em>');
-      newContent = newContent.replace(/`(.*?)`/g, '<code>$1</code>');
-      newContent = newContent.replace(/!\[(.*?)\]\((.*?)\)/g, '<img alt="$1" src="$2" />');
-      newContent = newContent.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
 
-      const contentElement = document.getElementById('postContent');
-      contentElement!.innerHTML = newContent;
-      setToc(toc);
+      const currentPost = blogPostsData.find(post => post.slug === slug);
+      let id = 0;
+      const toc: TableOfContentsItem[] = [];
 
-      window.scrollTo(0, 0);
+      if (currentPost) {
+        setPost(currentPost);
+
+
+
+        const related = blogPostsData
+          .filter(p => p.id !== currentPost.id)
+          .filter(p =>
+            p.category === currentPost.category ||
+            p.tags.some(tag => currentPost.tags.includes(tag))
+          )
+          .slice(0, 3);
+
+        setRelatedPosts(related);
+
+        if (currentPost.content) {
+          let httmlContent = currentPost.content;
+
+          // Convert Markdown to HTML
+          let listOdCode: string[] = [];
+          const codeBlockRegex = /<StringCodeBlockTagForReplace-id-(\d+)\s*\/>/g;
+          let code_id  = 0;
+          // Code blocks
+          httmlContent = httmlContent.replace(/```(\w*)\n([\s\S]*?)```/gm, (_match, lang, code) => {
+            const cls = lang ? ` class="language-${lang}"` : "";
+            const escaped = code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            const codeBlock = `<pre><code${cls}>${escaped}</code></pre>`;
+            listOdCode.push(codeBlock);
+            return `<StringCodeBlockTagForReplace-id-${code_id++} />`;
+          });
+
+          // Header tags
+          httmlContent = httmlContent.replace(/^(#{1,6})\s*(.*)$/gm, (_match, hashes, title) => {
+            const level = hashes.length;
+            const tag = `h${level}`;
+            const tag_id: string = `toc-${id++}`;
+            if (level > 1 && toc.length > 0) {
+              let currient_level = toc[toc.length - 1];
+              let currient_level_number = 1;
+              while (currient_level && currient_level.children &&
+                currient_level.children.length > 0 &&
+                currient_level.children[currient_level.children.length - 1].id !== tag_id &&
+                currient_level_number <= level) {
+                currient_level = currient_level.children[currient_level.children.length - 1];
+              }
+              if (!currient_level.children) {
+                currient_level.children = [];
+              }
+              currient_level.children.push({ title, id: tag_id });
+            }
+            else {
+              toc.push({ title, id: tag_id });
+            }
+
+            return `<${tag} id="${tag_id}">${title}</${tag}>`;
+          });
+
+          // Numbered and bulleted lists
+          httmlContent = httmlContent.replace(/^\s*([-*]|\d+\.)\s+(.*)$/gm, (_match, marker, content) => {
+            const isNumbered = /^\d+\./.test(marker);
+            const tag = isNumbered ? 'ol' : 'ul';
+            const listItem = `<li>${content}</li>`;
+            return `<${tag}>${listItem}</${tag}>`;
+          });
+
+          
+
+          // Line breaks
+          httmlContent = httmlContent.replace(/(.)(?:\r\n|\r|\n)(.*\w)/g, '$1<br>$2');
+
+          // Paragraphs
+          httmlContent = httmlContent.replace(/^(?!\s*(?:#{1,6}\s|>|\d+\.\s|[*+\-]\s|~~~|!\[|---))([^\r\n]+(?:\r?\n(?!\s*(?:#{1,6}\s|>|\d+\.\s|[*+\-]\s|~~~|!\[))[^\r\n]+)*)/gm, '<p>$1</p>');
+
+          // Inline formatting
+          httmlContent = httmlContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/__(.*?)__/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/_(.*?)_/g, '<em>$1</em>')
+            .replace(/`(.*?)`/g, '<code>$1</code>')
+            .replace(/!\[(.*?)\]\((.*?)\)/g, '<img alt="$1" src="$2" />')
+            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>')
+            .replace(codeBlockRegex, (_match, codeId) => {
+              return listOdCode[parseInt(codeId, 10)] || '';
+            });
+
+          setBody(httmlContent);
+          setToc(toc);
+        }
+
+        window.scrollTo(0, 0);
+      }
     }
+    fetchData();
   }, [slug]);
 
   if (!post) {
-    return <NotFound />;
+    return found ? (<Spinner/>) : (<NotFound/>)
   }
 
   return (
@@ -189,8 +185,8 @@ export const BlogPost = () => {
             </div>
           </div>
 
-          <div className={style.postContent} id="postContent">
-          </div>
+          {body && <div className={style.postContent} dangerouslySetInnerHTML={{ __html: body }} />}
+
           <div className={style.postContent}>
             {/* Post Tags */}
             <div className={style.postTags}>
@@ -228,42 +224,42 @@ export const BlogPost = () => {
               </div>
             </div>
             {/*Temporarily disable comments section */}
-            {  0 && (
-            <div className={style.commentsSection}>
-              <h3 className={style.commentsTitle}>Discussions ({post.commentCount})</h3>
+            {0 && (
+              <div className={style.commentsSection}>
+                <h3 className={style.commentsTitle}>Discussions ({post.commentCount})</h3>
 
-              {/* Sample Comments */}
-              <div className={style.comment}>
-                <div className={style.commentAvatar}>
-                  <img src="/images/user-1.jpg" alt="User" />
+                {/* Sample Comments */}
+                <div className={style.comment}>
+                  <div className={style.commentAvatar}>
+                    <img src="/images/user-1.jpg" alt="User" />
+                  </div>
+                  <div className={style.commentContent}>
+                    <h4 className={style.commentAuthor}>Michael Chen</h4>
+                    <div className={style.commentDate}>May 5, 2025 at 15:42</div>
+                    <p className={style.commentText}>Excellent article! I've been struggling with I2C bus lockups in my weather station project. The recovery function you provided solved the issue. Have you considered adding a timeout mechanism to the SPI transfers for error detection?</p>
+                    <a href="#" className={style.commentReply}>Reply</a>
+                  </div>
                 </div>
-                <div className={style.commentContent}>
-                  <h4 className={style.commentAuthor}>Michael Chen</h4>
-                  <div className={style.commentDate}>May 5, 2025 at 15:42</div>
-                  <p className={style.commentText}>Excellent article! I've been struggling with I2C bus lockups in my weather station project. The recovery function you provided solved the issue. Have you considered adding a timeout mechanism to the SPI transfers for error detection?</p>
-                  <a href="#" className={style.commentReply}>Reply</a>
-                </div>
-              </div>
 
-              {/* Comment Form */}
-              <div className={`${style.commentForm} comment-form`}>
-                <h3 className={style.formTitle}>Leave your mark</h3>
-                <form>
-                  <div className={`form-row ${style.formRow}`}>
-                    <div className={`form-group ${style.formGroup}`}>
-                      <input type="text" className={`${style.formControl}`} placeholder="Your Name" />
+                {/* Comment Form */}
+                <div className={`${style.commentForm} comment-form`}>
+                  <h3 className={style.formTitle}>Leave your mark</h3>
+                  <form>
+                    <div className={`form-row ${style.formRow}`}>
+                      <div className={`form-group ${style.formGroup}`}>
+                        <input type="text" className={`${style.formControl}`} placeholder="Your Name" />
+                      </div>
+                      <div className={`form-group ${style.formGroup}`}>
+                        <input type="email" className={`${style.formControl}`} placeholder="Your Email" />
+                      </div>
                     </div>
                     <div className={`form-group ${style.formGroup}`}>
-                      <input type="email" className={`${style.formControl}`} placeholder="Your Email" />
+                      <textarea className={`${style.formControl}`} rows={5} placeholder="Your Comment"></textarea>
                     </div>
-                  </div>
-                  <div className={`form-group ${style.formGroup}`}>
-                    <textarea className={`${style.formControl}`} rows={5} placeholder="Your Comment"></textarea>
-                  </div>
-                  <button type="submit" className={`submit-button ${style.submitButton}`}>Post Comment</button>
-                </form>
+                    <button type="submit" className={`submit-button ${style.submitButton}`}>Post Comment</button>
+                  </form>
+                </div>
               </div>
-            </div>
             )}
           </div>
         </article>
@@ -280,7 +276,7 @@ export const BlogPost = () => {
         <div className={style.sidebarWidget}>
           <h3 className={style.widgetTitle}>Related Scrolls</h3>
           <ul className={style.relatedPostsList}>
-            {relatedPosts.map(relatedPost => (
+            {relatedPosts && relatedPosts.map(relatedPost => (
               <li className={style.relatedPostItem} key={relatedPost.id}>
                 <Link to={`/blog/${relatedPost.slug}`} className={style.relatedPostLink}>
                   <div className={style.relatedPostThumb} style={{ backgroundImage: `url(${relatedPost.image})` }}></div>
@@ -297,3 +293,5 @@ export const BlogPost = () => {
     </div>
   );
 };
+
+export default BlogPost;

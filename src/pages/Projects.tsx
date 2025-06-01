@@ -1,16 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { ProjectCard } from '../components/ProjectCard';
 import { ProjectModal } from '../components/ProjectModal';
-import { projectsData, Categories } from '../data/projectsData';
-import type {ProjectProps} from '../untils/ProjectProps';
+import { fetchProjectsData, Categories } from '../data/projectsData';
+import type { ProjectProps } from '../untils/ProjectProps';
 
 import style from '@styles/Project.module.scss'
+import { Spinner } from '../components/Spinner';
 
 
 export const Projects = () => {
+  const [projectsData, setprojectsData] = useState<ProjectProps[]>();
   const [activeFilter, setActiveFilter] = useState('all');
   const [selectedProject, setSelectedProject] = useState<ProjectProps | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProjectsData();
+      setprojectsData(data);
+    };
+    fetchData();
+  }, []);
+
+  if (!projectsData) {
+    return <Spinner />;
+  }
 
   const filteredProjects = activeFilter === 'all'
     ? projectsData
@@ -96,3 +110,5 @@ export const Projects = () => {
     </>
   );
 };
+
+export default Projects;

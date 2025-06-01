@@ -4,11 +4,11 @@ import styles from '@styles/Contact.module.scss'
 
 export const ContactForm = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    name: 'This form is temporary does not send messages',
     email: '',
-    subject: '',
+    subject: 'This form is temporary does not send messages',
     projectType: '',
-    message: '',
+    message: 'This form is temporary does not send messages',
     budget: ''
   });
   
@@ -199,3 +199,5 @@ export const ContactForm = () => {
     </div>
   );
 }
+
+export default ContactForm;

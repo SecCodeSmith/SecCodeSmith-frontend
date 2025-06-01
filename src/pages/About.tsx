@@ -1,10 +1,30 @@
-import { PageHeader } from '../components/PageHeader';
-import { aboutProps } from '../data/AboutProps';
-
+import { lazy } from 'react';
+import { fetchAboutProps } from '../data/AboutProps';
 import style from '@styles/About.module.scss';
+import { useEffect, useState } from 'react';
+import type { AboutProps } from '../untils/AboutProps';
+import type { ContactProps } from '../untils/ContactProps';
+import { fetchContactData } from '../data/contactData';
+
+const PageHeader = lazy(() => import('../components/PageHeader'));
+const Spinner = lazy(() => import('../components/Spinner'));
 
 export const About = () => {
-  const data = aboutProps;
+  const [data, setData] = useState<AboutProps>();
+  const [ContactProps, setContactProps] = useState<ContactProps>();
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const aboutData = await fetchAboutProps();
+      setData(aboutData);
+      const data = await fetchContactData();
+      setContactProps(data);
+    };
+    fetchData();
+  }, []);
+  if (!data) {
+    return <Spinner />;
+  }
   return (
     <>
       <PageHeader
@@ -19,7 +39,7 @@ export const About = () => {
             <div className="col-lg-4">
               <h2 className={`${style.sectionTitle}`}>The Master Behind the Mask</h2>
               <div className={style.profileImage}>
-                <img src="/images/profile.jpg" alt="SecCodeSmith" />
+                <img src="/images/profile.webp" alt="SecCodeSmith" />
               </div>
             </div>
             <div className="col-lg-8">
@@ -33,22 +53,16 @@ export const About = () => {
                 <p className={style.introText}>Beyond the technical realms, I am a devoted practitioner of open-source sorcery, contributing to projects that empower others to create and innovate. When not at the forge, I can be found exploring the ancient texts of computer science, delving into new programming languages, or mentoring apprentices on their own journey.</p>
 
                 <div className="mt-4">
-                  <a href="#" className={style.connectLink}>
-                    <i className={`fab fa-github ${style.connectIcon}`}></i>
-                    <span>GitHub</span>
-                  </a>
-                  <a href="#" className={style.connectLink}>
-                    <i className={`fab fa-linkedin ${style.connectIcon}`}></i>
-                    <span>LinkedIn</span>
-                  </a>
-                  <a href="#" className={style.connectLink}>
-                    <i className={`fab fa-twitter ${style.connectIcon}`}></i>
-                    <span>Twitter</span>
-                  </a>
-                  <a href="#" className={style.connectLink}>
-                    <i className={`fas fa-envelope ${style.connectIcon}`}></i>
-                    <span>Email</span>
-                  </a>
+                  {
+                    ContactProps?.socialLinks && 
+                    ContactProps.socialLinks.length > 0 && 
+                    ContactProps.socialLinks.map((link, index) => (
+                      <a key={index} href={link.url} className={`${style.connectLink}`}>
+                        <i className={`${link.icon} ${style.connectIcon}`}></i>
+                        <span>{link.platform}</span>
+                      </a>
+                    ))
+                  }
                 </div>
               </div>
             </div>
@@ -176,3 +190,5 @@ export const About = () => {
     </>
   );
 };
+
+export default About;
