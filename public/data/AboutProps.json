@@ -75,9 +75,19 @@
             "duration": "2021.10 - 2025.6"
         },
         {
-            "title": "intern software engineer at Opeteam S.A.",
+            "title": "Trainee at Opeteam S.A.",
+            "description": "",
+            "duration": "2022.08 - 2022.09"
+        },
+        {
+            "title": "Junior Software Developer at Opeteam S.A.",
             "description": "- Performing programming tasks in R&D projects within the product development department,\n - Database administration, \n - Defining unit tests and manual testing of solutions, \n - Selecting technologies for basic problems, - Documenting the source code (technical documentation)., \n",                
-            "duration": "2022.8 - 2023.4"
+            "duration": "2022.09 - 2023.04"
+        },
+        {
+            "title": "Trainee at Bogard Meble",
+            "description": "- Created simple automaction script for office. \n - Prepare some static pages",
+            "duration": "2023.07 - 2023.08"
         }
         
     ],

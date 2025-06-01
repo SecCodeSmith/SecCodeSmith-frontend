@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import styles from '@styles/Home.module.scss';
 import SkillCard from '../components/SkillCard'
-import { Spinner } from '../components/Spinner';
 import { fetchSkillCardData } from '../data/skillCardData';
 import { randomCodeLineData } from '../data/randomCodeLineData';
 import type { SkillCardProps } from '../untils/SkillCardProps';
@@ -50,7 +49,7 @@ export const Home = () => {
 
     function createParticle(i: number) {
       if (!particlesContainer) return;
-      
+
       const particle = document.createElement('div');
       particle.className = styles.particle;
 
@@ -66,6 +65,9 @@ export const Home = () => {
 
       const xDrift = (Math.random() - 0.5) * 100;
       particle.style.setProperty('--x', `${xDrift}px`);
+
+      const maxOpacity = Math.random() * 0.7 + 0.;
+      particle.style.setProperty('--max-opacity', `${maxOpacity}`);
 
       const duration = Math.random() * 5 + 1;
       particle.style.animationDuration = `${duration}s`;
