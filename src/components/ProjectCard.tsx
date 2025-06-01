@@ -107,7 +107,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
                   {project.description}
                 </p>
                 <ProjectCardTech technology={project.technologies} />
-                <ProjectLinks links={project.links} id={project.id} onOpenDetails={onOpenDetails} />
+                <ProjectLinks links={project} id={project.id} onOpenDetails={onOpenDetails} />
               </div>
             </div>
           </div>
@@ -133,7 +133,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
             {project.description}
           </p>
           <ProjectCardTech technology={project.technologies} />
-          <ProjectLinks links={project.links} id={project.id} onOpenDetails={onOpenDetails} />
+          <ProjectLinks links={{ github: project.github, demo: project.demo }} id={project.id} onOpenDetails={onOpenDetails} />
         </div>
       </div>
     </div>

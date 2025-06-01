@@ -8,11 +8,9 @@ export interface ProjectProps {
   category: Category[];
   featured?: boolean;
   technologies: ProjectTech[];
-  links: {
-    github?: string;
-    demo?: string;
-    documentation?: string;
-  };
+  github?: string;
+  demo?: string;
+  documentation?: string;
 }
 
 export interface ProjectDetails {

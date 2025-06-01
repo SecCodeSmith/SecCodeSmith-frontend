@@ -141,18 +141,18 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project }) => {
                         }
                     </div>
                     <div className={`modal-footer ${style.modalFooter}`}>
-                        {project.links.github && (
-                            <a href={project.links.github} className={`btn btn-outline-secondary ${style.btnOutlineSecondary}`} target="_blank" rel="noopener noreferrer">
+                        {project.github && (
+                            <a href={project.github} className={`btn btn-outline-secondary ${style.btnOutlineSecondary}`} target="_blank" rel="noopener noreferrer">
                                 <i className="fab fa-github btn-icon"></i>Source Code
                             </a>
                         )}
-                        {project.links.demo && (
-                            <a href={project.links.demo} className={`btn btn-outline-secondary ${style.btnOutlineSecondary}`} target="_blank" rel="noopener noreferrer">
+                        {project.demo && (
+                            <a href={project.demo} className={`btn btn-outline-secondary ${style.btnOutlineSecondary}`} target="_blank" rel="noopener noreferrer">
                                 <i className="fas fa-external-link-alt btn-icon"></i>Live Demo
                             </a>
                         )}
-                        {project.links.documentation && (
-                            <a href={project.links.documentation} className={`btn btn-outline-secondary ${style.btnOutlineSecondary}`} target="_blank" rel="noopener noreferrer">
+                        {project.documentation && (
+                            <a href={project.documentation} className={`btn btn-outline-secondary ${style.btnOutlineSecondary}`} target="_blank" rel="noopener noreferrer">
                                 <i className="fas fa-book btn-icon"></i>Documentation
                             </a>
                         )}
