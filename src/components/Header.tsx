@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import logo from '../assets/images/favicon.png'
+import logo from '../assets/images/favicon.webp'
 
 export const Header = () => {
   const location = useLocation()
