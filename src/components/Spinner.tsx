@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import logo from '../assets/images/favicon.png'
+import logo from '../assets/images/favicon.webp'
 import { randomCodeLineData } from '../data/randomCodeLineData';
 import styles from '@styles/Spinner.module.scss';
 
