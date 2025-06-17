@@ -1,56 +1,83 @@
 import { useEffect, useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { BlogCard } from '../components/BlogCard';
-import { fetchBlogPosts } from '../data/blogPostsData';
+import { fetchBlogPostsPage, fetchBlogPagesCount } from '../data/blogPostsData';
 
 import style from '@styles/Blog.module.scss';
 import type { BlogPostProps } from '../untils/BlogPostProps';
 import { Spinner } from '../components/Spinner';
-import { redirect } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../Config';
 
 export const Blog = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [currentPage, /*setCurrentPage*/] = useState(1);
-  const [blogPostsData, setBlogPostsData] = useState<BlogPostProps[]>();
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [posts, setPosts] = useState<BlogPostProps[]>([]);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(true);
+  const navigate = useNavigate();
 
+   const perPage = 6;
+
+  // Fetch page count once or on perPage change
+  useEffect(() => {
+    const loadCount = async () => {
+      try {
+        const count = await fetchBlogPagesCount(perPage);
+        setTotalPages(count);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    loadCount();
+  }, [perPage]);
+
+  // Fetch posts whenever page or searchQuery changes
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchBlogPosts();
-      if (!data || data.length === 0) {
-        console.error('No blog posts found');
-        redirect('/404');
+      setLoading(true);
+      try {
+        const filter = searchQuery
+          ? { title: searchQuery, tags: searchQuery, category: searchQuery }
+          : undefined;
+        const data = await fetchBlogPostsPage(currentPage, perPage, filter);
+        if (!data || data.posts.length === 0) {
+          if (currentPage === 1) {
+            navigate('/404');
+            return;
+          }
+        }
+        setPosts(data.posts);
+      } catch (err) {
+        console.error('Error fetching posts:', err);
+      } finally {
+        setLoading(false);
       }
-      setBlogPostsData(data);
     };
-    fetchData();
-  }, []);
 
-  if (!blogPostsData) {
+    fetchData();
+  }, [currentPage, searchQuery, navigate]);
+
+  if (loading) {
     return <Spinner />;
   }
-  
-  const filteredPosts = searchQuery
-    ? blogPostsData.filter(post => 
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-      )
-    : blogPostsData;
 
-    const filteredPostPageCount = Math.ceil(filteredPosts.length / 6);
+  // Featured vs regular
+  const featuredPost = posts.find(post => post.featured);
+  const regularPosts = posts.filter(post => !post.featured);
 
-  const featuredPost = blogPostsData.find(post => post.featured);
-  
-  const regularPosts = filteredPosts.filter(post => !post.featured);
-  
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-  
-  const categories = Array.from(new Set(blogPostsData.map(post => post.category)));
-  
-  const allTags = blogPostsData.flatMap(post => post.tags);
+  // Helpers for sidebar
+  const categories = Array.from(new Set(posts.map(p => p.category)));
+  const allTags = posts.flatMap(p => p.tags);
   const uniqueTags = Array.from(new Set(allTags));
+
+  // Pagination handlers
+  const goToPage = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
   
   return (
     <>
@@ -78,7 +105,7 @@ export const Blog = () => {
               ))}
             </div>
 
-            {filteredPosts.length === 0 && (
+            {regularPosts.length === 0 && !featuredPost && (
               <div className="text-center mt-5">
                 <h3>No posts found matching your search.</h3>
                 <button 
@@ -90,7 +117,7 @@ export const Blog = () => {
               </div>
             )}
 
-            {filteredPostPageCount > 1 && (
+            {totalPages > 1 && (
               <nav className="mt-5" aria-label="Blog pagination">
                 <ul className="pagination justify-content-center">
                   {(currentPage > 1) && ( <li className={`page-item ${style.pageItem}`}>
@@ -99,12 +126,12 @@ export const Blog = () => {
                     </a>
                   </li>)}
 
-                  {Array.from({ length: filteredPostPageCount }, (_, index) => (
+                  {Array.from({ length: totalPages }, (_, index) => (
                     <li className={`page-item ${style.pageItem}`} key={index}>
                       <a className={`page-link ${style.pageLink}`} href="#">{index + 1}</a>
                     </li>
                   ))}
-                  {(currentPage < filteredPostPageCount) && ( <li className={`page-item ${style.pageItem}`}>
+                  {(currentPage < totalPages) && ( <li className={`page-item ${style.pageItem}`}>
                     <a className={`page-link ${style.pageLink}`} href="#" aria-label="Next">
                       <i className="fas fa-angle-right"></i>
                     </a>
@@ -124,7 +151,7 @@ export const Blog = () => {
                     className="form-control" 
                     placeholder="Search articles..." 
                     value={searchQuery}
-                    onChange={handleSearchChange}
+                    onChange={e => setSearchQuery(e.target.value)}
                   />
                   <button className={`btn btn-primary ${style.btn}`} type="submit">
                     <i className="fas fa-search"></i>
@@ -136,26 +163,24 @@ export const Blog = () => {
             <div className={`sidebar-widget ${style.sidebarWidget}`}>
               <h3 className={`widget-title ${style.widgetTitle}`}>Categories</h3>
               <div className="list-group">
-                {categories.map((category, index) => {
-                  const count = blogPostsData.filter(post => post.category === category).length;
-                  return (
-                    <div className={`list-group-item ${style.listGroupItem}`} key={index}>
-                      <a href="#" onClick={() => setSearchQuery(category)}>
+                {categories.map((category, index) => (
+                  <div className={`list-group-item ${style.listGroupItem}`} key={index}>
+                      <a href="#" onClick={() => {setSearchQuery(category); goToPage(1);}}>
                         <span>{category}</span>
-                        <span className={`category-count ${style.categoryCount}`}>{count}</span>
+                        <span className={`category-count ${style.categoryCount}`}>{posts.filter(p => p.category === category).length}</span>
                       </a>
                     </div>
-                  );
-                })}
+                  )
+                )}
               </div>
             </div>
 
             <div className={`sidebar-widget ${style.sidebarWidget}`}>
               <h3 className={`widget-title ${style.widgetTitle}`}>Recent Posts</h3>
               <div className="recent-posts">
-                {blogPostsData.slice(0, 3).map(post => (
+                {posts.slice(0, 3).map(post => (
                   <div className={`recent-post-item ${style.recentPostItem}`} key={post.id}>
-                    <img src={post.image} className={`recent-post-thumb ${style.recentPostThumb}`} alt={post.title} />
+                    <img src={`${API_BASE_URL}${post.image}`} className={`recent-post-thumb ${style.recentPostThumb}`} alt={post.title} />
                     <div className={style.recentPostInfo}>
                       <h4 className={style.recentPostTitle}>
                         <a href={`/blog/${post.slug}`}>{post.title}</a>

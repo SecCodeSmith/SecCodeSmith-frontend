@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import styles from '@styles/BlogCard.module.scss';
 
 import type {BlogPostProps} from '../untils/BlogPostProps';
+import { API_BASE_URL } from '../Config';
 
 interface BlogCardProps {
   post: BlogPostProps;
@@ -11,7 +12,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   return (
     <div className={`card ${styles.card} ${post.featured ? styles.featuredCard : ''}`}>
       <div className="position-relative">
-        <img src={`${import.meta.env.BASE_URL}${post.image}`} className={`card-img-top ${post.featured ? styles.featuredImg : ''}`} alt={post.title} />
+        <img src={`${API_BASE_URL}${post.image}`} className={`card-img-top ${post.featured ? styles.featuredImg : ''}`} alt={post.title} />
         <div className={styles.categoryBadge}>{post.category}</div>
         
         {post.featured && (
@@ -36,7 +37,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           </div>
           <div className={`meta-item ${styles.metaItem}`}>
             <i className={`fas fa-comments meta-icon ${styles.metaIcon}`}></i>
-            <span>{post.commentCount} Comments</span>
+            <span>{post.comment_count} Comments</span>
           </div>
         </div>
         <p className={`card-text ${styles.cardText}`}>

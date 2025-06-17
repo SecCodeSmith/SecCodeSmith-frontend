@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchBlogPosts } from '../data/blogPostsData';
+import { fetchBlogPostsPage } from '../data/blogPostsData';
 
 
 import style from '@styles/BlogPost.module.scss';
@@ -41,7 +41,7 @@ export const BlogPost = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const blogPostsData = await fetchBlogPosts();
+      const blogPostsData = await fetchBlogPostsPage(1);
       if (!blogPostsData || blogPostsData.length === 0) {
         setFound(false);
         console.error('No blog posts found');
@@ -176,11 +176,11 @@ export const BlogPost = () => {
               </div>
               <div className={style.metaItem}>
                 <i className={`fas fa-clock ${style.metaIcon}`}></i>
-                <span>{post.readTime}</span>
+                <span>{post.read_time}</span>
               </div>
               <div className={style.metaItem}>
                 <i className={`fas fa-comments ${style.metaIcon}`}></i>
-                <span>{post.commentCount} Comments</span>
+                <span>{post.comment_count} Comments</span>
               </div>
             </div>
           </div>
@@ -226,7 +226,7 @@ export const BlogPost = () => {
             {/*Temporarily disable comments section */}
             {0 && (
               <div className={style.commentsSection}>
-                <h3 className={style.commentsTitle}>Discussions ({post.commentCount})</h3>
+                <h3 className={style.commentsTitle}>Discussions ({post.comment_count})</h3>
 
                 {/* Sample Comments */}
                 <div className={style.comment}>

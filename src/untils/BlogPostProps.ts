@@ -7,8 +7,8 @@ export interface BlogPostProps {
   category: string;
   date: string;
   author: string;
-  commentCount: number;
-  readTime: string;
+  comment_count: number;
+  read_time: string;
   featured?: boolean;
   tags: string[];
   content: string;
