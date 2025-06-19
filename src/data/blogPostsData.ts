@@ -1,7 +1,5 @@
-// src/api/blogApi.ts
-
 import type {
-  BlogPostProps,     
+  BlogPostProps, BlogCategoryProps, BlogTagsProps     
 } from '../untils/BlogPostProps';
 import { API_BASE_URL } from '../Config';
 
@@ -82,4 +80,42 @@ export async function fetchBlogPostsPage(
     throw new Error(`Failed to fetch posts page ${page}: ${res.status} ${res.statusText}`);
   }
   return await res.json() as BlogPostsPage;
+}
+
+/**
+ * Fetch all tags from the blog API.
+ */
+export async function fetchBlogTags(): Promise<BlogTagsProps[]> {
+  const url = `${API_BASE_URL}blog-api/tags`;
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+    },
+    mode: 'cors',
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to fetch tags: ${res.status} ${res.statusText}`);
+  }
+  const tags = await res.json() as BlogTagsProps[];
+  return tags;
+}
+
+/**
+ * Fetch all categories from the blog API.
+ */
+export async function fetchBlogCategories(): Promise<BlogCategoryProps[]> {
+  const url = `${API_BASE_URL}blog-api/cats`;
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+    },
+    mode: 'cors',
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to fetch categories: ${res.status} ${res.statusText}`);
+  }
+  const categories = await res.json() as BlogCategoryProps[];
+  return categories;
 }

@@ -1,26 +1,33 @@
 import { useEffect, useState } from 'react';
-import { PageHeader } from '../components/PageHeader';
-import { BlogCard } from '../components/BlogCard';
-import { fetchBlogPostsPage, fetchBlogPagesCount } from '../data/blogPostsData';
+import { lazy } from 'react';
+const PageHeader = lazy(() => import('../components/PageHeader'));
+const BlogCard = lazy(() => import('../components/BlogCard'));
+import { fetchBlogPostsPage, fetchBlogPagesCount, fetchBlogCategories, fetchBlogTags } from '../data/blogPostsData';
 
 import style from '@styles/Blog.module.scss';
-import type { BlogPostProps } from '../untils/BlogPostProps';
+import type { BlogPostProps, BlogCategoryProps, BlogTagsProps } from '../untils/BlogPostProps';
 import { Spinner } from '../components/Spinner';
 import { redirect, useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../Config';
 
 export const Blog = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchCategory, setSearchCategory] = useState<string[]>([]);
+  const [searchTag, setSearchTag] = useState<string[]>([]);
+
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [posts, setPosts] = useState<BlogPostProps[]>([]);
+  const [categories, setCategories] = useState<BlogCategoryProps[]>([]);
+  const [tags, setTags] = useState<BlogTagsProps[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
    const perPage = 6;
+ 
 
-  // Fetch page count once or on perPage change
   useEffect(() => {
+    setLoading(true);
     const loadCount = async () => {
       try {
         const count = await fetchBlogPagesCount(perPage);
@@ -32,10 +39,22 @@ export const Blog = () => {
     loadCount();
   }, [perPage]);
 
-  // Fetch posts whenever page or searchQuery changes
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
+      
+
+      try {
+        const category = await fetchBlogCategories();
+        const tag = await fetchBlogTags();
+
+        setCategories(category);
+        setTags(tag);
+
+      } catch (err) {
+        console.error('Error fetching page count:', err);
+        return;
+      }
+
       try {
         const filter = searchQuery
           ? { title: searchQuery, tags: searchQuery, category: searchQuery }
@@ -43,7 +62,7 @@ export const Blog = () => {
         const data = await fetchBlogPostsPage(currentPage, perPage, filter);
         if (!data || data.posts.length === 0) {
           if (currentPage === 1) {
-            navigate('/404');
+            redirect('/404');
             return;
           }
         }
@@ -62,16 +81,10 @@ export const Blog = () => {
     return <Spinner />;
   }
 
-  // Featured vs regular
   const featuredPost = posts.find(post => post.featured);
   const regularPosts = posts.filter(post => !post.featured);
 
-  // Helpers for sidebar
-  const categories = Array.from(new Set(posts.map(p => p.category)));
-  const allTags = posts.flatMap(p => p.tags);
-  const uniqueTags = Array.from(new Set(allTags));
 
-  // Pagination handlers
   const goToPage = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
@@ -163,11 +176,11 @@ export const Blog = () => {
             <div className={`sidebar-widget ${style.sidebarWidget}`}>
               <h3 className={`widget-title ${style.widgetTitle}`}>Categories</h3>
               <div className="list-group">
-                {categories.map((category, index) => (
+                {categories && categories.map((category, index) => (
                   <div className={`list-group-item ${style.listGroupItem}`} key={index}>
-                      <a href="#" onClick={() => {setSearchQuery(category); goToPage(1);}}>
-                        <span>{category}</span>
-                        <span className={`category-count ${style.categoryCount}`}>{posts.filter(p => p.category === category).length}</span>
+                      <a href="#" onClick={() => {setSearchQuery(category.slug); goToPage(1);}}>
+                        <span>{category.title}</span>
+                        <span className={`category-count ${style.categoryCount}`}>{category.BlogCount}</span>
                       </a>
                     </div>
                   )
@@ -195,14 +208,14 @@ export const Blog = () => {
             <div className={`sidebar-widget ${style.sidebarWidget}`}>
                <h3 className={`widget-title ${style.widgetTitle}`}>Popular Tags</h3>
               <div>
-                {uniqueTags.map((tag, index) => (
+                {tags && tags.map((tag, index) => (
                   <span 
                     key={index} 
                     className={style.postTag} 
-                    onClick={() => setSearchQuery(tag)}
+                    onClick={() => setSearchQuery(tag.slug)}
                     style={{ cursor: 'pointer' }}
                   >
-                    {tag}
+                    {tag.name}
                   </span>
                 ))}
               </div>

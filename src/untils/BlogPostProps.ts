@@ -14,3 +14,13 @@ export interface BlogPostProps {
   content: string;
 }
 
+export interface BlogTagsProps {
+  name: string;
+  slug: string;
+}
+
+export interface BlogCategoryProps {
+  title: string;
+  slug: string;
+  BlogCount: number;
+}
