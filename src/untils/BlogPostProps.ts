@@ -10,7 +10,7 @@ export interface BlogPostProps {
   comments: number;
   read_time: string;
   featured?: boolean;
-  tags: string[];
+  tags: BlogTagsProps[];
   content: string;
 }
 

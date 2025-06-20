@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchBlogPostsPage } from '../data/blogPostsData';
+import { fetchBlogPost } from '../data/blogPostsData';
 
 
 import style from '@styles/BlogPost.module.scss';
@@ -41,15 +41,14 @@ export const BlogPost = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const blogPostsData = await fetchBlogPostsPage(1);
-      if (!blogPostsData || blogPostsData.length === 0) {
+      if (!slug) {
         setFound(false);
-        console.error('No blog posts found');
+        console.error('No slug provided');
         return;
       }
 
+      const currentPost = await fetchBlogPost(slug);
 
-      const currentPost = blogPostsData.find(post => post.slug === slug);
       let id = 0;
       const toc: TableOfContentsItem[] = [];
 
@@ -58,13 +57,7 @@ export const BlogPost = () => {
 
 
 
-        const related = blogPostsData
-          .filter(p => p.id !== currentPost.id)
-          .filter(p =>
-            p.category === currentPost.category ||
-            p.tags.some(tag => currentPost.tags.includes(tag))
-          )
-          .slice(0, 3);
+        const related = null;
 
         setRelatedPosts(related);
 
@@ -168,7 +161,7 @@ export const BlogPost = () => {
             <div className={style.postMeta}>
               <div className={style.metaItem}>
                 <i className={`fas fa-calendar-alt ${style.metaIcon}`}></i>
-                <span>{post.date}</span>
+                <span>{post.publish_at}</span>
               </div>
               <div className={style.metaItem}>
                 <i className={`fas fa-user ${style.metaIcon}`}></i>
@@ -180,7 +173,7 @@ export const BlogPost = () => {
               </div>
               <div className={style.metaItem}>
                 <i className={`fas fa-comments ${style.metaIcon}`}></i>
-                <span>{post.comment_count} Comments</span>
+                <span>{post.comments} Comments</span>
               </div>
             </div>
           </div>
@@ -191,7 +184,7 @@ export const BlogPost = () => {
             {/* Post Tags */}
             <div className={style.postTags}>
               {post.tags.map((tag, index) => (
-                <span key={index} className={style.postTag}>{tag}</span>
+                <span key={index} className={style.postTag}>{tag.name}</span>
               ))}
             </div>
 
@@ -226,7 +219,7 @@ export const BlogPost = () => {
             {/*Temporarily disable comments section */}
             {0 && (
               <div className={style.commentsSection}>
-                <h3 className={style.commentsTitle}>Discussions ({post.comment_count})</h3>
+                <h3 className={style.commentsTitle}>Discussions ({post.comments})</h3>
 
                 {/* Sample Comments */}
                 <div className={style.comment}>
@@ -282,7 +275,7 @@ export const BlogPost = () => {
                   <div className={style.relatedPostThumb} style={{ backgroundImage: `url(${relatedPost.image})` }}></div>
                   <div className={style.relatedPostInfo}>
                     <h4 className={style.relatedPostTitle}>{relatedPost.title}</h4>
-                    <span className={style.relatedPostDate}>{relatedPost.date}</span>
+                    <span className={style.relatedPostDate}>{relatedPost.publish_at}</span>
                   </div>
                 </Link>
               </li>

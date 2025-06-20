@@ -7,7 +7,6 @@ import { fetchBlogPostsPage, fetchBlogPagesCount, fetchBlogCategories, fetchBlog
 import style from '@styles/Blog.module.scss';
 import type { BlogPostProps, BlogCategoryProps, BlogTagsProps } from '../untils/BlogPostProps';
 import { Spinner } from '../components/Spinner';
-import { redirect, useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../Config';
 
 export const Blog = () => {
@@ -21,11 +20,8 @@ export const Blog = () => {
   const [tags, setTags] = useState<BlogTagsProps[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
 
   const perPage = 6;
-
-
   useEffect(() => {
     setLoading(true);
     const loadCount = async () => {
@@ -71,7 +67,7 @@ export const Blog = () => {
 
     fetchData();
     fechSorkItems();
-  }, [currentPage, searchQuery, navigate, searchCategory, searchTag]);
+  }, [currentPage, searchQuery, searchCategory, searchTag]);
 
   if (loading) {
     return <Spinner />;
@@ -101,7 +97,7 @@ export const Blog = () => {
             {featuredPost && (!searchQuery ||
               featuredPost.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
               featuredPost.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              featuredPost.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+              featuredPost.tags.some(tag => tag.name.toLowerCase().includes(searchQuery.toLowerCase()))
             ) && (
                 <BlogCard post={featuredPost} />
               )}
