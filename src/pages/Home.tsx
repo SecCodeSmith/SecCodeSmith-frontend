@@ -116,8 +116,8 @@ export const Home = () => {
             </div>
           </div>
           <div className="row g-4">
-            {skills && skills.map((skill) => (
-              <SkillCard
+            {skills && skills.map((skill, imdex) => (
+              <SkillCard key={imdex}
                 categoryIcon={skill.categoryIcon}
                 categoryTitle={skill.categoryTitle}
                 skills={skill.skills}

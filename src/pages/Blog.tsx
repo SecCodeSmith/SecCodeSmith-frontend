@@ -187,8 +187,8 @@ export const Blog = () => {
             <div className={`sidebar-widget ${style.sidebarWidget}`}>
               <h3 className={`widget-title ${style.widgetTitle}`}>Recent Posts</h3>
               <div className="recent-posts">
-                {posts.slice(0, 3).map(post => (
-                  <div className={`recent-post-item ${style.recentPostItem}`} key={post.id}>
+                {posts.slice(0, 3).map((post, index)=> (
+                  <div className={`recent-post-item ${style.recentPostItem}`} key={index}>
                     <img src={`${API_BASE_URL}${post.image}`} className={`recent-post-thumb ${style.recentPostThumb}`} alt={post.title} />
                     <div className={style.recentPostInfo}>
                       <h4 className={style.recentPostTitle}>

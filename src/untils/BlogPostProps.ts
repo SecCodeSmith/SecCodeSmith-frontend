@@ -6,7 +6,7 @@ export interface BlogPostProps {
   image: string;
   category: string;
   publish_at: string;
-  author: string;
+  author: AuthorProps;
   comments: number;
   read_time: string;
   featured?: boolean;
@@ -23,4 +23,10 @@ export interface BlogCategoryProps {
   title: string;
   slug: string;
   BlogCount: number;
+}
+
+export interface AuthorProps {
+  name: string;
+  bio: string;
+  avatar: string;
 }

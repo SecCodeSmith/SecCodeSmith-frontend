@@ -7,6 +7,7 @@ import style from '@styles/BlogPost.module.scss';
 import type { BlogPostProps } from '../untils/BlogPostProps';
 import { Spinner } from '../components/Spinner';
 import { NotFound } from './NotFound';
+import { API_BASE_URL } from '../Config';
 
 interface TableOfContentsItem {
   title: string;
@@ -151,7 +152,7 @@ export const BlogPost = () => {
         <article>
           {/* Post Header */}
           <div className={style.postHeader}>
-            <div className={style.postFeaturedImage} style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${post.image})` }}></div>
+            <div className={style.postFeaturedImage} style={{ backgroundImage: `url(${API_BASE_URL}${post.image})` }}></div>
             <div className={style.postCategory}>{post.category}</div>
           </div>
 
@@ -165,7 +166,7 @@ export const BlogPost = () => {
               </div>
               <div className={style.metaItem}>
                 <i className={`fas fa-user ${style.metaIcon}`}></i>
-                <span>{post.author}</span>
+                <span>{post.author.name}</span>
               </div>
               <div className={style.metaItem}>
                 <i className={`fas fa-clock ${style.metaIcon}`}></i>
