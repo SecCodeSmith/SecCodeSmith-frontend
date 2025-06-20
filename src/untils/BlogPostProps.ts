@@ -5,9 +5,9 @@ export interface BlogPostProps {
   excerpt: string;
   image: string;
   category: string;
-  date: string;
+  publish_at: string;
   author: string;
-  comment_count: number;
+  comments: number;
   read_time: string;
   featured?: boolean;
   tags: string[];

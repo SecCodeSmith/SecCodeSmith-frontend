@@ -60,7 +60,7 @@ export async function fetchBlogPagesCount(
 export async function fetchBlogPostsPage(
   page: number,
   perPage: number = 6,
-  filter?: { title?: string; tags?: string; category?: string; }
+  filter?: { title?: string; tags?: string[]; category?: string[]; }
 ): Promise<BlogPostsPage> {
   const params = new URLSearchParams();
   params.set('per_page', perPage.toString());

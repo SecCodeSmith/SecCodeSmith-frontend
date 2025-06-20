@@ -29,7 +29,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         <div className={`d-flex meta-items mb-3`}>
           <div className={`meta-item ${styles.metaItem}`}>
             <i className="fas fa-calendar-alt meta-icon"></i>
-            <span>{post.date}</span>
+            <span>{post.publish_at}</span>
           </div>
           <div className={`meta-item ${styles.metaItem}`}>
             <i className={`fas fa-user meta-icon ${styles.metaIcon}`}></i>
@@ -37,7 +37,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           </div>
           <div className={`meta-item ${styles.metaItem}`}>
             <i className={`fas fa-comments meta-icon ${styles.metaIcon}`}></i>
-            <span>{post.comment_count} Comments</span>
+            <span>{post.comments} Comments</span>
           </div>
         </div>
         <p className={`card-text ${styles.cardText}`}>

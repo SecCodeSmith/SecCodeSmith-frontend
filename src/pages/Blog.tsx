@@ -40,9 +40,7 @@ export const Blog = () => {
   }, [perPage]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      
-
+    const fechSorkItems = async () => {
       try {
         const category = await fetchBlogCategories();
         const tag = await fetchBlogTags();
@@ -54,18 +52,15 @@ export const Blog = () => {
         console.error('Error fetching page count:', err);
         return;
       }
+    };
 
+    const fetchData = async () => {
       try {
-        const filter = searchQuery
-          ? { title: searchQuery, tags: searchQuery, category: searchQuery }
+        const filter = searchQuery || searchCategory.length > 0 || searchTag.length > 0
+          ? { title: searchQuery, tags: searchTag, category: searchCategory }
           : undefined;
         const data = await fetchBlogPostsPage(currentPage, perPage, filter);
-        if (!data || data.posts.length === 0) {
-          if (currentPage === 1) {
-            redirect('/404');
-            return;
-          }
-        }
+
         setPosts(data.posts);
       } catch (err) {
         console.error('Error fetching posts:', err);
@@ -75,7 +70,8 @@ export const Blog = () => {
     };
 
     fetchData();
-  }, [currentPage, searchQuery, navigate]);
+    fechSorkItems();
+  }, [currentPage, searchQuery, navigate, searchCategory, searchTag]);
 
   if (loading) {
     return <Spinner />;
@@ -198,7 +194,7 @@ export const Blog = () => {
                       <h4 className={style.recentPostTitle}>
                         <a href={`/blog/${post.slug}`}>{post.title}</a>
                       </h4>
-                      <span className={style.recentPostDate}>{post.date}</span>
+                      <span className={style.recentPostDate}>{post.publish_at}</span>
                     </div>
                   </div>
                 ))}
@@ -210,9 +206,20 @@ export const Blog = () => {
               <div>
                 {tags && tags.map((tag, index) => (
                   <span 
-                    key={index} 
-                    className={style.postTag} 
-                    onClick={() => setSearchQuery(tag.slug)}
+                    key={index} id={tag.slug}
+                    className={`${style.postTag} ${searchTag.includes(tag.slug) ? style.active : ''}`}
+                    onClick={() => {
+                      let selectedTag = searchTag;
+                      const tagElement = document.getElementById(tag.slug);
+                      if (selectedTag.includes(tag.slug)) {
+                        selectedTag = selectedTag.filter(t => t !== tag.slug);
+                        tagElement?.classList.remove(style.active);
+                      } else {
+                        selectedTag.push(tag.slug);
+                        tagElement?.classList.add(style.active);
+                      }
+                      setSearchTag(selectedTag);
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     {tag.name}

@@ -64,10 +64,17 @@
         transition: all 0.3s ease;
     }
 
+    .postTag.active {
+        background-color: rgba(255, 100, 0, 0.2);
+        color: white;
+        box-shadow: 0 0 0 2px rgba(255, 100, 0, 0.6);
+    }
+
     .postTag:hover {
         background-color: rgba(255, 100, 0, 0.2);
         transform: translateY(-2px);
     }
+
 }
 
 @include metaItem;
