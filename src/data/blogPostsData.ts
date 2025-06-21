@@ -119,3 +119,24 @@ export async function fetchBlogCategories(): Promise<BlogCategoryProps[]> {
   const categories = await res.json() as BlogCategoryProps[];
   return categories;
 }
+
+/**
+ * Fetch 3 recent related posts by category.
+ * @param categorySlug The slug of the category to filter by.
+ */
+export async function fetchRelatedPostsByCategory(
+  categorySlug: string): Promise<BlogPostProps[]> {
+  const url = `${API_BASE_URL}blog-api/related-posts/${categorySlug}`;
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+    },
+    mode: 'cors',
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to fetch related posts for category "${categorySlug}": ${res.status} ${res.statusText}`);
+  }
+  const posts = await res.json() as BlogPostProps[];
+  return posts;
+}

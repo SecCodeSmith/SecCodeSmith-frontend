@@ -73,8 +73,7 @@ export const Blog = () => {
     return <Spinner />;
   }
 
-  const featuredPost = posts.find(post => post.featured);
-  const regularPosts = posts.filter(post => !post.featured);
+
 
 
   const goToPage = (page: number) => {
@@ -94,23 +93,17 @@ export const Blog = () => {
       <div className="container mt-5">
         <div className="row">
           <div className="col-lg-8">
-            {featuredPost && (!searchQuery ||
-              featuredPost.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              featuredPost.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              featuredPost.tags.some(tag => tag.name.toLowerCase().includes(searchQuery.toLowerCase()))
-            ) && (
-                <BlogCard post={featuredPost} />
-              )}
+
 
             <div className="row">
-              {regularPosts.map(post => (
-                <div className="col-md-6" key={post.id}>
+              {posts.map(post => (
+                <div className={`${post.featured? '': 'col-md-6' }`} key={post.id}>
                   <BlogCard post={post} />
                 </div>
               ))}
             </div>
 
-            {regularPosts.length === 0 && !featuredPost && (
+            {posts.length === 0 && (
               <div className="text-center mt-5">
                 <h3>No posts found matching your search.</h3>
                 <button

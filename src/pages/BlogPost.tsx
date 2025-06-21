@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchBlogPost } from '../data/blogPostsData';
+import { fetchBlogPost, fetchRelatedPostsByCategory } from '../data/blogPostsData';
 
 
 import style from '@styles/BlogPost.module.scss';
@@ -55,10 +55,7 @@ export const BlogPost = () => {
 
       if (currentPost) {
         setPost(currentPost);
-
-
-
-        const related = null;
+        const related = await fetchRelatedPostsByCategory(currentPost.category.slug);
 
         setRelatedPosts(related);
 
@@ -153,7 +150,7 @@ export const BlogPost = () => {
           {/* Post Header */}
           <div className={style.postHeader}>
             <div className={style.postFeaturedImage} style={{ backgroundImage: `url(${API_BASE_URL}${post.image})` }}></div>
-            <div className={style.postCategory}>{post.category}</div>
+            <div className={style.postCategory}>{post.category.title}</div>
           </div>
 
           {/* Post Info */}
@@ -273,7 +270,7 @@ export const BlogPost = () => {
             {relatedPosts && relatedPosts.map(relatedPost => (
               <li className={style.relatedPostItem} key={relatedPost.id}>
                 <Link to={`/blog/${relatedPost.slug}`} className={style.relatedPostLink}>
-                  <div className={style.relatedPostThumb} style={{ backgroundImage: `url(${relatedPost.image})` }}></div>
+                  <div className={style.relatedPostThumb} style={{ backgroundImage: `url(${API_BASE_URL}${relatedPost.image})` }}></div>
                   <div className={style.relatedPostInfo}>
                     <h4 className={style.relatedPostTitle}>{relatedPost.title}</h4>
                     <span className={style.relatedPostDate}>{relatedPost.publish_at}</span>

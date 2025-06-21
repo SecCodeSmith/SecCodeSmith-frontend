@@ -13,7 +13,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
     <div className={`card ${styles.card} ${post.featured ? styles.featuredCard : ''}`}>
       <div className="position-relative">
         <img src={`${API_BASE_URL}${post.image}`} className={`card-img-top ${post.featured ? styles.featuredImg : ''}`} alt={post.title} />
-        <div className={styles.categoryBadge}>{post.category}</div>
+        <div className={styles.categoryBadge}>{post.category.title}</div>
         
         {post.featured && (
           <div className={`featured-badge ${styles.featuredBadge}`}>
@@ -33,7 +33,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           </div>
           <div className={`meta-item ${styles.metaItem}`}>
             <i className={`fas fa-user meta-icon ${styles.metaIcon}`}></i>
-            <span>{post.author}</span>
+            <span>{post.author.name}</span>
           </div>
           <div className={`meta-item ${styles.metaItem}`}>
             <i className={`fas fa-comments meta-icon ${styles.metaIcon}`}></i>
@@ -46,7 +46,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         <Link to={`/blog/${post.slug}`} className={`read-more ${styles.readMore}`}>Continue Reading</Link>
         <div className="mt-3">
           {post.tags.map((tag, index) => (
-            <span key={index} className={`post-tag ${styles.postTag}`}>{tag}</span>
+            <span key={index} className={`post-tag ${styles.postTag}`}>{tag.name}</span>
           ))}
         </div>
       </div>

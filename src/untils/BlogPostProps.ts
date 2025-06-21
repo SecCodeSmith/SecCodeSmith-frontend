@@ -4,7 +4,7 @@ export interface BlogPostProps {
   title: string;
   excerpt: string;
   image: string;
-  category: string;
+  category: CategoryProps;
   publish_at: string;
   author: AuthorProps;
   comments: number;
@@ -12,6 +12,11 @@ export interface BlogPostProps {
   featured?: boolean;
   tags: BlogTagsProps[];
   content: string;
+}
+
+export interface CategoryProps {
+  title: string;
+  slug: string;
 }
 
 export interface BlogTagsProps {
