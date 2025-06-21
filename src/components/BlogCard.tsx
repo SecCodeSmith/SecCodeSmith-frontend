@@ -1,14 +1,20 @@
 import { Link } from 'react-router-dom';
 import styles from '@styles/BlogCard.module.scss';
+import { lazy } from 'react';
+
+const TagField = lazy(() => import('../components/TagField'));
 
 import type {BlogPostProps} from '../untils/BlogPostProps';
 import { API_BASE_URL } from '../Config';
 
+
 interface BlogCardProps {
   post: BlogPostProps;
+  setSearchTag: React.Dispatch<React.SetStateAction<string[]>>;
+  searchTag: string[];
 }
 
-export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
+export const BlogCard: React.FC<BlogCardProps> = ({ post, setSearchTag, searchTag }) => {
   return (
     <div className={`card ${styles.card} ${post.featured ? styles.featuredCard : ''}`}>
       <div className="position-relative">
@@ -46,7 +52,11 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         <Link to={`/blog/${post.slug}`} className={`read-more ${styles.readMore}`}>Continue Reading</Link>
         <div className="mt-3">
           {post.tags.map((tag, index) => (
-            <span key={index} className={`post-tag ${styles.postTag}`}>{tag.name}</span>
+            <TagField
+              key={index}
+              tag={tag}
+              setSearchTag={setSearchTag}
+              searchTag={searchTag}/>
           ))}
         </div>
       </div>

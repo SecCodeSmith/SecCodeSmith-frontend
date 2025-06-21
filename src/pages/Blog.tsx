@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { lazy } from 'react';
 const PageHeader = lazy(() => import('../components/PageHeader'));
 const BlogCard = lazy(() => import('../components/BlogCard'));
+const TagField = lazy(() => import('../components/TagField'));
 import { fetchBlogPostsPage, fetchBlogPagesCount, fetchBlogCategories, fetchBlogTags } from '../data/blogPostsData';
 
 import style from '@styles/Blog.module.scss';
@@ -96,9 +97,12 @@ export const Blog = () => {
 
 
             <div className="row">
-              {posts.map(post => (
-                <div className={`${post.featured? '': 'col-md-6' }`} key={post.id}>
-                  <BlogCard post={post} />
+              {posts.map((post, index) => (
+                <div className={`${post.featured? '': 'col-md-6' }`} key={index}>
+                  <BlogCard 
+                  searchTag={searchTag}
+                  setSearchTag={setSearchTag}
+                  post={post} />
                 </div>
               ))}
             </div>
@@ -198,6 +202,15 @@ export const Blog = () => {
               <h3 className={`widget-title ${style.widgetTitle}`}>Popular Tags</h3>
               <div>
                 {tags && tags.map((tag, index) => {
+                  return (
+                    <TagField
+                      key={index}
+                      tag={tag}
+                      setSearchTag={setSearchTag}
+                      searchTag={searchTag}
+                    />
+                  );
+
                   const isActive = searchTag.includes(tag.slug);
 
                   return (<span
