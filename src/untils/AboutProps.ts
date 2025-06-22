@@ -1,4 +1,8 @@
 export interface AboutProps {
+  title: string;
+  subtitle: string;
+  text: string;
+  lang: string;
   core_values: CoreValue[];
   technical_arsenal: TechnicalArsenal[];
   professional_journal: ProfessionalJourney[];

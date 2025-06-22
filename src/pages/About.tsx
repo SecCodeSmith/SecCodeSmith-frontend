@@ -12,11 +12,23 @@ const Spinner = lazy(() => import('../components/Spinner'));
 export const About = () => {
   const [data, setData] = useState<AboutProps>();
   const [ContactProps, setContactProps] = useState<ContactProps>();
+  const [description, setDescription] = useState<string>('');
   
   useEffect(() => {
     const fetchData = async () => {
       const aboutData = await fetchAboutProps();
       setData(aboutData);
+
+      const lines = aboutData.text.split('\n')
+
+      for (let i = 0; i < lines.length; i++) {
+        const formated_line = `<p class=${style.introText}>` + lines[i].
+          replace(/\*\*\*(.*?)\*\*\*/g, `<span class=${style.accent}>$1</span>`).
+          replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').
+          trim() + '</p>';
+
+          setDescription(prev => prev + (formated_line ? formated_line + '\n' : ''));
+      }
       const data = await fetchContactData();
       setContactProps(data);
     };
@@ -28,8 +40,8 @@ export const About = () => {
   return (
     <>
       <PageHeader
-        title="The Forgemaster"
-        subtitle="Crafting digital solutions from the raw materials of innovation"
+        title={data.title}
+        subtitle={data.subtitle}
       />
 
       {/* Introduction Section */}
@@ -44,14 +56,8 @@ export const About = () => {
             </div>
             <div className="col-lg-8">
               <div className={style.introText}>
-                <p className={style.introText}>Greetings, seeker of digital arcana. I am <strong>SecCodeSmith</strong>, a master craftsman of code and conductor of silicon. For over a decade, I have been forging robust solutions across the realms of embedded systems, machine learning, and web development.</p>
-
-                <p className={style.introText}>My journey began in the depths of <span className={style.accent}>low-level programming</span>, where I learned to bend hardware to my will through carefully crafted instructions. From the arcane energies of microcontrollers to the vast landscapes of cloud architecture, I have honed my skills to create solutions that stand the test of time.</p>
-
-                <p className={style.introText}>What distinguishes my work is the <strong>meticulous attention to security</strong> and performance. Like a blacksmith who understands that a sword's true value lies not just in its edge but in the integrity of its steel, I craft code that is not merely functional but resilient against the chaotic forces of the digital wilderness.</p>
-
-                <p className={style.introText}>Beyond the technical realms, I am a devoted practitioner of open-source sorcery, contributing to projects that empower others to create and innovate. When not at the forge, I can be found exploring the ancient texts of computer science, delving into new programming languages, or mentoring apprentices on their own journey.</p>
-
+                {description && (<div dangerouslySetInnerHTML={{ __html: description }}></div>)}
+                
                 <div className="mt-4">
                   {
                     ContactProps?.socialLinks && 
