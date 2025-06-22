@@ -1,7 +1,6 @@
 import { type SkillCardProps } from '../untils/SkillCardProps';
 import { API_BASE_URL } from '../Config';
 
-// Use a relative path to avoid CORS issues and let your front-end framework proxy requests
 export async function fetchSkillCardData(): Promise<SkillCardProps[]> {
   const url = `${API_BASE_URL}/api/skills-cards`;
 

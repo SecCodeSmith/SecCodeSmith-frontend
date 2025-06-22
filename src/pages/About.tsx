@@ -79,7 +79,7 @@ export const About = () => {
             </div>
           </div>
           <div className={`row g-4 ${style.row}`}>
-            {data.coreValues.map((value, index) => (
+            {data.core_values.map((value, index) => (
               <div className="col-md-6 col-lg-3" key={index}>
                 <div className={` h-100 ${style.valueCard}`}>
                   <div className={style.valueIcon}>
@@ -104,7 +104,7 @@ export const About = () => {
             </div>
           </div>
           <div className="row g-4">
-            {data.technicalArsenal.map((value, index) => (
+            {data.technical_arsenal.map((value, index) => (
               <div className="col-md-6 col-lg-3" key={index}>
                 <div className={`h-100 ${style.skillCard}`} key={index}>
                   <div className={`${style.skillHeader}`}>
@@ -140,7 +140,7 @@ export const About = () => {
           <div className="row">
             <div className="col-12">
               <ul className={`${style.timeline}`}>
-                {data.professionalJourney.map((journey, index) => (
+                {data.professional_journal.map((journey, index) => (
                   <li className={`${style.timelineItem} clearfix`} key={index}>
                     <div className={`${style.timelineDot}`}></div>
                     <div className={`${style.timelineContent}`}>

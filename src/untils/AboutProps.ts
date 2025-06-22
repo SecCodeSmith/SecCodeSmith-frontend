@@ -1,7 +1,7 @@
 export interface AboutProps {
-  coreValues: CoreValue[];
-  technicalArsenal: TechnicalArsenal[];
-  professionalJourney: ProfessionalJourney[];
+  core_values: CoreValue[];
+  technical_arsenal: TechnicalArsenal[];
+  professional_journal: ProfessionalJourney[];
   testimonials: Testimonial[];
 }
 
