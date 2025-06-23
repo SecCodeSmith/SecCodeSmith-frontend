@@ -18,7 +18,7 @@ export const About = () => {
     const fetchData = async () => {
       const aboutData = await fetchAboutProps();
       setData(aboutData);
-
+      setDescription('');
       const lines = aboutData.text.split('\n')
 
       for (let i = 0; i < lines.length; i++) {
@@ -152,7 +152,14 @@ export const About = () => {
                     <div className={`${style.timelineContent}`}>
                       <div className={`${style.timelineDate}`}>{journey.duration}</div>
                       <h3 className={`${style.timelineTitle}`}>{journey.title}</h3>
-                      <p className={`${style.timelineText}`}>{journey.description}</p>
+                      <h5 className={`${style.timelineCompany}`}><i className="fa-solid fa-briefcase"></i> {journey.company}</h5>
+                      <p className={`${style.timelineText}`}>
+                        {
+                        journey.description && journey.description.split('\n').map((line, lineIndex) => (
+                          <><span key={lineIndex}>{line.trim()}</span><br /></>
+                        ))
+                       }
+                      </p>
                     </div>
                   </li>
                 ))}

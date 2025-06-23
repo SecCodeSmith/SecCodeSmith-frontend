@@ -75,15 +75,6 @@ export const Blog = () => {
   }
 
 
-
-
-  const goToPage = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
   return (
     <>
       <PageHeader
@@ -111,8 +102,13 @@ export const Blog = () => {
               <div className="text-center mt-5">
                 <h3>No posts found matching your search.</h3>
                 <button
-                  className="btn btn-primary mt-3"
-                  onClick={() => setSearchQuery('')}
+                  className={`btn btn-primary mt-3 ${style.btnPrimary}`} 
+                  onClick={() => {
+                    setSearchQuery('');
+                    setSearchCategory('');
+                    setSearchTag([]);
+                    setCurrentPage(1);
+                  }}
                 >
                   Clear Search
                 </button>
@@ -210,23 +206,6 @@ export const Blog = () => {
                       searchTag={searchTag}
                     />
                   );
-
-                  const isActive = searchTag.includes(tag.slug);
-
-                  return (<span
-                    key={index} id={tag.slug}
-                    className={`${style.postTag} ${isActive ? style.active : ''}`}
-                    onClick={() => {
-                      setSearchTag(prev =>
-                        isActive
-                          ? prev.filter(t => t !== tag.slug)
-                          : [...prev, tag.slug]
-                      );
-                    }}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    {tag.name}
-                  </span>)
                 })}
               </div>
             </div>

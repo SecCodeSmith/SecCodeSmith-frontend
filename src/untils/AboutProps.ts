@@ -17,6 +17,7 @@ export interface CoreValue {
 
 export interface ProfessionalJourney {
   title: string;
+  company: string;
   description: string;
   duration: string;
 }
