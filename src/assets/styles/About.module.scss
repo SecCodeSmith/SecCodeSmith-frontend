@@ -140,7 +140,7 @@
 .valueText {
   color: $text-ash;
   line-height: 1.6;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: $font-family;
 }
 
 /* Skills card */
@@ -273,7 +273,7 @@
 .timelineText {
   color: $text-ash;
   line-height: 1.6;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: $font-family;
 }
 
 .timelineContent {
@@ -316,7 +316,7 @@
   color: $text-ash;
   margin-bottom: 1.25rem;
   line-height: 1.7;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: $font-family;
 }
 
 .authorAvatar {
@@ -342,7 +342,7 @@
 .authorTitle {
   color: $text-ash;
   font-size: 0.9rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: $font-family;
 }
 
 /* Blog post specific styles */
@@ -391,7 +391,7 @@
 
 .postContent {
   padding: 0 40px 40px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: $font-family;
   line-height: 1.8;
   color: #e0e0e0;
 }
@@ -567,7 +567,7 @@
 .socialName {
   color: $text-ash;
   font-size: 0.9rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: $font-family;
 }
 
 @media (max-width: 992px) {

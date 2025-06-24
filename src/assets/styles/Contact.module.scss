@@ -32,7 +32,7 @@
 .contactContent {
     color: $text-ash;
     line-height: 1.6;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: $font-family;
 }
 
 .contactLink {
@@ -125,7 +125,7 @@
 .socialName {
     color: $text-ash;
     font-size: 0.9rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: $font-family;
 }
 
 /* Map styling */
@@ -201,7 +201,7 @@
 .table td {
     padding: 0.5rem 0.25rem;
     border-color: rgba(255, 255, 255, 0.05);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: $font-family;
 }
 
 @media (max-width: 768px) {

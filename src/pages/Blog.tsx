@@ -21,22 +21,27 @@ export const Blog = () => {
   const [tags, setTags] = useState<BlogTagsProps[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
+  const [filter, setFilter] = useState<{ title?: string; tags?: string[]; category?: string } | undefined>(undefined);
 
   const perPage = 6;
   useEffect(() => {
     setLoading(true);
     const loadCount = async () => {
       try {
-        const count = await fetchBlogPagesCount(perPage);
+        const count = await fetchBlogPagesCount(perPage, filter);
         setTotalPages(count);
       } catch (err) {
         console.error(err);
       }
     };
     loadCount();
-  }, [perPage]);
+  }, [perPage, filter]);
 
   useEffect(() => {
+    const filters = searchQuery || searchCategory.length > 0 || searchTag.length > 0
+          ? { title: searchQuery, tags: searchTag, category: searchCategory }
+          : undefined;
+    setFilter(filters);
     const fechSorkItems = async () => {
       try {
         const category = await fetchBlogCategories();
@@ -53,10 +58,8 @@ export const Blog = () => {
 
     const fetchData = async () => {
       try {
-        const filter = searchQuery || searchCategory.length > 0 || searchTag.length > 0
-          ? { title: searchQuery, tags: searchTag, category: searchCategory }
-          : undefined;
-        const data = await fetchBlogPostsPage(currentPage, perPage, filter);
+        
+        const data = await fetchBlogPostsPage(currentPage, perPage, filters);
 
         setPosts(data.posts);
       } catch (err) {

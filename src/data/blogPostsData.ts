@@ -30,12 +30,20 @@ export async function fetchBlogPost(
 
 /**
  * Fetch how many pages of posts there are, given a page size.
- * Rounds up to the next integer.
+ * @param perPage how many posts per page 
+ * @param filter optional filter object: { title?, tags?, category? }
  */
 export async function fetchBlogPagesCount(
-  perPage: number = 6
+  perPage: number = 6,
+  filter?: { title?: string; tags?: string[]; category?: string; }
 ): Promise<number> {
-  const url = `${API_BASE_URL}blog-api/count_pages/${perPage}`;
+  const params = new URLSearchParams();
+  params.set('per_page', perPage.toString());
+  if (filter) {
+    params.set('filter', JSON.stringify(filter));
+  }
+
+  const url = `${API_BASE_URL}blog-api/count_pages/${perPage}?${params.toString()}`;
   const res = await fetch(url, {
     method: 'GET',
     headers: {

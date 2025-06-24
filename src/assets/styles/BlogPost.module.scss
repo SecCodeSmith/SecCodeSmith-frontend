@@ -95,7 +95,7 @@
 
 .postContent {
     padding: 0 40px 40px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: $font-family;
     line-height: 1.8;
     color: #e0e0e0;
 }
@@ -408,7 +408,7 @@
 .commentText {
     color: #e0e0e0;
     line-height: 1.6;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: $font-family;
 }
 
 .commentReply {
@@ -439,7 +439,7 @@
     border-radius: 4px;
     padding: 12px 15px;
     color: $text-light !important;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: $font-family;
     resize: vertical;
     transition: all 0.3s ease;
 }
