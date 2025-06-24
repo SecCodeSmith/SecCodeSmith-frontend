@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import type { AboutProps } from '../untils/AboutProps';
 import type { ContactProps } from '../untils/ContactProps';
 import { fetchContactData } from '../data/contactData';
+import { API_BASE_URL } from '../Config';
 
 const PageHeader = lazy(() => import('../components/PageHeader'));
 const Spinner = lazy(() => import('../components/Spinner'));
@@ -49,9 +50,9 @@ export const About = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-4">
-              <h2 className={`${style.sectionTitle}`}>The Master Behind the Mask</h2>
+              <h2 className={`${style.sectionTitle}`}>{data.image_title}</h2>
               <div className={style.profileImage}>
-                <img src="/images/profile.webp" alt="SecCodeSmith" />
+                <img src={`${API_BASE_URL}${data.image}`} alt="SecCodeSmith" />
               </div>
             </div>
             <div className="col-lg-8">
@@ -81,7 +82,7 @@ export const About = () => {
         <div className="container">
           <div className="row mb-4">
             <div className="col-12">
-              <h2 className={` ${style.sectionTitle}`}>Forging Principles</h2>
+              <h2 className={` ${style.sectionTitle}`}>{data.core_values_title}</h2>
             </div>
           </div>
           <div className={`row g-4 ${style.row}`}>
@@ -106,7 +107,7 @@ export const About = () => {
         <div className="container">
           <div className="row mb-4">
             <div className="col-12">
-              <h2 className={`${style.sectionTitle}`}>Arsenal of Expertise</h2>
+              <h2 className={`${style.sectionTitle}`}>{data.technical_arsenal_title}</h2>
             </div>
           </div>
           <div className="row g-4">
@@ -140,7 +141,7 @@ export const About = () => {
         <div className="container">
           <div className="row mb-5">
             <div className="col-12 text-center">
-              <h2 className={`section-title ${style.sectionTitle}`}>The Smith's Journey</h2>
+              <h2 className={`section-title ${style.sectionTitle}`}>{data.professional_journal_title}</h2>
             </div>
           </div>
           <div className="row">
@@ -175,7 +176,7 @@ export const About = () => {
           <div className="container">
             <div className="row mb-4">
               <div className="col-12">
-                <h2 className={`section-title ${style.sectionTitle}`}>Tales from the Guild</h2>
+                <h2 className={`section-title ${style.sectionTitle}`}>{data.testimonials_title}</h2>
               </div>
             </div>
             <div className="row">
