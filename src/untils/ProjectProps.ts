@@ -27,10 +27,10 @@ export interface ProjectDetails {
 }
 
 export interface Category {
-  [key: string]: string;
-  fullName: string;
-  shortName: string;
+  name: string;
+  short: string;
   icon: string;
+  countOfProjects?: number;
 }
 
 export interface ProjectTech {

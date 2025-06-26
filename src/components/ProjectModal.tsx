@@ -2,6 +2,7 @@ import type { ProjectProps } from '../untils/ProjectProps';
 import moment from "moment";
 
 import style from '@styles/Project.module.scss'
+import { API_BASE_URL } from '../Config';
 
 
 interface ProjectModalProps {
@@ -29,7 +30,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project }) => {
                     </div>
                     <div className={`modal-body ${style.modalBody}`}>
                         <div className="mb-4">
-                            <img src={project.image} className="img-fluid rounded mb-3" alt={project.title} />
+                            <img src={`${API_BASE_URL}${project.image}`} className="img-fluid rounded mb-3" alt={project.title} />
                             <div className={`row ${style.row}`}>
                                 <div className="col-md-8">
                                     {

@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { ProjectCard } from '../components/ProjectCard';
 import { ProjectModal } from '../components/ProjectModal';
-import { fetchProjectsData, Categories } from '../data/projectsData';
-import type { ProjectProps } from '../untils/ProjectProps';
+import { fetchProjectsData, fetchCategories, fetchProjectById } from '../data/projectsData';
+import type { ProjectProps, Category } from '../untils/ProjectProps';
 
 import style from '@styles/Project.module.scss'
 import { Spinner } from '../components/Spinner';
@@ -13,14 +13,29 @@ export const Projects = () => {
   const [projectsData, setprojectsData] = useState<ProjectProps[]>();
   const [activeFilter, setActiveFilter] = useState('all');
   const [selectedProject, setSelectedProject] = useState<ProjectProps | null>(null);
+  const [categories, setCategories] = useState<Category[] | null>(null)
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProjectsData();
+      const cat = await fetchCategories();
       setprojectsData(data);
+      setCategories(cat);
     };
     fetchData();
-  }, []);
+  }, [activeFilter]);
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      if (!activeProjectId) return;
+      const project = await fetchProjectById(activeProjectId);
+      if (project) {
+        setSelectedProject(project);
+      }
+    }
+    fetchProject();
+  }, [activeProjectId]);
 
   if (!projectsData) {
     return <Spinner />;
@@ -28,13 +43,12 @@ export const Projects = () => {
 
   const filteredProjects = activeFilter === 'all'
     ? projectsData
-    : projectsData.filter(project => project.category.some(cat => cat.shortName.toLowerCase() === activeFilter));
+    : projectsData.filter(project => project.category.some(cat => cat.short.toLowerCase() === activeFilter));
 
 
   if (selectedProject == null && filteredProjects.length > 0)
     setSelectedProject(filteredProjects[0]);
 
-  const categories = Categories;
 
   const featuredProject = projectsData.find(project => project.featured);
 
@@ -44,12 +58,8 @@ export const Projects = () => {
     setActiveFilter(filter);
   };
 
-  const handleOpenDetails = (id: string) => {
-    const project = projectsData.find(p => p.id === id);
-    if (project) {
-      setSelectedProject(project);
-    }
-  };
+
+  
 
   return (
     <>
@@ -67,27 +77,27 @@ export const Projects = () => {
           >
             All Artifacts
           </button>
-          {Object.values(categories).map((category) => (
+          {categories && categories.map((category) => (
             <button
-              key={category.shortName}
-              className={`filter-button ${style.filterButton} ${activeFilter === category.shortName.toLowerCase() ? style.active : ''}`}
-              onClick={() => handleFilterClick(category.shortName.toLowerCase())}
+              key={category.short}
+              className={`filter-button ${style.filterButton} ${activeFilter === category.short.toLowerCase() ? style.active : ''}`}
+              onClick={() => handleFilterClick(category.short.toLowerCase())}
             >
-              {category.fullName}
+              {category.name}
             </button>
           ))}
         </div>
 
         <div className="row">
-          {featuredProject && (activeFilter === 'all' || featuredProject.category.some(cat => cat.shortName.toLowerCase() === activeFilter)) && (
+          {featuredProject && (activeFilter === 'all' || featuredProject.category.some(cat => cat.short.toLowerCase() === activeFilter)) && (
             <div className="col-12 mb-4">
-              <ProjectCard project={featuredProject} onOpenDetails={handleOpenDetails} />
+              <ProjectCard project={featuredProject} onOpenDetails={setActiveProjectId} />
             </div>
           )}
 
           {regularProjects.map(project => (
 
-            <ProjectCard project={project} onOpenDetails={handleOpenDetails} />
+            <ProjectCard project={project} onOpenDetails={setActiveProjectId} />
           ))}
         </div>
 
