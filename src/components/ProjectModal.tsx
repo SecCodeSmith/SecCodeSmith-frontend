@@ -77,7 +77,7 @@ export const ProjectModal: React.FC = () => {
                                         <div className={`card-header ${style.cardHeader}`}>
                                             <h5 className="mb-0">Project Overview</h5>
                                         </div>
-                                        <div className="card-body">
+                                        <div className={`card-body`}>
                                             {project.project_details && project.project_details.start_date && project.project_details.end_date ? (
                                                 <p><strong>Duration:</strong> {duration}</p>
                                             ) : (
