@@ -22,7 +22,7 @@ export async function fetchProjectsData(
 ): Promise<ProjectProps[]> {
   const params = new URLSearchParams();
   if (categories) {
-    params.set('categories', categories);
+    params.set('cat', categories);
   }
   const url = `${API_BASE_URL}/project-api/projects?${params.toString()}`;
   const res = await fetch(url, {
