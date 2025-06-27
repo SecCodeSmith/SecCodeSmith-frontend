@@ -4,6 +4,10 @@
 @include card.card;
 
 /* Card styling */
+.cardBody {
+    color: $text-light;
+}
+
 .contactCard {
     position: relative;
     border-left: 3px solid $accent-fire;

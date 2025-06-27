@@ -30,7 +30,7 @@ export const Projects = () => {
 
 
 
-  if (!projectsData) {
+  if (!projectsData || !categories) {
     return <Spinner />;
   }
 

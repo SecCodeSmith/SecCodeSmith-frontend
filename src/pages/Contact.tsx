@@ -33,14 +33,11 @@ export const Contact = () => {
       <section className="py-5">
         <div className="container">
           <div className="row g-4">
-            {/* Contact Form Column */}
             <div className="col-lg-7">
               <ContactForm />
             </div>
 
-            {/* Contact Info Column */}
             <div className="col-lg-5">
-              {/* Email Info */}
               <div className={`card mb-4 ${style.card}`}>
                 <div className={`card-body p-4 ${style.cardBody}`}>
                   <div className={`${style.contactCard}`}>
@@ -57,8 +54,8 @@ export const Contact = () => {
                       </p>
                       <p>For business collaborations:</p>
                       <p>
-                        <a href={`mailto:${ContactProps.businessEmail}`} className={style.contactLink}>
-                          {ContactProps.businessEmail}
+                        <a href={`mailto:${ContactProps.business_email}`} className={style.contactLink}>
+                          {ContactProps.business_email}
                         </a>
                       </p>
                     </div>
@@ -67,7 +64,7 @@ export const Contact = () => {
               </div>
 
               {
-                ContactProps.socialLinks.length > 0 && (
+                ContactProps.social_links.length > 0 && (
                   <div className={`card ${style.card}`}>
                     <div className={`card-body p-4 ${style.cardBody}`}>
                       <div className={style.contactCard}>
@@ -78,7 +75,7 @@ export const Contact = () => {
                         <div className={style.contactContent}>
                           <p>You can also reach me through these digital pathways:</p>
                           <div className={style.socialGrid}>
-                          {ContactProps.socialLinks.map((link, index) => (
+                          {ContactProps.social_links.map((link, index) => (
 
                               <a key={index} href={link.url} className={`social-item ${style.socialItem}`}>
                                 <i className={`${link.icon} social-icon-lg ${style.socialIconLg}`}></i>
@@ -99,7 +96,6 @@ export const Contact = () => {
         </div>
       </section >
 
-      {/* FAQ Section */}
       < section className="py-5 bg-dark" >
         <div className="container">
           <div className="row mb-4">
@@ -112,7 +108,7 @@ export const Contact = () => {
             <div className="col-lg-8 mx-auto">
               <div className="accordion" id="faqAccordion">
                 {
-                  ContactProps.questionsAndAnswers.map((item, index) => (
+                  ContactProps.FAQ.map((item, index) => (
                     <div className={`accordion-item`} key={index}>
                       <h2 className={`accordion-header`} id={`heading${index}`}>
                         <button
@@ -145,7 +141,6 @@ export const Contact = () => {
         </div>
       </section >
 
-      {/* Map Section */}
       < section className="py-5" >
         <div className="container">
           <div className="row mb-4">
