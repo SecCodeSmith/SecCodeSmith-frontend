@@ -10,6 +10,7 @@ const Projects = lazy(() => import('./pages/Projects'))
 const Contact = lazy(() => import('./pages/Contact'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 import '@components/styles.css'
+import '@styles/index.scss'
 
 function App() {
   return (

@@ -1,5 +1,13 @@
 @use './variables' as *;
 
+.cardBodyModal{
+    color: $text-light;
+}
+
+.cardHeader{
+    color: $text-light;
+}
+
 .filterContainer {
     margin-bottom: 2rem;
 }
