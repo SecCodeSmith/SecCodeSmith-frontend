@@ -1,55 +1,38 @@
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { ProjectCard } from '../components/ProjectCard';
 import { ProjectModal } from '../components/ProjectModal';
-import { fetchProjectsData, Categories } from '../data/projectsData';
-import type { ProjectProps } from '../untils/ProjectProps';
+import { fetchProjectsData, fetchCategories } from '../data/projectsData';
+import type { ProjectProps, Category } from '../untils/ProjectProps';
 
 import style from '@styles/Project.module.scss'
 import { Spinner } from '../components/Spinner';
 
+export const contextProjectId = createContext<string | null>(null)
+
 
 export const Projects = () => {
   const [projectsData, setprojectsData] = useState<ProjectProps[]>();
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [selectedProject, setSelectedProject] = useState<ProjectProps | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string | null>(null);
+  const [categories, setCategories] = useState<Category[] | null>(null)
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchProjectsData();
+      setprojectsData([]);
+      const data = await fetchProjectsData(activeFilter);
+      const cat = await fetchCategories();
       setprojectsData(data);
+      setCategories(cat);
     };
     fetchData();
-  }, []);
+  }, [activeFilter]);
 
-  if (!projectsData) {
+
+
+  if (!projectsData || !categories) {
     return <Spinner />;
   }
-
-  const filteredProjects = activeFilter === 'all'
-    ? projectsData
-    : projectsData.filter(project => project.category.some(cat => cat.shortName.toLowerCase() === activeFilter));
-
-
-  if (selectedProject == null && filteredProjects.length > 0)
-    setSelectedProject(filteredProjects[0]);
-
-  const categories = Categories;
-
-  const featuredProject = projectsData.find(project => project.featured);
-
-  const regularProjects = filteredProjects.filter(project => !project.featured);
-
-  const handleFilterClick = (filter: string) => {
-    setActiveFilter(filter);
-  };
-
-  const handleOpenDetails = (id: string) => {
-    const project = projectsData.find(p => p.id === id);
-    if (project) {
-      setSelectedProject(project);
-    }
-  };
 
   return (
     <>
@@ -62,36 +45,35 @@ export const Projects = () => {
         {/* Projects Filter */}
         <div className={`filter-container ${style.filterContainer} text-center`}>
           <button
-            className={`filter-button  ${style.filterButton} ${activeFilter === 'all' ? style.active : ''}`}
-            onClick={() => handleFilterClick('all')}
+            className={`filter-button  ${style.filterButton} ${activeFilter === null ? style.active : ''}`}
+            onClick={() => setActiveFilter(null)}
           >
             All Artifacts
           </button>
-          {Object.values(categories).map((category) => (
+          {categories && categories.map((category) => (
             <button
-              key={category.shortName}
-              className={`filter-button ${style.filterButton} ${activeFilter === category.shortName.toLowerCase() ? style.active : ''}`}
-              onClick={() => handleFilterClick(category.shortName.toLowerCase())}
+              key={category.short}
+              className={`filter-button ${style.filterButton} ${activeFilter === category.short.toLowerCase() ? style.active : ''}`}
+              onClick={() => setActiveFilter(category.short)}
             >
-              {category.fullName}
+              {category.name}
             </button>
           ))}
         </div>
 
-        <div className="row">
-          {featuredProject && (activeFilter === 'all' || featuredProject.category.some(cat => cat.shortName.toLowerCase() === activeFilter)) && (
-            <div className="col-12 mb-4">
-              <ProjectCard project={featuredProject} onOpenDetails={handleOpenDetails} />
+        {
+          projectsData.length > 0 && (
+            <div className="row">
+              {projectsData.map(project => (
+                <div className={project.featured ? 'col-12 mb-4' : ''} key={project.id}>
+                  <ProjectCard project={project} onOpenDetails={setActiveProjectId} />
+                </div>
+              ))}
             </div>
-          )}
+          )
+        }
 
-          {regularProjects.map(project => (
-
-            <ProjectCard project={project} onOpenDetails={handleOpenDetails} />
-          ))}
-        </div>
-
-        {filteredProjects.length === 0 && (
+        {projectsData.length === 0 && (
           <div className="text-center mt-5">
             <h3>No projects found for this category.</h3>
           </div>
@@ -104,9 +86,11 @@ export const Projects = () => {
         </div>
       </div>
 
-      {selectedProject && (
-        <ProjectModal project={selectedProject} />
-      )}
+
+      <contextProjectId.Provider value={activeProjectId}>
+        <ProjectModal />
+      </contextProjectId.Provider>
+
     </>
   );
 };

@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchBlogPosts } from '../data/blogPostsData';
+import { fetchBlogPost, fetchRelatedPostsByCategory } from '../data/blogPostsData';
 
 
 import style from '@styles/BlogPost.module.scss';
 import type { BlogPostProps } from '../untils/BlogPostProps';
 import { Spinner } from '../components/Spinner';
 import { NotFound } from './NotFound';
+import { API_BASE_URL } from '../Config';
 
 interface TableOfContentsItem {
   title: string;
@@ -41,30 +42,20 @@ export const BlogPost = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const blogPostsData = await fetchBlogPosts();
-      if (!blogPostsData || blogPostsData.length === 0) {
+      if (!slug) {
         setFound(false);
-        console.error('No blog posts found');
+        console.error('No slug provided');
         return;
       }
 
+      const currentPost = await fetchBlogPost(slug);
 
-      const currentPost = blogPostsData.find(post => post.slug === slug);
       let id = 0;
       const toc: TableOfContentsItem[] = [];
 
       if (currentPost) {
         setPost(currentPost);
-
-
-
-        const related = blogPostsData
-          .filter(p => p.id !== currentPost.id)
-          .filter(p =>
-            p.category === currentPost.category ||
-            p.tags.some(tag => currentPost.tags.includes(tag))
-          )
-          .slice(0, 3);
+        const related = await fetchRelatedPostsByCategory(currentPost.category.slug);
 
         setRelatedPosts(related);
 
@@ -158,8 +149,8 @@ export const BlogPost = () => {
         <article>
           {/* Post Header */}
           <div className={style.postHeader}>
-            <div className={style.postFeaturedImage} style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${post.image})` }}></div>
-            <div className={style.postCategory}>{post.category}</div>
+            <div className={style.postFeaturedImage} style={{ backgroundImage: `url(${API_BASE_URL}${post.image})` }}></div>
+            <div className={style.postCategory}>{post.category.title}</div>
           </div>
 
           {/* Post Info */}
@@ -168,19 +159,19 @@ export const BlogPost = () => {
             <div className={style.postMeta}>
               <div className={style.metaItem}>
                 <i className={`fas fa-calendar-alt ${style.metaIcon}`}></i>
-                <span>{post.date}</span>
+                <span>{post.publish_at}</span>
               </div>
               <div className={style.metaItem}>
                 <i className={`fas fa-user ${style.metaIcon}`}></i>
-                <span>{post.author}</span>
+                <span>{post.author.name}</span>
               </div>
               <div className={style.metaItem}>
                 <i className={`fas fa-clock ${style.metaIcon}`}></i>
-                <span>{post.readTime}</span>
+                <span>{post.read_time}</span>
               </div>
               <div className={style.metaItem}>
                 <i className={`fas fa-comments ${style.metaIcon}`}></i>
-                <span>{post.commentCount} Comments</span>
+                <span>{post.comments} Comments</span>
               </div>
             </div>
           </div>
@@ -191,7 +182,7 @@ export const BlogPost = () => {
             {/* Post Tags */}
             <div className={style.postTags}>
               {post.tags.map((tag, index) => (
-                <span key={index} className={style.postTag}>{tag}</span>
+                <span key={index} className={style.postTag}>{tag.name}</span>
               ))}
             </div>
 
@@ -226,7 +217,7 @@ export const BlogPost = () => {
             {/*Temporarily disable comments section */}
             {0 && (
               <div className={style.commentsSection}>
-                <h3 className={style.commentsTitle}>Discussions ({post.commentCount})</h3>
+                <h3 className={style.commentsTitle}>Discussions ({post.comments})</h3>
 
                 {/* Sample Comments */}
                 <div className={style.comment}>
@@ -279,10 +270,10 @@ export const BlogPost = () => {
             {relatedPosts && relatedPosts.map(relatedPost => (
               <li className={style.relatedPostItem} key={relatedPost.id}>
                 <Link to={`/blog/${relatedPost.slug}`} className={style.relatedPostLink}>
-                  <div className={style.relatedPostThumb} style={{ backgroundImage: `url(${relatedPost.image})` }}></div>
+                  <div className={style.relatedPostThumb} style={{ backgroundImage: `url(${API_BASE_URL}${relatedPost.image})` }}></div>
                   <div className={style.relatedPostInfo}>
                     <h4 className={style.relatedPostTitle}>{relatedPost.title}</h4>
-                    <span className={style.relatedPostDate}>{relatedPost.date}</span>
+                    <span className={style.relatedPostDate}>{relatedPost.publish_at}</span>
                   </div>
                 </Link>
               </li>

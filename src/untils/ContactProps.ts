@@ -1,9 +1,9 @@
 export interface ContactProps {
     email: string;
-    businessEmail: string;
-    socialLinks: SocialLink[];
-    questionsAndAnswers: QuestionAndAnswer[];
-    MapIframeUrl: string;
+    business_email: string;
+    social_links: SocialLink[];
+    FAQ: QuestionAndAnswer[];
+    map_iframe_url: string;
     phone: string;
 }
 

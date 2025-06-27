@@ -64,10 +64,17 @@
         transition: all 0.3s ease;
     }
 
+    .postTag.active {
+        background-color: rgba(255, 100, 0, 0.2);
+        color: white;
+        box-shadow: 0 0 0 2px rgba(255, 100, 0, 0.6);
+    }
+
     .postTag:hover {
         background-color: rgba(255, 100, 0, 0.2);
         transform: translateY(-2px);
     }
+
 }
 
 @include metaItem;
@@ -123,12 +130,36 @@
     border-color: $accent-dragon;
 }
 
+.btnPrimary {
+    background: linear-gradient(45deg, $accent-dragon, $accent-fire);
+    border: none;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btnPrimary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 25px rgba(139, 0, 0, 0.5);
+    background-color: $accent-fire;
+    background-image: none;
+}
+
 /* Lists in sidebar */
 .listGroupItem {
     background-color: transparent;
     border-color: rgba(255, 255, 255, 0.05);
     color: $text-ash;
     transition: all 0.3s ease;
+}
+
+.listGroupItem.active {
+    background-color: rgba(255, 100, 0, 0.2);
+    color: $text-light;
+    box-shadow: 0 0 0 2px rgba(255, 100, 0, 0.6);
 }
 
 .listGroupItem:hover {

@@ -1,7 +1,17 @@
 export interface AboutProps {
-  coreValues: CoreValue[];
-  technicalArsenal: TechnicalArsenal[];
-  professionalJourney: ProfessionalJourney[];
+  title: string;
+  subtitle: string;
+  text: string;
+  image_title: string;
+  image: string;
+  lang: string;
+  core_values_title: string;
+  core_values: CoreValue[];
+  technical_arsenal_title: string;
+  technical_arsenal: TechnicalArsenal[];
+  professional_journal_title: string;
+  professional_journal: ProfessionalJourney[];
+  testimonials_title: string;
   testimonials: Testimonial[];
 }
 
@@ -13,6 +23,7 @@ export interface CoreValue {
 
 export interface ProfessionalJourney {
   title: string;
+  company: string;
   description: string;
   duration: string;
 }

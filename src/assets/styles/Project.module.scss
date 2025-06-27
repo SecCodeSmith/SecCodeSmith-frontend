@@ -1,5 +1,13 @@
 @use './variables' as *;
 
+.cardBodyModal{
+    color: $text-light;
+}
+
+.cardHeader{
+    color: $text-light;
+}
+
 .filterContainer {
     margin-bottom: 2rem;
 }
@@ -48,13 +56,14 @@
 }
 
 .cardTitle {
+    color: $text-light;
     font-size: 1.5rem;
     margin-bottom: 0.75rem;
 }
 
 .cardText {
     color: $text-ash;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: $font-family;
     line-height: 1.6;
     margin-bottom: 1.5rem;
 }

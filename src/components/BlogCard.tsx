@@ -1,18 +1,25 @@
 import { Link } from 'react-router-dom';
 import styles from '@styles/BlogCard.module.scss';
+import { lazy } from 'react';
+
+const TagField = lazy(() => import('../components/TagField'));
 
 import type {BlogPostProps} from '../untils/BlogPostProps';
+import { API_BASE_URL } from '../Config';
+
 
 interface BlogCardProps {
   post: BlogPostProps;
+  setSearchTag: React.Dispatch<React.SetStateAction<string[]>>;
+  searchTag: string[];
 }
 
-export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
+export const BlogCard: React.FC<BlogCardProps> = ({ post, setSearchTag, searchTag }) => {
   return (
     <div className={`card ${styles.card} ${post.featured ? styles.featuredCard : ''}`}>
       <div className="position-relative">
-        <img src={`${import.meta.env.BASE_URL}${post.image}`} className={`card-img-top ${post.featured ? styles.featuredImg : ''}`} alt={post.title} />
-        <div className={styles.categoryBadge}>{post.category}</div>
+        <img src={`${API_BASE_URL}${post.image}`} className={`card-img-top ${post.featured ? styles.featuredImg : ''}`} alt={post.title} />
+        <div className={styles.categoryBadge}>{post.category.title}</div>
         
         {post.featured && (
           <div className={`featured-badge ${styles.featuredBadge}`}>
@@ -28,15 +35,15 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         <div className={`d-flex meta-items mb-3`}>
           <div className={`meta-item ${styles.metaItem}`}>
             <i className="fas fa-calendar-alt meta-icon"></i>
-            <span>{post.date}</span>
+            <span>{post.publish_at}</span>
           </div>
           <div className={`meta-item ${styles.metaItem}`}>
             <i className={`fas fa-user meta-icon ${styles.metaIcon}`}></i>
-            <span>{post.author}</span>
+            <span>{post.author.name}</span>
           </div>
           <div className={`meta-item ${styles.metaItem}`}>
             <i className={`fas fa-comments meta-icon ${styles.metaIcon}`}></i>
-            <span>{post.commentCount} Comments</span>
+            <span>{post.comments} Comments</span>
           </div>
         </div>
         <p className={`card-text ${styles.cardText}`}>
@@ -45,7 +52,11 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         <Link to={`/blog/${post.slug}`} className={`read-more ${styles.readMore}`}>Continue Reading</Link>
         <div className="mt-3">
           {post.tags.map((tag, index) => (
-            <span key={index} className={`post-tag ${styles.postTag}`}>{tag}</span>
+            <TagField
+              key={index}
+              tag={tag}
+              setSearchTag={setSearchTag}
+              searchTag={searchTag}/>
           ))}
         </div>
       </div>

@@ -3,7 +3,7 @@ export interface ProjectProps {
   id: string;
   title: string;
   description: string;
-  projectDetails?: ProjectDetails;
+  project_details?: ProjectDetails;
   image: string;
   category: Category[];
   featured?: boolean;
@@ -15,22 +15,22 @@ export interface ProjectProps {
 
 export interface ProjectDetails {
   descriptions?: string[];
-  startDate?: string;
-  endDate?: string;
-  dateFormatted?: string;
+  start_date?: string;
+  end_date?: string;
+  date_format?: string;
   role?: string;
   status?: string;
   client?: string;
-  keyFeatures?: string[];
+  key_features?: string[];
   gallery?: string[];
-  fullTechStack?: FullTechStack[];
+  full_tech_stack?: FullTechStack[];
 }
 
 export interface Category {
-  [key: string]: string;
-  fullName: string;
-  shortName: string;
+  name: string;
+  short: string;
   icon: string;
+  countOfProjects?: number;
 }
 
 export interface ProjectTech {

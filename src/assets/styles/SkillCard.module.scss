@@ -1,5 +1,6 @@
 @use './variables' as *;
 
+
 /* Skills Section */
 .skillsSection {
     padding: 6rem 0;
@@ -54,6 +55,7 @@
 }
 
 .cardHeader {
+    color: $text-light;
     background-color: transparent;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
@@ -95,5 +97,5 @@
 
 .skillName {
     color: $text-ash;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: $font-family;
 }
