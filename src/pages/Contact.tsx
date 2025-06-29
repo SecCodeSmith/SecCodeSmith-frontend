@@ -146,7 +146,7 @@ export const Contact = () => {
           <div className="row mb-4">
             <div className="col-12 text-center">
               <h2 className="mb-3">The Forge Location</h2>
-              <p className="text-muted mb-4">Where digital creations are hammered into existence</p>
+              <p className="mb-4">Where digital creations are hammered into existence</p>
             </div>
           </div>
           <div className="row">

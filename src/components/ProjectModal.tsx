@@ -42,8 +42,10 @@ export const ProjectModal: React.FC = () => {
         )
     }
 
-    const startDate = moment(project.project_details?.start_date, project.project_details?.date_format);
-    const endDate = moment(project.project_details?.end_date, project.project_details?.date_format);
+    const format = project.project_details?.date_format?.replace('%m', 'MM').replace('%d', 'DD').replace('%Y', 'YYYY');
+
+    const startDate = moment(project.project_details?.start_date, format);
+    const endDate = moment(project.project_details?.end_date, format);
     const duration = startDate.isValid() && endDate.isValid()
         ? Math.ceil(endDate.diff(startDate, 'days') / 7) + ' weeks'
         : 'Ongoing';
