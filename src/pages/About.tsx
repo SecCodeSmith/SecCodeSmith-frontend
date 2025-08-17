@@ -61,9 +61,9 @@ export const About = () => {
                 
                 <div className="mt-4">
                   {
-                    ContactProps?.socialLinks && 
-                    ContactProps.socialLinks.length > 0 && 
-                    ContactProps.socialLinks.map((link, index) => (
+                    ContactProps?.social_links && 
+                    ContactProps.social_links.length > 0 && 
+                    ContactProps.social_links.map((link, index) => (
                       <a key={index} href={link.url} className={`${style.connectLink}`}>
                         <i className={`${link.icon} ${style.connectIcon}`}></i>
                         <span>{link.platform}</span>
