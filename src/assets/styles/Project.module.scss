@@ -35,19 +35,13 @@
 
 /* Project Cards */
 .card {
-    background-color: $card-bg;
-    border: 1px solid $card-border;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-    height: 100%;
+    /* The base styles are now in _card.scss */
+    /* This class can be used for project-specific overrides */
 }
 
 .card:hover {
+    /* Specific hover effect for project card if needed */
     transform: translateY(-10px);
-    border-color: rgba(255, 100, 0, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .cardImgTop {
@@ -56,15 +50,10 @@
 }
 
 .cardTitle {
-    color: $text-light;
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
+    /* Project-specific title styles if needed */
 }
 
 .cardText {
-    color: $text-ash;
-    font-family: $font-family;
-    line-height: 1.6;
     margin-bottom: 1.5rem;
 }
 
