@@ -7,7 +7,7 @@ import style from '@styles/BlogPost.module.scss';
 import type { BlogPostProps } from '../untils/BlogPostProps';
 import { Spinner } from '../components/Spinner';
 import { NotFound } from './NotFound';
-import { API_BASE_URL } from '../Config';
+import { API_BASE_URL, USE_API, STATIC_IMAGE_URL } from '../Config';
 
 interface TableOfContentsItem {
   title: string;
@@ -149,7 +149,7 @@ export const BlogPost = () => {
         <article>
           {/* Post Header */}
           <div className={style.postHeader}>
-            <div className={style.postFeaturedImage} style={{ backgroundImage: `url(${API_BASE_URL}${post.image})` }}></div>
+            <div className={style.postFeaturedImage} style={{ backgroundImage: `url(${USE_API ? API_BASE_URL : STATIC_IMAGE_URL}${post.image})` }}></div>
             <div className={style.postCategory}>{post.category.title}</div>
           </div>
 
@@ -270,7 +270,7 @@ export const BlogPost = () => {
             {relatedPosts && relatedPosts.map(relatedPost => (
               <li className={style.relatedPostItem} key={relatedPost.id}>
                 <Link to={`/blog/${relatedPost.slug}`} className={style.relatedPostLink}>
-                  <div className={style.relatedPostThumb} style={{ backgroundImage: `url(${API_BASE_URL}${relatedPost.image})` }}></div>
+                  <div className={style.relatedPostThumb} style={{ backgroundImage: `url(${USE_API ? API_BASE_URL : STATIC_IMAGE_URL}${relatedPost.image})` }}></div>
                   <div className={style.relatedPostInfo}>
                     <h4 className={style.relatedPostTitle}>{relatedPost.title}</h4>
                     <span className={style.relatedPostDate}>{relatedPost.publish_at}</span>

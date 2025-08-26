@@ -4,7 +4,7 @@
         "slug": "StartOFJurney",
         "title": "Something ends, something begins.",
         "excerpt": "",
-        "image": "images/Begining.jpg",
+        "image": "/Begining.jpg",
         "category": { "title": "Story", "slug": "story" },
         "date": "27-05-2025",
         "author": "SecCodeSmith (Jakub)",

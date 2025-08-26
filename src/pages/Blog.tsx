@@ -8,7 +8,7 @@ import { fetchBlogPostsPage, fetchBlogPagesCount, fetchBlogCategories, fetchBlog
 import style from '@styles/Blog.module.scss';
 import type { BlogPostProps, BlogCategoryProps, BlogTagsProps } from '../untils/BlogPostProps';
 import { Spinner } from '../components/Spinner';
-import { API_BASE_URL } from '../Config';
+import { API_BASE_URL, USE_API, STATIC_IMAGE_URL } from '../Config';
 
 export const Blog = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -185,7 +185,7 @@ export const Blog = () => {
               <div className="recent-posts">
                 {posts.slice(0, 3).map((post, index)=> (
                   <div className={`recent-post-item ${style.recentPostItem}`} key={index}>
-                    <img src={`${API_BASE_URL}${post.image}`} className={`recent-post-thumb ${style.recentPostThumb}`} alt={post.title} />
+                    <img src={`${USE_API ? API_BASE_URL : STATIC_IMAGE_URL}${post.image}`} className={`recent-post-thumb ${style.recentPostThumb}`} alt={post.title} />
                     <div className={style.recentPostInfo}>
                       <h4 className={style.recentPostTitle}>
                         <a href={`/blog/${post.slug}`}>{post.title}</a>
