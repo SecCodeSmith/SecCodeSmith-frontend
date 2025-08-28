@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import style from '@styles/Project.module.scss'
 import type {ProjectTech, Category, ProjectProps } from '../untils/ProjectProps'
-import { API_BASE_URL } from '../Config';
+import { API_BASE_URL, USE_API, STATIC_IMAGE_URL } from '../Config';
 
 interface ProjectCardProps {
   project: ProjectProps;
@@ -94,7 +94,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenDetails
         >
           <div className={`row g-0`}>
             <div className={`col-md-6 position-relative`}>
-              <img src={`${API_BASE_URL}${project.image}`} className={`img-fluid rounded-start h-100 w-100 object-fit-cover`} alt={project.title} />
+              <img src={`${USE_API ? API_BASE_URL : STATIC_IMAGE_URL}${project.image}`} className={`img-fluid rounded-start h-100 w-100 object-fit-cover`} alt={project.title} />
               <div className={style.featuredBadge}>
                 <i className="fas fa-star"></i>
                 <span>Featured</span>

@@ -2,7 +2,7 @@ import type { ProjectProps } from '../untils/ProjectProps';
 import moment from "moment";
 
 import style from '@styles/Project.module.scss'
-import { API_BASE_URL } from '../Config';
+import { API_BASE_URL, USE_API, STATIC_IMAGE_URL } from '../Config';
 import Spinner from './Spinner';
 import { useContext, useEffect, useState } from 'react';
 import { fetchProjectById } from '../data/projectsData';
@@ -64,7 +64,7 @@ export const ProjectModal: React.FC = () => {
                     </div>
                     <div className={`modal-body ${style.modalBody}`}>
                         <div className="mb-4">
-                            <img src={`${API_BASE_URL}${project.image}`} className="img-fluid rounded mb-3" alt={project.title} />
+                            <img src={`${USE_API ? API_BASE_URL : STATIC_IMAGE_URL}${project.image}`} className="img-fluid rounded mb-3" alt={project.title} />
                             <div className={`row ${style.row}`}>
                                 <div className="col-md-8">
                                     {
@@ -164,7 +164,7 @@ export const ProjectModal: React.FC = () => {
                                             project.project_details.gallery.map((image, index) => (
                                                 <div className="col-md-4 col-6">
                                                     <div key={index} className={`gallery-item ${style.galleryItem}`}>
-                                                        <img src={`${API_BASE_URL}${image}`} alt={`Gallery Image ${index + 1}`} className={`gallery-image ${style.galleryImage}`}></img>
+                                                        <img src={`${USE_API ? API_BASE_URL : STATIC_IMAGE_URL}${image}`} alt={`Gallery Image ${index + 1}`} className={`gallery-image ${style.galleryImage}`}></img>
                                                     </div>
                                                 </div>
                                             ))

@@ -1,9 +1,17 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Header } from '../src/components/Header';
 import { Footer } from '../src/components/Footer';
 import { PageHeader } from '../src/components/PageHeader';
+
+// Mock the socialLinkData module
+vi.mock('../src/data/socialLinkData', () => ({
+  fetchSocialLinkData: vi.fn(() => Promise.resolve([
+    { id: 1, name: 'GitHub', url: 'https://github.com', icon: 'fab fa-github' },
+    { id: 2, name: 'LinkedIn', url: 'https://linkedin.com', icon: 'fab fa-linkedin' },
+  ])),
+}));
 
 // Setup wrapper for components that use router
 const renderWithRouter = (ui: React.ReactElement) => {
@@ -33,9 +41,9 @@ describe('Footer Component', () => {
     render(<Footer />);
   });
 
-  it('renders social links', () => {
-    const socialLinks = document.querySelectorAll('.social-icon');
-    expect(socialLinks.length).toBeGreaterThan(0);
+  it('renders social links', async () => {
+    expect(await screen.findByLabelText('GitHub')).toBeInTheDocument();
+    expect(await screen.findByLabelText('LinkedIn')).toBeInTheDocument();
   });
 
   it('renders copyright text with current year', () => {
