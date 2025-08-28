@@ -9,16 +9,23 @@
 
 /* Card styling */
 .card {
-    /* Base styles are in _card.scss */
-    /* Add blog-card specific overrides here */
+    background-color: $card-bg;
+    border: 1px solid $card-border;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
 }
 
 .card:hover {
-    /* Blog-card specific hover */
+    transform: translateY(-5px);
+    border-color: rgba(255, 100, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .cardImgTop {
-    /* Base styles are in _card.scss */
+    height: 200px;
+    object-fit: cover;
 }
 
 .featuredImg {
@@ -31,6 +38,7 @@
 }
 
 .cardTitle a {
+    color: $text-light;
     text-decoration: none;
     transition: color 0.3s;
 }
@@ -40,7 +48,9 @@
 }
 
 .cardText {
-    /* Base styles are in _card.scss */
+    color: $text-ash;
+    font-family: $font-family;
+    line-height: 1.6;
 }
 
 .featuredCard .cardTitle {

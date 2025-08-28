@@ -1,4 +1,7 @@
 @use './variables' as *;
+@use './card.scss' as card;
+
+@include card.card;
 
 /* Card styling */
 .cardBody {
