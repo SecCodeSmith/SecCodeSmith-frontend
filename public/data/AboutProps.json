@@ -1,5 +1,8 @@
 {
-    "coreValues": [
+    "title": "The Forgemaster",
+    "subtitle": "Crafting digital solutions from the raw materials of innovation",
+    "text": "Test",
+    "core_values": [
         {
             "title": "Security by Design",
             "icon": "fas fa-shield-alt",
@@ -21,7 +24,7 @@
             "description": "The digital landscape changes with the seasons. I embrace continuous learning and adaptation, integrating new techniques and technologies to forge ever-better solutions."
         }
     ],
-    "technicalArsenal": [
+    "technical_arsenal": [
         {
             "icon": "fas fa-microchip",
             "title": "Embedded Systems",
@@ -68,7 +71,7 @@
             ]
         }
     ],
-    "professionalJourney": [
+    "professional_journal": [
         {
             "title": "Student at Rzeszów University of Technology",
             "description": "Specialization: Computer Science",
@@ -81,7 +84,7 @@
         },
         {
             "title": "Junior Software Developer at Opeteam S.A.",
-            "description": "- Performing programming tasks in R&D projects within the product development department,\n - Database administration, \n - Defining unit tests and manual testing of solutions, \n - Selecting technologies for basic problems, - Documenting the source code (technical documentation)., \n",                
+            "description": "- Performing programming tasks in R&D projects within the product development department,\n - Database administration, \n - Defining unit tests and manual testing of solutions, \n - Selecting technologies for basic problems, - Documenting the source code (technical documentation)., \n",
             "duration": "2022.09 - 2023.04"
         },
         {
@@ -89,9 +92,6 @@
             "description": "- Created simple automaction script for office. \n - Prepare some static pages",
             "duration": "2023.07 - 2023.08"
         }
-        
     ],
-    "testimonials": [
-
-    ] 
+    "testimonials": []
 }

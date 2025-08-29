@@ -4,7 +4,7 @@ import type {SocialLink} from '../untils/SocialLink'
 
 
 export const Footer = () => {
-   const [SocialLinks, setSocialLinks] = useState<SocialLink[]>();
+   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
   
     useEffect(() => {
       const fetchData = async () => {
@@ -19,8 +19,15 @@ export const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="social-links">
-          {SocialLinks && SocialLinks.map((link, index) => (
-            <a key={index} href={link.url} className="social-icon">
+          {socialLinks && socialLinks.map((link) => (
+            <a
+              key={link.id}
+              href={link.url}
+              className="social-icon"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.name}
+            >
               <i className={link.icon}></i>
             </a>
           ))}
