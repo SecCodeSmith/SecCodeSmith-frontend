@@ -104,5 +104,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📬 Contact
 
 **SecCodeSmith** - [contact@seccodesmith.pl](mailto:contact@seccodesmith.pl)
-
-Project Link: [https://github.com/SecCodeSmith/SecCodeSmith-frontend](https://github.com/SecCodeSmith/SecCodeSmith-frontend)
