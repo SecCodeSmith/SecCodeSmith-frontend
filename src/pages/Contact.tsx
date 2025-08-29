@@ -38,59 +38,112 @@ export const Contact = () => {
               <ContactForm />
             </div>)}
 
-            <div className="col-lg-5">
-              <div className={`card mb-4 ${style.card}`}>
-                <div className={`card-body p-4 ${style.cardBody}`}>
-                  <div className={`${style.contactCard}`}>
-                    <div className={`${style.contactIcon}`}>
-                      <i className="fas fa-envelope"></i>
-                    </div>
-                    <h3 className={style.contactTitle}>Email</h3>
-                    <div className="contact-content">
-                      <p>For project inquiries or questions:</p>
-                      <p>
-                        <a href={`mailto:${ContactProps.email}`} className={style.contactLink}>
-                          {ContactProps.email}
-                        </a>
-                      </p>
-                      <p>For business collaborations:</p>
-                      <p>
-                        <a href={`mailto:${ContactProps.business_email}`} className={style.contactLink}>
-                          {ContactProps.business_email}
-                        </a>
-                      </p>
+            <div className={CONTACT_FORM ? "col-lg-5" : "col-12"}>
+              {CONTACT_FORM ? (
+                <>
+                  <div className={`card mb-4 ${style.card}`}>
+                    <div className={`card-body p-4 ${style.cardBody}`}>
+                      <div className={`${style.contactCard}`}>
+                        <div className={`${style.contactIcon}`}>
+                          <i className="fas fa-envelope"></i>
+                        </div>
+                        <h3 className={style.contactTitle}>Email</h3>
+                        <div className="contact-content">
+                          <p>For project inquiries or questions:</p>
+                          <p>
+                            <a href={`mailto:${ContactProps.email}`} className={style.contactLink}>
+                              {ContactProps.email}
+                            </a>
+                          </p>
+                          <p>For business collaborations:</p>
+                          <p>
+                            <a href={`mailto:${ContactProps.business_email}`} className={style.contactLink}>
+                              {ContactProps.business_email}
+                            </a>
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              {
-                ContactProps.social_links.length > 0 && (
-                  <div className={`card ${style.card}`}>
-                    <div className={`card-body p-4 ${style.cardBody}`}>
-                      <div className={style.contactCard}>
-                        <div className={style.contactIcon}>
-                          <i className="fas fa-link"></i>
+                  {ContactProps.social_links.length > 0 && (
+                    <div className={`card ${style.card}`}>
+                      <div className={`card-body p-4 ${style.cardBody}`}>
+                        <div className={style.contactCard}>
+                          <div className={style.contactIcon}>
+                            <i className="fas fa-link"></i>
+                          </div>
+                          <h3 className={style.contactTitle}>Connect Through the Ether</h3>
+                          <div className={style.contactContent}>
+                            <p>You can also reach me through these digital pathways:</p>
+                            <div className={style.socialGrid}>
+                              {ContactProps.social_links.map((link, index) => (
+                                <a key={index} href={link.url} className={`social-item ${style.socialItem}`}>
+                                  <i className={`${link.icon} social-icon-lg ${style.socialIconLg}`}></i>
+                                  <span className={`social-name ${style.socialName}`}>{link.platform}</span>
+                                </a>
+                              ))}
+                            </div>
+                          </div>
                         </div>
-                        <h3 className={style.contactTitle}>Connect Through the Ether</h3>
-                        <div className={style.contactContent}>
-                          <p>You can also reach me through these digital pathways:</p>
-                          <div className={style.socialGrid}>
-                            {ContactProps.social_links.map((link, index) => (
-
-                              <a key={index} href={link.url} className={`social-item ${style.socialItem}`}>
-                                <i className={`${link.icon} social-icon-lg ${style.socialIconLg}`}></i>
-                                <span className={`social-name ${style.socialName}`}>{link.platform}</span>
+                      </div>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="row justify-content-center">
+                  <div className="col-lg-6">
+                    <div className={`card mb-4 ${style.card}`}>
+                      <div className={`card-body p-4 ${style.cardBody}`}>
+                        <div className={`${style.contactCard}`}>
+                          <div className={`${style.contactIcon}`}>
+                            <i className="fas fa-envelope"></i>
+                          </div>
+                          <h3 className={style.contactTitle}>Email</h3>
+                          <div className="contact-content">
+                            <p>For project inquiries or questions:</p>
+                            <p>
+                              <a href={`mailto:${ContactProps.email}`} className={style.contactLink}>
+                                {ContactProps.email}
                               </a>
-
-                            ))}
+                            </p>
+                            <p>For business collaborations:</p>
+                            <p>
+                              <a href={`mailto:${ContactProps.business_email}`} className={style.contactLink}>
+                                {ContactProps.business_email}
+                              </a>
+                            </p>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                )
-              }
-
+                  {ContactProps.social_links.length > 0 && (
+                    <div className="col-lg-6">
+                      <div className={`card ${style.card}`}>
+                        <div className={`card-body p-4 ${style.cardBody}`}>
+                          <div className={style.contactCard}>
+                            <div className={style.contactIcon}>
+                              <i className="fas fa-link"></i>
+                            </div>
+                            <h3 className={style.contactTitle}>Connect Through the Ether</h3>
+                            <div className={style.contactContent}>
+                              <p>You can also reach me through these digital pathways:</p>
+                              <div className={style.socialGrid}>
+                                {ContactProps.social_links.map((link, index) => (
+                                  <a key={index} href={link.url} className={`social-item ${style.socialItem}`}>
+                                    <i className={`${link.icon} social-icon-lg ${style.socialIconLg}`}></i>
+                                    <span className={`social-name ${style.socialName}`}>{link.platform}</span>
+                                  </a>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
