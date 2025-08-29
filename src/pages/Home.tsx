@@ -5,7 +5,7 @@ import styles from '@styles/Home.module.scss';
 import SkillCard from '../components/SkillCard'
 import { fetchSkillCardData } from '../data/skillCardData';
 import { randomCodeLineData } from '../data/randomCodeLineData';
-import type { SkillCardProps } from '../untils/SkillCardProps';
+import type { SkillCardProps } from '../utils/SkillCardProps';
 
 export const Home = () => {
   const [skills, setSkills] = useState<SkillCardProps[]>();

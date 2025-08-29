@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import style from '@styles/Project.module.scss'
-import type {ProjectTech, Category, ProjectProps } from '../untils/ProjectProps'
+import type {ProjectTech, Category, ProjectProps } from '../utils/ProjectProps'
 import { API_BASE_URL, USE_API, STATIC_IMAGE_URL } from '../Config';
 
 interface ProjectCardProps {

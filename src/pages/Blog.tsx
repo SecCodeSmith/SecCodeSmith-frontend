@@ -6,7 +6,7 @@ const TagField = lazy(() => import('../components/TagField'));
 import { fetchBlogPostsPage, fetchBlogPagesCount, fetchBlogCategories, fetchBlogTags } from '../data/blogPostsData';
 
 import style from '@styles/Blog.module.scss';
-import type { BlogPostProps, BlogCategoryProps, BlogTagsProps } from '../untils/BlogPostProps';
+import type { BlogPostProps, BlogCategoryProps, BlogTagsProps } from '../utils/BlogPostProps';
 import { Spinner } from '../components/Spinner';
 import { API_BASE_URL, USE_API, STATIC_IMAGE_URL } from '../Config';
 

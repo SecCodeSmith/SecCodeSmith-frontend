@@ -1,5 +1,5 @@
 import { USE_API, API_BASE_URL, STATIC_DATA_URL } from '../Config';
-import type { AboutProps } from '../untils/AboutProps'
+import type { AboutProps } from '../utils/AboutProps'
 
 export async function fetchAboutProps(): Promise<AboutProps> {
     if (USE_API) {

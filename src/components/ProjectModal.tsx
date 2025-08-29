@@ -1,4 +1,4 @@
-import type { ProjectProps } from '../untils/ProjectProps';
+import type { ProjectProps } from '../utils/ProjectProps';
 import moment from "moment";
 
 import style from '@styles/Project.module.scss'
