@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import {fetchSocialLinkData} from '../data/socialLinkData'
-import type {SocialLink} from '../untils/SocialLink'
+import type {SocialLink} from '../utils/SocialLink'
 
 
 export const Footer = () => {

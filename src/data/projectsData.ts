@@ -1,5 +1,5 @@
 import { USE_API, API_BASE_URL, STATIC_DATA_URL } from "../Config";
-import type { ProjectProps, Category } from "../untils/ProjectProps";
+import type { ProjectProps, Category } from "../utils/ProjectProps";
 
 export async function fetchCategories(): Promise<Category[]> {
   if (USE_API) {

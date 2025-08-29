@@ -1,4 +1,4 @@
-import { type SocialLink } from "../untils/SocialLink";
+import { type SocialLink } from "../utils/SocialLink";
 import { USE_API, API_BASE_URL, STATIC_DATA_URL } from "../Config";
 
 export async function fetchSocialLinkData(): Promise<SocialLink[]> {

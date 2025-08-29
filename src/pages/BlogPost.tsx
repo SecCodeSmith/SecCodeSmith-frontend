@@ -4,7 +4,7 @@ import { fetchBlogPost, fetchRelatedPostsByCategory } from '../data/blogPostsDat
 
 
 import style from '@styles/BlogPost.module.scss';
-import type { BlogPostProps } from '../untils/BlogPostProps';
+import type { BlogPostProps } from '../utils/BlogPostProps';
 import { Spinner } from '../components/Spinner';
 import { NotFound } from './NotFound';
 import { API_BASE_URL, USE_API, STATIC_IMAGE_URL } from '../Config';

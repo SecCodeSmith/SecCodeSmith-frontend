@@ -1,7 +1,7 @@
 import styles from '@styles/SkillCard.module.scss';
 import React from 'react';
 
-import type {SkillCardProps} from '../untils/SkillCardProps';
+import type {SkillCardProps} from '../utils/SkillCardProps';
 
 const SkillCard: React.FC<SkillCardProps> = ({ categoryTitle, categoryIcon, skills }) => {
     return (

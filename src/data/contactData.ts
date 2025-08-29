@@ -1,5 +1,5 @@
 import { USE_API, API_BASE_URL, STATIC_DATA_URL } from '../Config'
-import type {ContactProps} from '../untils/ContactProps'
+import type {ContactProps} from '../utils/ContactProps'
 
 export async function fetchContactData(): Promise<ContactProps> {
   if (USE_API) {

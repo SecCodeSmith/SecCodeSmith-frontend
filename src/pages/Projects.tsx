@@ -3,7 +3,7 @@ import { PageHeader } from '../components/PageHeader';
 import { ProjectCard } from '../components/ProjectCard';
 import { ProjectModal } from '../components/ProjectModal';
 import { fetchProjectsData, fetchCategories } from '../data/projectsData';
-import type { ProjectProps, Category } from '../untils/ProjectProps';
+import type { ProjectProps, Category } from '../utils/ProjectProps';
 
 import style from '@styles/Project.module.scss'
 import { Spinner } from '../components/Spinner';

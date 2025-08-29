@@ -4,7 +4,7 @@ import { lazy } from 'react';
 
 const TagField = lazy(() => import('../components/TagField'));
 
-import type {BlogPostProps} from '../untils/BlogPostProps';
+import type {BlogPostProps} from '../utils/BlogPostProps';
 import { API_BASE_URL, USE_API, STATIC_IMAGE_URL } from '../Config';
 
 

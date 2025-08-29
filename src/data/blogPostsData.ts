@@ -1,7 +1,7 @@
 import { USE_API, API_BASE_URL, STATIC_DATA_URL } from "../Config";
 import type {
   BlogPostProps, BlogCategoryProps, BlogTagsProps
-} from '../untils/BlogPostProps';
+} from '../utils/BlogPostProps';
 
 export interface BlogPostsPage {
   page: number;

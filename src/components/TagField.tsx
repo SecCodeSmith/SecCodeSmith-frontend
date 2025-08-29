@@ -1,4 +1,4 @@
-import type { BlogTagsProps } from '../untils/BlogPostProps'
+import type { BlogTagsProps } from '../utils/BlogPostProps'
 import style from '@styles/Blog.module.scss';
 
 interface TagsFieldProps {

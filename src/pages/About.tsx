@@ -2,8 +2,8 @@ import { lazy } from 'react';
 import { fetchAboutProps } from '../data/AboutProps';
 import style from '@styles/About.module.scss';
 import { useEffect, useState } from 'react';
-import type { AboutProps } from '../untils/AboutProps';
-import type { ContactProps } from '../untils/ContactProps';
+import type { AboutProps } from '../utils/AboutProps';
+import type { ContactProps } from '../utils/ContactProps';
 import { fetchContactData } from '../data/contactData';
 import { API_BASE_URL, USE_API, STATIC_IMAGE_URL } from '../Config';
 

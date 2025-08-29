@@ -5,7 +5,7 @@ import '@styles/Accordion.scss';
 import { CONTACT_FORM } from '../Config'
 
 import { fetchContactData } from '../data/contactData'
-import type { ContactProps } from '../untils/ContactProps';
+import type { ContactProps } from '../utils/ContactProps';
 import { useEffect, useState } from 'react';
 import { Spinner } from '../components/Spinner';
 

@@ -1,4 +1,4 @@
-import { type SkillCardProps } from '../untils/SkillCardProps';
+import { type SkillCardProps } from '../utils/SkillCardProps';
 import { USE_API, API_BASE_URL, STATIC_DATA_URL } from '../Config';
 
 export async function fetchSkillCardData(): Promise<SkillCardProps[]> {
