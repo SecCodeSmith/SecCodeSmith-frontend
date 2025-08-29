@@ -10,3 +10,4 @@ export const BLOG = true;
 export const ABOUT = true;
 export const PROJECTS = true;
 export const CONTACT = true;
+export const CONTACT_FORM = false;

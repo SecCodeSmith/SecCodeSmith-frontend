@@ -2,6 +2,7 @@ import { PageHeader } from '../components/PageHeader';
 import { ContactForm } from '../components/ContactForm';
 import style from '@styles/Contact.module.scss';
 import '@styles/Accordion.scss';
+import {CONTACT_FORM} from '../Config'
 
 import { fetchContactData } from '../data/contactData'
 import type { ContactProps } from '../untils/ContactProps';
@@ -33,9 +34,9 @@ export const Contact = () => {
       <section className="py-5">
         <div className="container">
           <div className="row g-4">
-            <div className="col-lg-7">
+            {CONTACT_FORM && (<div className="col-lg-7">
               <ContactForm />
-            </div>
+            </div>)}
 
             <div className="col-lg-5">
               <div className={`card mb-4 ${style.card}`}>
