@@ -2,7 +2,7 @@ import { PageHeader } from '../components/PageHeader';
 import { ContactForm } from '../components/ContactForm';
 import style from '@styles/Contact.module.scss';
 import '@styles/Accordion.scss';
-import {CONTACT_FORM} from '../Config'
+import { CONTACT_FORM } from '../Config'
 
 import { fetchContactData } from '../data/contactData'
 import type { ContactProps } from '../untils/ContactProps';
@@ -63,7 +63,6 @@ export const Contact = () => {
                   </div>
                 </div>
               </div>
-
               {
                 ContactProps.social_links.length > 0 && (
                   <div className={`card ${style.card}`}>
@@ -76,14 +75,14 @@ export const Contact = () => {
                         <div className={style.contactContent}>
                           <p>You can also reach me through these digital pathways:</p>
                           <div className={style.socialGrid}>
-                          {ContactProps.social_links.map((link, index) => (
+                            {ContactProps.social_links.map((link, index) => (
 
                               <a key={index} href={link.url} className={`social-item ${style.socialItem}`}>
                                 <i className={`${link.icon} social-icon-lg ${style.socialIconLg}`}></i>
                                 <span className={`social-name ${style.socialName}`}>{link.platform}</span>
                               </a>
-                            
-                          ))}
+
+                            ))}
                           </div>
                         </div>
                       </div>
@@ -91,7 +90,7 @@ export const Contact = () => {
                   </div>
                 )
               }
-              
+
             </div>
           </div>
         </div>

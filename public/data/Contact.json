@@ -1,6 +1,6 @@
 {
     "email": "forge@seccodesmith.pl",
-    "businessEmail": "business@seccodesmith.pl",
+    "business_email": "business@seccodesmith.pl",
     "social_links": [
         { "platform": "LinkedIn", "url": "https://www.linkedin.com/in/jakub-berechowski", "icon": "fab fa-linkedin" },
         { "platform": "GitHub", "url": "https://github.com/seccodesmith", "icon": "fab fa-github" },
