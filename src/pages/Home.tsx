@@ -6,6 +6,7 @@ import SkillCard from '../components/SkillCard'
 import { fetchSkillCardData } from '../data/skillCardData';
 import { randomCodeLineData } from '../data/randomCodeLineData';
 import type { SkillCardProps } from '../utils/SkillCardProps';
+import { PAGE_TITLE } from '../Config';
 
 export const Home = () => {
   const [skills, setSkills] = useState<SkillCardProps[]>();
@@ -96,7 +97,7 @@ export const Home = () => {
         <div className={`container text-center ${styles.heroContainer}`}>
           <div className="row justify-content-center">
             <div className="col-lg-10">
-              <h1 className={`${styles.titleMain}`}>SecCodeSmith</h1>
+              <h1 className={`${styles.titleMain}`}>{PAGE_TITLE}</h1>
               <div className={`${styles.blinkingCursor}`}></div>
               <p className={`subtitle mt-3 ${styles.subtitle}`}>Forging Digital Solutions in the Fires of Innovation</p>
               <Link to="/projects" className={`btn btn-primary mt-4 btn-primary ${styles.btnPrimary}`}>

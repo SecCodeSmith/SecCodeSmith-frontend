@@ -3,6 +3,7 @@ import { render, screen, act } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from '../src/components/Layout';
 import { Suspense } from 'react';
+import { PAGE_TITLE } from '../src/Config';
 
 // Mock the socialLinkData module
 vi.mock('../src/data/socialLinkData', () => ({
@@ -27,7 +28,7 @@ describe('Layout Component', () => {
     });
 
     // Check for Header content (assuming it has "SecCodeSmith" text)
-    expect(await screen.findByText('SecCodeSmith')).toBeInTheDocument();
+    expect(await screen.findByText(PAGE_TITLE)).toBeInTheDocument();
 
     // Check for child content
     expect(screen.getByText('Child Content')).toBeInTheDocument();

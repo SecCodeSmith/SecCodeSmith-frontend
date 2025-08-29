@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {fetchSocialLinkData} from '../data/socialLinkData'
 import type {SocialLink} from '../utils/SocialLink'
+import { PAGE_TITLE } from '../Config';
 
 
 export const Footer = () => {
@@ -32,7 +33,7 @@ export const Footer = () => {
             </a>
           ))}
         </div>
-        <p className="copyright">&copy; {currentYear} SecCodeSmith. All rights forged in digital fire.</p>
+        <p className="copyright">&copy; {currentYear} {PAGE_TITLE}. All rights forged in digital fire.</p>
       </div>
     </footer>
   )

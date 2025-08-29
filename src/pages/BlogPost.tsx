@@ -7,7 +7,7 @@ import style from '@styles/BlogPost.module.scss';
 import type { BlogPostProps } from '../utils/BlogPostProps';
 import { Spinner } from '../components/Spinner';
 import { NotFound } from './NotFound';
-import { API_BASE_URL, USE_API, STATIC_IMAGE_URL } from '../Config';
+import { API_BASE_URL, USE_API, STATIC_IMAGE_URL, PAGE_TITLE } from '../Config';
 
 interface TableOfContentsItem {
   title: string;
@@ -201,10 +201,10 @@ export const BlogPost = () => {
             {/* Author Info */}
             <div className={style.authorSection}>
               <div className={style.authorAvatar}>
-                <img src="/images/author.jpg" alt="SecCodeSmith" />
+                <img src="/images/author.jpg" alt={PAGE_TITLE} />
               </div>
               <div className={style.authorInfo}>
-                <h3 className={style.authorName}>SecCodeSmith</h3>
+                <h3 className={style.authorName}>{PAGE_TITLE}</h3>
                 <p className={style.authorBio}>Digital blacksmith forging embedded systems and IoT solutions in the fires of innovation. Specializes in low-level firmware, communication protocols, and hardware-software integration for resource-constrained devices.</p>
                 <div className={style.authorSocial}>
                   <a href="#"><i className="fab fa-github"></i></a>

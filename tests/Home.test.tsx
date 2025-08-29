@@ -4,6 +4,7 @@ import { Home } from '../src/pages/Home';
 import * as skillCardData from '../src/data/skillCardData';
 import { BrowserRouter } from 'react-router-dom';
 import { Suspense } from 'react';
+import { PAGE_TITLE } from '../src/Config';
 
 const mockSkillCardData = [
   {
@@ -32,7 +33,7 @@ describe('Home Page', () => {
       </BrowserRouter>
     );
 
-    expect(await screen.findByText('SecCodeSmith')).toBeInTheDocument();
+    expect(await screen.findByText(PAGE_TITLE)).toBeInTheDocument();
     expect(screen.getByText('Forging Digital Solutions in the Fires of Innovation')).toBeInTheDocument();
     expect(screen.getByText('Test Category')).toBeInTheDocument();
     expect(screen.getByText('Test Skill 1')).toBeInTheDocument();

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import logo from '../assets/images/favicon.webp'
-import {BLOG, ABOUT, CONTACT, PROJECTS} from '../Config'
+import {BLOG, ABOUT, CONTACT, PROJECTS, PAGE_TITLE} from '../Config'
 
 export const Header = () => {
   const location = useLocation()
@@ -21,7 +21,7 @@ export const Header = () => {
           <div className="logo-icon">
             <img src={logo} alt="Logo" className='logo-image' height="100%" />
           </div>
-          <div className="logo-text">SecCodeSmith</div>
+          <div className="logo-text">{PAGE_TITLE}</div>
         </NavLink>
         
         {moduleCount > 0 &&(<button 

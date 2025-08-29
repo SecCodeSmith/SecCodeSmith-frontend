@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import type { AboutProps } from '../utils/AboutProps';
 import type { ContactProps } from '../utils/ContactProps';
 import { fetchContactData } from '../data/contactData';
-import { API_BASE_URL, USE_API, STATIC_IMAGE_URL } from '../Config';
+import { API_BASE_URL, USE_API, STATIC_IMAGE_URL, PAGE_TITLE } from '../Config';
 
 const PageHeader = lazy(() => import('../components/PageHeader'));
 const Spinner = lazy(() => import('../components/Spinner'));
@@ -52,7 +52,7 @@ export const About = () => {
             <div className="col-lg-4">
               <h2 className={`${style.sectionTitle}`}>{data.image_title}</h2>
               <div className={style.profileImage}>
-                <img src={`${USE_API ? API_BASE_URL : STATIC_IMAGE_URL}${data.image}`} alt="SecCodeSmith" />
+                <img src={`${USE_API ? API_BASE_URL : STATIC_IMAGE_URL}${data.image}`} alt={PAGE_TITLE} />
               </div>
             </div>
             <div className="col-lg-8">

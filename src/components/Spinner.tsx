@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import logo from '../assets/images/favicon.webp'
 import { randomCodeLineData } from '../data/randomCodeLineData';
 import styles from '@styles/Spinner.module.scss';
+import { PAGE_TITLE } from '../Config';
 
 export const Spinner : React.FC = () => {
 
@@ -127,9 +128,9 @@ export const Spinner : React.FC = () => {
 
                 <div className={styles.logoWrapper}>
                     <div className={styles.logoIcon}>
-                        <img src={logo} alt="SecCodeSmith" />
+                        <img src={logo} alt={PAGE_TITLE} />
                     </div>
-                    <h1 className={styles.logoText}>SecCodeSmith</h1>
+                    <h1 className={styles.logoText}>{PAGE_TITLE}</h1>
                 </div>
 
                 <p className={styles.subtitle}>Forging Digital Solutions</p>

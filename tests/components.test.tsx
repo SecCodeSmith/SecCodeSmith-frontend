@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Header } from '../src/components/Header';
 import { Footer } from '../src/components/Footer';
 import { PageHeader } from '../src/components/PageHeader';
+import { PAGE_TITLE } from '../src/Config';
 
 // Mock the socialLinkData module
 vi.mock('../src/data/socialLinkData', () => ({
@@ -24,7 +25,7 @@ describe('Header Component', () => {
   });
 
   it('renders the logo text', () => {
-    expect(screen.getByText('SecCodeSmith')).toBeInTheDocument();
+    expect(screen.getByText(PAGE_TITLE)).toBeInTheDocument();
   });
 
   it('renders navigation links', () => {
@@ -50,7 +51,7 @@ describe('Footer Component', () => {
 
   it('renders copyright text with current year', () => {
     const currentYear = new Date().getFullYear();
-    expect(screen.getByText(`© ${currentYear} SecCodeSmith. All rights forged in digital fire.`)).toBeInTheDocument();
+    expect(screen.getByText(`© ${currentYear} ${PAGE_TITLE}. All rights forged in digital fire.`)).toBeInTheDocument();
   });
 });
 
