@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import React, { lazy } from 'react';
 import { fetchAboutProps } from '../data/AboutProps';
 import style from '@styles/About.module.scss';
 import { useEffect, useState } from 'react';
@@ -157,7 +157,7 @@ export const About = () => {
                       <p className={`${style.timelineText}`}>
                         {
                         journey.description && journey.description.split('\n').map((line, lineIndex) => (
-                          <><span key={lineIndex}>{line.trim()}</span><br /></>
+                          <React.Fragment key={lineIndex}><span>{line.trim()}</span><br /></React.Fragment>
                         ))
                        }
                       </p>

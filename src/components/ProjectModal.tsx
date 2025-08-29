@@ -162,8 +162,8 @@ export const ProjectModal: React.FC = () => {
                                     <div className="row">
                                         {
                                             project.project_details.gallery.map((image, index) => (
-                                                <div className="col-md-4 col-6">
-                                                    <div key={index} className={`gallery-item ${style.galleryItem}`}>
+                                                <div key={index} className="col-md-4 col-6">
+                                                    <div className={`gallery-item ${style.galleryItem}`}>
                                                         <img src={`${USE_API ? API_BASE_URL : STATIC_IMAGE_URL}${image}`} alt={`Gallery Image ${index + 1}`} className={`gallery-image ${style.galleryImage}`}></img>
                                                     </div>
                                                 </div>

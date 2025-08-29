@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Header } from '../src/components/Header';
 import { Footer } from '../src/components/Footer';
@@ -37,8 +37,10 @@ describe('Header Component', () => {
 });
 
 describe('Footer Component', () => {
-  beforeEach(() => {
-    render(<Footer />);
+  beforeEach(async () => {
+    await act(async () => {
+      render(<Footer />);
+    });
   });
 
   it('renders social links', async () => {
