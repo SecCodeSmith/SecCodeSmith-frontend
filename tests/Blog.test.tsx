@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { Blog } from '../src/pages/Blog';
 import * as blogData from '../src/data/blogPostsData';
@@ -6,8 +6,8 @@ import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
 const mockPosts = [
-  { id: 1, slug: 'post-1', title: 'Post 1', excerpt: 'Excerpt 1', image: '', category: { title: 'Category 1' }, author: { name: 'Author 1' }, publish_at: '2024-01-01', comments: 0, tags: [], featured: false },
-  { id: 2, slug: 'post-2', title: 'Post 2', excerpt: 'Excerpt 2', image: '', category: { title: 'Category 2' }, author: { name: 'Author 2' }, publish_at: '2024-01-02', comments: 0, tags: [], featured: false },
+  { id: 1, slug: 'post-1', title: 'Post 1', excerpt: 'Excerpt 1', image: '', category: { title: 'Category 1' }, author: { name: 'Author 1' }, publish_at: '2024-01-01', comments: 0, tags: [], featured: false, read_time: 5, content: 'Content for Post 1' },
+  { id: 2, slug: 'post-2', title: 'Post 2', excerpt: 'Excerpt 2', image: '', category: { title: 'Category 2' }, author: { name: 'Author 2' }, publish_at: '2024-01-02', comments: 0, tags: [], featured: false, read_time: 7, content: 'Content for Post 2' },
 ];
 
 const mockCategories = [
