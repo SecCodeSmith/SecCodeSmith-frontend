@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 export const randomCodeLineData :string[] = [
     'print("Hello, world!")',
   'int main() { return 0; }',

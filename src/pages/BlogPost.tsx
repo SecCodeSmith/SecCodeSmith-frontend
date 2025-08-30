@@ -7,7 +7,7 @@ import style from '@styles/BlogPost.module.scss';
 import type { BlogPostProps } from '../utils/BlogPostProps';
 import { Spinner } from '../components/Spinner';
 import { NotFound } from './NotFound';
-import { API_BASE_URL, USE_API, STATIC_IMAGE_URL, PAGE_TITLE } from '../Config';
+import { API_BASE_URL, USE_API, STATIC_IMAGE_URL, PAGE_TITLE, BLOG_COMMENTS } from '../Config';
 
 interface TableOfContentsItem {
   title: string;
@@ -63,6 +63,7 @@ export const BlogPost = () => {
           let httmlContent = currentPost.content;
 
           // Convert Markdown to HTML
+          // eslint-disable-next-line prefer-const
           let listOdCode: string[] = [];
           const codeBlockRegex = /<StringCodeBlockTagForReplace-id-(\d+)\s*\/>/g;
           let code_id  = 0;
@@ -82,7 +83,7 @@ export const BlogPost = () => {
             const tag_id: string = `toc-${id++}`;
             if (level > 1 && toc.length > 0) {
               let currient_level = toc[toc.length - 1];
-              let currient_level_number = 1;
+              const currient_level_number = 1;
               while (currient_level && currient_level.children &&
                 currient_level.children.length > 0 &&
                 currient_level.children[currient_level.children.length - 1].id !== tag_id &&
@@ -115,7 +116,7 @@ export const BlogPost = () => {
           httmlContent = httmlContent.replace(/(.)(?:\r\n|\r|\n)(.*\w)/g, '$1<br>$2');
 
           // Paragraphs
-          httmlContent = httmlContent.replace(/^(?!\s*(?:#{1,6}\s|>|\d+\.\s|[*+\-]\s|~~~|!\[|---))([^\r\n]+(?:\r?\n(?!\s*(?:#{1,6}\s|>|\d+\.\s|[*+\-]\s|~~~|!\[))[^\r\n]+)*)/gm, '<p>$1</p>');
+          httmlContent = httmlContent.replace(/^(?!\s*(?:#{1,6}\s|>|\d+\.\s|[*+-]\s|~~~|!\[|---))([^\r\n]+(?:\r?\n(?!\s*(?:#{1,6}\s|>|\d+\.\s|[*+-]\s|~~~|!\[))[^\r\n]+)*)/gm, '<p>$1</p>');
 
           // Inline formatting
           httmlContent = httmlContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -214,8 +215,7 @@ export const BlogPost = () => {
                 </div>
               </div>
             </div>
-            {/*Temporarily disable comments section */}
-            {0 && (
+            {BLOG_COMMENTS && (
               <div className={style.commentsSection}>
                 <h3 className={style.commentsTitle}>Discussions ({post.comments})</h3>
 

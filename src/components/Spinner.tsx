@@ -23,8 +23,8 @@ export const Spinner : React.FC = () => {
             line.style.left = `${Math.random() * 100}%`;
             line.style.animationDuration = `${Math.random() * 10 + 15}s`;
 
-            let lineNumber = Math.floor(Math.random() * randomCodeLines.length);
-            let binaryString = randomCodeLines[lineNumber];
+            const lineNumber = Math.floor(Math.random() * randomCodeLines.length);
+            const binaryString = randomCodeLines[lineNumber];
 
             line.textContent = binaryString;
             binnaryBg.appendChild(line);
@@ -104,6 +104,7 @@ export const Spinner : React.FC = () => {
             }, 300);
         }, 2500);
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

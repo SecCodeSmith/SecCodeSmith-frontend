@@ -8,6 +8,7 @@ import type { ProjectProps, Category } from '../utils/ProjectProps';
 import style from '@styles/Project.module.scss'
 import { Spinner } from '../components/Spinner';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const contextProjectId = createContext<string | null>(null)
 
 

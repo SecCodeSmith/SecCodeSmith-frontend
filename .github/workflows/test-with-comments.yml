@@ -1,0 +1,108 @@
+name: Test with Detailed Comments
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run linting with output capture
+      id: lint
+      run: |
+        echo "lint_output<<EOF" >> $GITHUB_OUTPUT
+        npm run lint 2>&1 || echo "LINT_FAILED=true" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+      continue-on-error: true
+      
+    - name: Run tests with output capture
+      id: test
+      run: |
+        echo "test_output<<EOF" >> $GITHUB_OUTPUT
+        npx vitest run --reporter=verbose 2>&1 | tee test_output.txt
+        if [ ${PIPESTATUS[0]} -ne 0 ]; then
+          echo "TEST_FAILED=true" >> $GITHUB_OUTPUT
+          echo "$(cat test_output.txt)" >> $GITHUB_OUTPUT
+        else
+          echo "TEST_PASSED=true" >> $GITHUB_OUTPUT
+          echo "$(cat test_output.txt | tail -10)" >> $GITHUB_OUTPUT
+        fi
+        echo "EOF" >> $GITHUB_OUTPUT
+      continue-on-error: true
+      
+    - name: Run build with output capture
+      id: build
+      run: |
+        echo "build_output<<EOF" >> $GITHUB_OUTPUT
+        npm run build 2>&1 || echo "BUILD_FAILED=true" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+      continue-on-error: true
+      
+    - name: Comment PR with detailed results
+      uses: thollander/actions-comment-pull-request@v2
+      with:
+        message: |
+          ## 🔍 Pull Request Detailed Check Results
+          
+          ### Linting Results
+          ${{ env.LINT_FAILED == 'true' && '❌ **Linting Failed**' || '✅ **Linting Passed**' }}
+          
+          ${{ env.LINT_FAILED == 'true' && format('```
+          {0}
+          ```', steps.lint.outputs.lint_output) || '_No linting issues found._' }}
+          
+          ### Test Results  
+          ${{ env.TEST_FAILED == 'true' && '❌ **Tests Failed**' || '✅ **Tests Passed**' }}
+          
+          <details>
+          <summary>Click to see test output</summary>
+          
+          ```
+          ${{ steps.test.outputs.test_output }}
+          ```
+          </details>
+          
+          ### Build Results
+          ${{ env.BUILD_FAILED == 'true' && '❌ **Build Failed**' || '✅ **Build Passed**' }}
+          
+          ${{ env.BUILD_FAILED == 'true' && format('```
+          {0}
+          ```', steps.build.outputs.build_output) || '_Build completed successfully._' }}
+          
+          ---
+          
+          ${{ (env.LINT_FAILED == 'true' || env.TEST_FAILED == 'true' || env.BUILD_FAILED == 'true') && '### ⚠️ Action Required
+          Please address the failing checks above before merging this PR.' || '### 🎉 All Checks Passed!
+          This PR is ready to be reviewed and merged.' }}
+          
+        comment_tag: detailed-pr-check
+        
+    - name: Set environment variables for next steps
+      run: |
+        echo "LINT_FAILED=${{ steps.lint.outputs.LINT_FAILED }}" >> $GITHUB_ENV
+        echo "TEST_FAILED=${{ steps.test.outputs.TEST_FAILED }}" >> $GITHUB_ENV  
+        echo "BUILD_FAILED=${{ steps.build.outputs.BUILD_FAILED }}" >> $GITHUB_ENV
+        
+    - name: Fail workflow if any step failed
+      if: env.LINT_FAILED == 'true' || env.TEST_FAILED == 'true' || env.BUILD_FAILED == 'true'
+      run: |
+        echo "One or more checks failed. See PR comment for details."
+        exit 1

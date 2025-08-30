@@ -3,7 +3,6 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { Blog } from '../src/pages/Blog';
 import * as blogData from '../src/data/blogPostsData';
 import { BrowserRouter } from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
 
 const mockPosts = [
   { 
