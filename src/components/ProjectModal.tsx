@@ -22,6 +22,7 @@ export const ProjectModal: React.FC = () => {
         }
 
         fetchProject();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     if (project == null || project.project_details == null) {

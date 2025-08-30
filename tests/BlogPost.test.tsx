@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { BlogPost } from '../src/pages/BlogPost';
 import * as blogData from '../src/data/blogPostsData';
-import { BrowserRouter, MemoryRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Suspense } from 'react';
 
 const mockPost = {

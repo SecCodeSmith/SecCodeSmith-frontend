@@ -169,7 +169,7 @@ export const Blog = () => {
 
                   return (
                     <div className={`list-group-item ${style.listGroupItem} ${isActive ? style.active : ''}`} key={index}>
-                      <a href="#" onClick={() => { setSearchCategory(_prev => (isActive ? '' : category.slug)) }}>
+                      <a href="#" onClick={() => { setSearchCategory(() => (isActive ? '' : category.slug)) }}>
                         <span>{category.title}</span>
                         <span className={`category-count ${style.categoryCount}`}>{category.BlogCount}</span>
                       </a>

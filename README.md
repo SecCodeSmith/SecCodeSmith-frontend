@@ -1,5 +1,6 @@
 # SecCodeSmith Frontend Portfolio
 
+[![CI](https://github.com/SecCodeSmith/SecCodeSmith-frontend/actions/workflows/ci.yml/badge.svg)](https://github.com/SecCodeSmith/SecCodeSmith-frontend/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/Version-0.2.0-blue.svg)](https://github.com/SecCodeSmith/SecCodeSmith-frontend/releases)
 [![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)

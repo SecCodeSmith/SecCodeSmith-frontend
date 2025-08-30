@@ -175,7 +175,7 @@ export async function fetchRelatedPostsByCategory(categorySlug: string): Promise
         }
         return await res.json() as BlogPostProps[];
     } else {
-        let posts = await fetchAllBlogPosts();
+        const posts = await fetchAllBlogPosts();
         const related = posts.filter(p => p.category.slug.toLowerCase() === categorySlug.toLowerCase());
         return related.slice(0, 3);
     }

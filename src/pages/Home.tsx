@@ -36,8 +36,8 @@ export const Home = () => {
         line.style.left = `${Math.random() * 100}%`;
         line.style.animationDuration = `${Math.random() * 10 + 15}s`;
 
-        let lineNumber = Math.floor(Math.random() * randomCodeLines.length);
-        let binaryString = randomCodeLines[lineNumber];
+        const lineNumber = Math.floor(Math.random() * randomCodeLines.length);
+        const binaryString = randomCodeLines[lineNumber];
 
         line.textContent = binaryString;
         binaryBg.appendChild(line);
@@ -88,6 +88,7 @@ export const Home = () => {
       setTimeout(() => createParticle(i), i * 100);
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
