@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Suspense } from 'react';
 
 const mockAboutData = {
+  lang: 'en',
   title: 'About Me',
   subtitle: 'My story',
   image_title: 'My Picture',
@@ -23,6 +24,11 @@ const mockAboutData = {
 };
 
 const mockContactData = {
+  email: 'test@example.com',
+  business_email: 'business@example.com',
+  FAQ: [],
+  map_iframe_url: 'https://maps.example.com/embed',
+  phone: '+1234567890',
   social_links: [{ platform: 'GitHub', url: 'https://github.com', icon: 'fab fa-github' }]
 };
 
