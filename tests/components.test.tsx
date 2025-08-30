@@ -6,6 +6,7 @@ import { Header } from '../src/components/Header';
 import { Footer } from '../src/components/Footer';
 import { PageHeader } from '../src/components/PageHeader';
 import { PAGE_TITLE } from '../src/Config';
+import '@testing-library/jest-dom';
 
 // Mock the socialLinkData module
 vi.mock('../src/data/socialLinkData', () => ({
