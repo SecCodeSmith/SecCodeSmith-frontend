@@ -10,6 +10,6 @@ export const BLOG = true;
 export const ABOUT = true;
 export const PROJECTS = true;
 export const CONTACT = true;
-export const CONTACT_FORM = true;
+export const CONTACT_FORM = false;
 // Other page settings 
 export const PAGE_TITLE = "SecCodeSmith"
