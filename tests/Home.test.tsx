@@ -5,6 +5,8 @@ import * as skillCardData from '../src/data/skillCardData';
 import { BrowserRouter } from 'react-router-dom';
 import { Suspense } from 'react';
 import { PAGE_TITLE } from '../src/Config';
+import '@testing-library/jest-dom';
+import { beforeEach } from 'node:test';
 
 const mockSkillCardData = [
   {
