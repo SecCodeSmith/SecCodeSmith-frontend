@@ -20,7 +20,7 @@ jobs:
           echo "environment=${{ github.event.deployment_status.environment }}" >> $GITHUB_OUTPUT
           echo "state=${{ github.event.deployment_status.state }}" >> $GITHUB_OUTPUT
         else
-          echo "url=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" >> $GITHUB_OUTPUT
+          repo_name="${{ github.repository##*/ }}"; echo "url=https://${{ github.repository_owner }}.github.io/${repo_name}" >> $GITHUB_OUTPUT
           echo "environment=github-pages" >> $GITHUB_OUTPUT
           echo "state=success" >> $GITHUB_OUTPUT
         fi
