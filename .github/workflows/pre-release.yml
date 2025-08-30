@@ -122,7 +122,7 @@ jobs:
     - name: Clean up old pre-releases
       run: |
         # Keep only the last 5 pre-releases
-        gh release list --limit 20 --json tagName,isPrerelease --jq '.[] | select(.isPrerelease == true) | .tagName' | tail -n +6 | while read tag; do
+        gh release list --limit 20 --json tagName,isPrerelease --jq '.[] | select(.isPrerelease == true) | .tagName' | head -n -5 | while read tag; do
           echo "Deleting old pre-release: $tag"
           gh release delete "$tag" --yes || true
         done
