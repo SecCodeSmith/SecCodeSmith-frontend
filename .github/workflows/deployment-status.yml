@@ -1,0 +1,60 @@
+name: Deployment Status
+
+on:
+  deployment_status:
+  workflow_run:
+    workflows: ["Release"]
+    types: [completed]
+    
+jobs:
+  deployment-notification:
+    runs-on: ubuntu-latest
+    if: github.event.deployment_status.state == 'success' || github.event.workflow_run.conclusion == 'success'
+    
+    steps:
+    - name: Get deployment info
+      id: deployment
+      run: |
+        if [ "${{ github.event_name }}" = "deployment_status" ]; then
+          echo "url=${{ github.event.deployment_status.target_url }}" >> $GITHUB_OUTPUT
+          echo "environment=${{ github.event.deployment_status.environment }}" >> $GITHUB_OUTPUT
+          echo "state=${{ github.event.deployment_status.state }}" >> $GITHUB_OUTPUT
+        else
+          echo "url=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" >> $GITHUB_OUTPUT
+          echo "environment=github-pages" >> $GITHUB_OUTPUT
+          echo "state=success" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Create deployment summary
+      run: |
+        echo "## 🚀 Deployment Successful" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Details" >> $GITHUB_STEP_SUMMARY
+        echo "- **Environment**: ${{ steps.deployment.outputs.environment }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Status**: ${{ steps.deployment.outputs.state }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **URL**: [${{ steps.deployment.outputs.url }}](${{ steps.deployment.outputs.url }})" >> $GITHUB_STEP_SUMMARY
+        echo "- **Time**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 🎉 Your application is now live!" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "Visit your deployed application: **[${{ steps.deployment.outputs.url }}](${{ steps.deployment.outputs.url }})**" >> $GITHUB_STEP_SUMMARY
+
+  deployment-failure:
+    runs-on: ubuntu-latest
+    if: github.event.deployment_status.state == 'failure' || github.event.workflow_run.conclusion == 'failure'
+    
+    steps:
+    - name: Create failure summary
+      run: |
+        echo "## ❌ Deployment Failed" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Details" >> $GITHUB_STEP_SUMMARY
+        echo "- **Environment**: ${{ github.event.deployment_status.environment || 'github-pages' }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Status**: ${{ github.event.deployment_status.state || github.event.workflow_run.conclusion }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Time**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 🔧 Troubleshooting" >> $GITHUB_STEP_SUMMARY
+        echo "1. Check the workflow logs for detailed error messages" >> $GITHUB_STEP_SUMMARY
+        echo "2. Verify that all required secrets and permissions are configured" >> $GITHUB_STEP_SUMMARY
+        echo "3. Ensure the build artifacts are properly generated" >> $GITHUB_STEP_SUMMARY
+        echo "4. Check GitHub Pages settings in repository settings" >> $GITHUB_STEP_SUMMARY

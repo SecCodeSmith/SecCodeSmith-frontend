@@ -1,0 +1,130 @@
+name: Pre-Release
+
+on:
+  push:
+    branches:
+      - develop
+      - beta
+      - release/*
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Pre-release version (e.g., 1.0.0-beta.1)'
+        required: true
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run linting
+      run: npm run lint
+      
+    - name: Run tests
+      run: npx vitest run
+      
+    - name: Build project
+      run: npm run build
+      
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: prerelease-build-files
+        path: dist/
+        retention-days: 7
+
+  pre-release:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: prerelease-build-files
+        path: dist/
+        
+    - name: Generate pre-release version
+      id: version
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          VERSION="${{ github.event.inputs.version }}"
+        else
+          # Auto-generate pre-release version
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          BRANCH_NAME=${BRANCH_NAME//\//-}  # Replace / with -
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          SHORT_SHA=${GITHUB_SHA:0:7}
+          VERSION="0.0.0-${BRANCH_NAME}.${TIMESTAMP}.${SHORT_SHA}"
+        fi
+        
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+        
+    - name: Generate changelog
+      run: |
+        echo "# Pre-Release ${{ steps.version.outputs.version }}" > PRERELEASE_NOTES.md
+        echo "" >> PRERELEASE_NOTES.md
+        echo "⚠️ **This is a pre-release version for testing purposes only.**" >> PRERELEASE_NOTES.md
+        echo "" >> PRERELEASE_NOTES.md
+        echo "## Recent Changes" >> PRERELEASE_NOTES.md
+        
+        # Get recent commits (last 10)
+        git log -10 --pretty=format:"- %s (%h by %an)" --no-merges >> PRERELEASE_NOTES.md
+        
+        echo "" >> PRERELEASE_NOTES.md
+        echo "## Build Information" >> PRERELEASE_NOTES.md
+        echo "- **Branch**: ${{ github.ref_name }}" >> PRERELEASE_NOTES.md
+        echo "- **Commit**: ${{ github.sha }}" >> PRERELEASE_NOTES.md
+        echo "- **Build Date**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> PRERELEASE_NOTES.md
+        
+    - name: Create pre-release archive
+      run: |
+        tar -czf seccodesmith-frontend-${{ steps.version.outputs.version }}.tar.gz dist/
+        
+    - name: Create Pre-Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.version.outputs.tag }}
+        name: Pre-Release ${{ steps.version.outputs.version }}
+        body_path: PRERELEASE_NOTES.md
+        prerelease: true
+        files: |
+          seccodesmith-frontend-${{ steps.version.outputs.version }}.tar.gz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Clean up old pre-releases
+      run: |
+        # Keep only the last 5 pre-releases
+        gh release list --limit 20 --json tagName,isPrerelease --jq '.[] | select(.isPrerelease == true) | .tagName' | tail -n +6 | while read tag; do
+          echo "Deleting old pre-release: $tag"
+          gh release delete "$tag" --yes || true
+        done
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

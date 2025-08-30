@@ -1,0 +1,164 @@
+name: Version Bump
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: 'Type of version bump'
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+          - prerelease
+        default: 'patch'
+      prerelease_type:
+        description: 'Pre-release identifier (only for prerelease)'
+        required: false
+        type: choice
+        options:
+          - alpha
+          - beta
+          - rc
+        default: 'beta'
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+    - name: Get current version
+      id: current
+      run: |
+        CURRENT_VERSION=$(node -p "require('./package.json').version")
+        echo "version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+        
+    - name: Bump version
+      id: bump
+      run: |
+        if [ "${{ github.event.inputs.bump_type }}" = "prerelease" ]; then
+          NEW_VERSION=$(npm version prerelease --preid=${{ github.event.inputs.prerelease_type }} --no-git-tag-version)
+        else
+          NEW_VERSION=$(npm version ${{ github.event.inputs.bump_type }} --no-git-tag-version)
+        fi
+        
+        # Remove the 'v' prefix that npm version adds
+        NEW_VERSION=${NEW_VERSION#v}
+        echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+        
+    - name: Update CHANGELOG.md
+      run: |
+        TODAY=$(date +%Y-%m-%d)
+        
+        if [ -f CHANGELOG.md ]; then
+          # Create new changelog entry
+          {
+            echo "# Changelog"
+            echo ""
+            echo "## [${{ steps.bump.outputs.version }}] - $TODAY"
+            echo ""
+            echo "### Added"
+            echo "- New features will be listed here"
+            echo ""
+            echo "### Changed" 
+            echo "- Changes will be listed here"
+            echo ""
+            echo "### Fixed"
+            echo "- Bug fixes will be listed here"
+            echo ""
+            # Append existing changelog content (skip the first line)
+            tail -n +2 CHANGELOG.md
+          } > CHANGELOG_NEW.md
+          
+          mv CHANGELOG_NEW.md CHANGELOG.md
+        else
+          # Create new changelog
+          cat > CHANGELOG.md << EOF
+# Changelog
+
+## [${{ steps.bump.outputs.version }}] - $TODAY
+
+### Added
+- Initial release
+
+### Changed
+- Project setup and configuration
+
+### Fixed
+- Initial bug fixes and improvements
+EOF
+        fi
+        
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: |
+          chore: bump version to ${{ steps.bump.outputs.version }}
+          
+          - Update package.json version from ${{ steps.current.outputs.version }} to ${{ steps.bump.outputs.version }}
+          - Update CHANGELOG.md with new version entry
+          - Prepare for release ${{ steps.bump.outputs.version }}
+        title: 'chore: bump version to ${{ steps.bump.outputs.version }}'
+        body: |
+          ## Version Bump: ${{ steps.current.outputs.version }} → ${{ steps.bump.outputs.version }}
+          
+          ### Changes
+          - 📦 Bumped version from `${{ steps.current.outputs.version }}` to `${{ steps.bump.outputs.version }}`
+          - 📝 Updated CHANGELOG.md with new version entry
+          - 🔖 Prepared for ${{ github.event.inputs.bump_type }} release
+          
+          ### Type of Bump
+          **${{ github.event.inputs.bump_type }}** ${{ github.event.inputs.bump_type == 'prerelease' && format('({0})', github.event.inputs.prerelease_type) || '' }}
+          
+          ### Next Steps
+          1. ✅ Review the changes
+          2. ✅ Update CHANGELOG.md with actual changes
+          3. ✅ Merge this PR
+          4. 🚀 Create a release with tag `v${{ steps.bump.outputs.version }}`
+          
+          ### Automatic Actions After Merge
+          - CI will run tests and build
+          - Release workflow can be triggered manually
+          - Deployment will happen automatically on tag creation
+          
+          ---
+          🤖 This PR was created automatically by the Version Bump workflow.
+        branch: version-bump-${{ steps.bump.outputs.version }}
+        delete-branch: true
+        
+    - name: Output summary
+      run: |
+        echo "## Version Bump Summary" >> $GITHUB_STEP_SUMMARY
+        echo "- **Previous Version**: ${{ steps.current.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **New Version**: ${{ steps.bump.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Bump Type**: ${{ github.event.inputs.bump_type }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Pull Request**: Created automatically" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Next Steps" >> $GITHUB_STEP_SUMMARY
+        echo "1. Review and merge the created pull request" >> $GITHUB_STEP_SUMMARY
+        echo "2. Update CHANGELOG.md with actual changes" >> $GITHUB_STEP_SUMMARY
+        echo "3. Create a release tag \`v${{ steps.bump.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
