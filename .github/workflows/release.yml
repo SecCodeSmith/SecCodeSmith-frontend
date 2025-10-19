@@ -1,0 +1,214 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - release/*
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., 1.0.0)'
+        required: true
+        type: string
+      prerelease:
+        description: 'Mark as pre-release'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run linting
+      run: npm run lint
+      
+    - name: Run tests
+      run: npx vitest run
+      
+    - name: Build project
+      run: npm run build
+      
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-files
+        path: dist/
+        retention-days: 30
+
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write
+      pull-requests: write
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: build-files
+        path: dist/
+        
+    - name: Get version from tag or input
+      id: version
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          echo "tag=v${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+        else
+          echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+          echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Update package.json version
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        npm version ${{ steps.version.outputs.version }} --no-git-tag-version
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add package.json package-lock.json
+        git commit -m "chore: bump version to ${{ steps.version.outputs.version }}"
+        
+    - name: Generate changelog
+      id: changelog
+      run: |
+        echo "# Changelog for ${{ steps.version.outputs.tag }}" > RELEASE_NOTES.md
+        echo "" >> RELEASE_NOTES.md
+        
+        # Get commits since last tag
+        LAST_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+        if [ -n "$LAST_TAG" ]; then
+          echo "## Changes since $LAST_TAG" >> RELEASE_NOTES.md
+          git log $LAST_TAG..HEAD --pretty=format:"- %s (%h)" --no-merges >> RELEASE_NOTES.md
+        else
+          echo "## Initial Release" >> RELEASE_NOTES.md
+          git log --pretty=format:"- %s (%h)" --no-merges >> RELEASE_NOTES.md
+        fi
+        
+        echo "" >> RELEASE_NOTES.md
+        echo "## Build Information" >> RELEASE_NOTES.md
+        echo "- **Build Date**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> RELEASE_NOTES.md
+        echo "- **Node.js Version**: $(node --version)" >> RELEASE_NOTES.md
+        echo "- **npm Version**: $(npm --version)" >> RELEASE_NOTES.md
+        
+    - name: Create/Update CHANGELOG.md
+      run: |
+        if [ -f CHANGELOG.md ]; then
+          # Backup existing changelog
+          cp CHANGELOG.md CHANGELOG_BACKUP.md
+          
+          # Create new changelog with current release at top
+          echo "# Changelog" > NEW_CHANGELOG.md
+          echo "" >> NEW_CHANGELOG.md
+          echo "## [${{ steps.version.outputs.version }}] - $(date -u '+%Y-%m-%d')" >> NEW_CHANGELOG.md
+          echo "" >> NEW_CHANGELOG.md
+          
+          # Add changes from release notes (skip the first two lines)
+          tail -n +3 RELEASE_NOTES.md >> NEW_CHANGELOG.md
+          echo "" >> NEW_CHANGELOG.md
+          
+          # Append old changelog content (skip header)
+          tail -n +3 CHANGELOG.md >> NEW_CHANGELOG.md
+          
+          mv NEW_CHANGELOG.md CHANGELOG.md
+        else
+          # Create new changelog
+          echo "# Changelog" > CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "## [${{ steps.version.outputs.version }}] - $(date -u '+%Y-%m-%d')" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          tail -n +3 RELEASE_NOTES.md >> CHANGELOG.md
+        fi
+        
+    - name: Create release archive
+      run: |
+        # Create release archive with build files
+        tar -czf seccodesmith-frontend-${{ steps.version.outputs.version }}.tar.gz dist/
+        zip -r seccodesmith-frontend-${{ steps.version.outputs.version }}.zip dist/
+        
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.version.outputs.tag }}
+        name: Release ${{ steps.version.outputs.version }}
+        body_path: RELEASE_NOTES.md
+        prerelease: ${{ github.event.inputs.prerelease || false }}
+        files: |
+          seccodesmith-frontend-${{ steps.version.outputs.version }}.tar.gz
+          seccodesmith-frontend-${{ steps.version.outputs.version }}.zip
+          CHANGELOG.md
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Update CHANGELOG in repository
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        git add CHANGELOG.md
+        git commit -m "docs: update CHANGELOG for ${{ steps.version.outputs.version }}"
+        git tag ${{ steps.version.outputs.tag }}
+        git push origin main
+        git push origin ${{ steps.version.outputs.tag }}
+
+  deploy:
+    needs: [test, release]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.page_url }}
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: build-files
+        path: dist/
+        
+    - name: Deploy to GitHub Pages
+      id: deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
+        cname: ${{ vars.CUSTOM_DOMAIN }}  # Optional: set in repository variables
+        
+    - name: Notify deployment success
+      run: |
+        echo "🚀 Deployment successful!"
+        echo "📦 Version: ${{ needs.release.outputs.version }}"
+        echo "🌐 URL: ${{ steps.deploy.outputs.page_url }}"

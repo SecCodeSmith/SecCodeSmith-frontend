@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import {fetchSocialLinkData} from '../data/socialLinkData'
-import type {SocialLink} from '../untils/SocialLink'
+import type {SocialLink} from '../utils/SocialLink'
+import { PAGE_TITLE } from '../Config';
 
 
 export const Footer = () => {
-   const [SocialLinks, setSocialLinks] = useState<SocialLink[]>();
+   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
   
     useEffect(() => {
       const fetchData = async () => {
@@ -19,13 +20,20 @@ export const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="social-links">
-          {SocialLinks && SocialLinks.map((link, index) => (
-            <a key={index} href={link.url} className="social-icon">
+          {socialLinks && socialLinks.map((link) => (
+            <a
+              key={link.id}
+              href={link.url}
+              className="social-icon"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.name}
+            >
               <i className={link.icon}></i>
             </a>
           ))}
         </div>
-        <p className="copyright">&copy; {currentYear} SecCodeSmith. All rights forged in digital fire.</p>
+        <p className="copyright">&copy; {currentYear} {PAGE_TITLE}. All rights forged in digital fire.</p>
       </div>
     </footer>
   )

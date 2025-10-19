@@ -5,7 +5,8 @@ import styles from '@styles/Home.module.scss';
 import SkillCard from '../components/SkillCard'
 import { fetchSkillCardData } from '../data/skillCardData';
 import { randomCodeLineData } from '../data/randomCodeLineData';
-import type { SkillCardProps } from '../untils/SkillCardProps';
+import type { SkillCardProps } from '../utils/SkillCardProps';
+import { PAGE_TITLE } from '../Config';
 
 export const Home = () => {
   const [skills, setSkills] = useState<SkillCardProps[]>();
@@ -35,8 +36,8 @@ export const Home = () => {
         line.style.left = `${Math.random() * 100}%`;
         line.style.animationDuration = `${Math.random() * 10 + 15}s`;
 
-        let lineNumber = Math.floor(Math.random() * randomCodeLines.length);
-        let binaryString = randomCodeLines[lineNumber];
+        const lineNumber = Math.floor(Math.random() * randomCodeLines.length);
+        const binaryString = randomCodeLines[lineNumber];
 
         line.textContent = binaryString;
         binaryBg.appendChild(line);
@@ -87,6 +88,7 @@ export const Home = () => {
       setTimeout(() => createParticle(i), i * 100);
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -96,7 +98,7 @@ export const Home = () => {
         <div className={`container text-center ${styles.heroContainer}`}>
           <div className="row justify-content-center">
             <div className="col-lg-10">
-              <h1 className={`${styles.titleMain}`}>SecCodeSmith</h1>
+              <h1 className={`${styles.titleMain}`}>{PAGE_TITLE}</h1>
               <div className={`${styles.blinkingCursor}`}></div>
               <p className={`subtitle mt-3 ${styles.subtitle}`}>Forging Digital Solutions in the Fires of Innovation</p>
               <Link to="/projects" className={`btn btn-primary mt-4 btn-primary ${styles.btnPrimary}`}>

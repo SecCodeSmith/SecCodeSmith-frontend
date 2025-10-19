@@ -1,21 +1,31 @@
 [
   {
+    "id": 1,
+    "name": "GitHub",
     "icon": "fab fa-github",
     "url": "https://github.com/SecCodeSmith"
   },
   {
+    "id": 2,
+    "name": "LinkedIn",
     "icon": "fab fa-linkedin",
     "url": "https://www.facebook.com/profile.php?id=61575058536717"
   },
   {
+    "id": 3,
+    "name": "Discord",
     "icon": "fab fa-discord",
     "url": "https://discord.gg/EPd7GqsR"
   },
   {
+    "id": 4,
+    "name": "Facebook",
     "url": "https://www.facebook.com/people/Seccodesmith/61575058536717/",
     "icon": "fab fa-facebook"
   },
   {
+    "id": 5,
+    "name": "Email",
     "icon": "fas fa-envelope",
     "url": "mailto:contact@seccodesmith.pl"
   }

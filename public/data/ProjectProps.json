@@ -4,7 +4,9 @@
     "title": "SecCodeSmith Portfolio Page - Frontend",
     "description": "A modern, responsive portfolio page showcasing my projects, skills, and blog posts. Built with React and styled-components for a sleek user interface.",
     "image": "/images/SecCodeSmithFrontProj/Main.png",
-    "category": ["Web"],
+    "category": [
+      { "name": "Web", "short": "web", "icon": "fas fa-globe" }
+    ],
     "featured": true,
     "technologies": [
       { "name": "React",       "icon": "devicon-react-original tech-icon" },

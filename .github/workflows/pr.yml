@@ -1,0 +1,100 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run linting
+      id: lint
+      run: npm run lint
+      continue-on-error: true
+      
+    - name: Run tests
+      id: test
+      run: |
+        npx vitest run --reporter=verbose > test-results.txt 2>&1
+        echo "exit_code=$?" >> $GITHUB_OUTPUT
+      continue-on-error: true
+      
+    - name: Run build
+      id: build
+      run: npm run build
+      continue-on-error: true
+      
+    - name: Read test results
+      id: test-results
+      if: always()
+      run: |
+        if [ -f test-results.txt ]; then
+          echo "test_output<<EOF" >> $GITHUB_OUTPUT
+          cat test-results.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Comment PR with results
+      uses: thollander/actions-comment-pull-request@v2
+      if: always()
+      with:
+        message: |
+          ## 📊 Pull Request Check Results
+          
+          | Check | Status | Details |
+          |-------|--------|---------|
+          | Linting | ${{ steps.lint.outcome == 'success' && '✅ Passed' || '❌ Failed' }} | ${{ steps.lint.outcome == 'success' && 'No linting errors' || 'Linting errors found' }} |
+          | Tests | ${{ steps.test.outcome == 'success' && '✅ Passed' || '❌ Failed' }} | ${{ steps.test.outcome == 'success' && 'All tests passed' || 'Some tests failed' }} |
+          | Build | ${{ steps.build.outcome == 'success' && '✅ Passed' || '❌ Failed' }} | ${{ steps.build.outcome == 'success' && 'Build successful' || 'Build failed' }} |
+          
+          ${{ steps.test.outcome == 'failure' && format('
+          <details>
+          <summary>🔍 Test Output (Click to expand)</summary>
+          
+          ```
+          {0}
+          ```
+          </details>', steps.test-results.outputs.test_output) || '' }}
+          
+          ${{ (steps.lint.outcome == 'failure' || steps.test.outcome == 'failure' || steps.build.outcome == 'failure') && '
+          ### ❌ Some checks failed
+          
+          Please fix the issues above before merging. You can run the following commands locally:
+          - `npm run lint` - Check for linting errors
+          - `npm test` - Run tests  
+          - `npm run build` - Test the build
+          ' || '
+          ### ✅ All checks passed!
+          
+          Great work! This PR is ready for review. 🚀
+          ' }}
+          
+          ---
+          <sub>🤖 Automated check by GitHub Actions</sub>
+        comment_tag: pr-check
+        
+    - name: Fail workflow if any check failed
+      if: steps.lint.outcome == 'failure' || steps.test.outcome == 'failure' || steps.build.outcome == 'failure'
+      run: |
+        echo "❌ One or more checks failed"
+        echo "Lint: ${{ steps.lint.outcome }}"
+        echo "Test: ${{ steps.test.outcome }}" 
+        echo "Build: ${{ steps.build.outcome }}"
+        exit 1

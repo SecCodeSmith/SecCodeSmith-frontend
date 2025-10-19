@@ -1,9 +1,20 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { render, screen, act } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Header } from '../src/components/Header';
 import { Footer } from '../src/components/Footer';
 import { PageHeader } from '../src/components/PageHeader';
+import { PAGE_TITLE } from '../src/Config';
+import '@testing-library/jest-dom';
+
+// Mock the socialLinkData module
+vi.mock('../src/data/socialLinkData', () => ({
+  fetchSocialLinkData: vi.fn(() => Promise.resolve([
+    { id: 1, name: 'GitHub', url: 'https://github.com', icon: 'fab fa-github' },
+    { id: 2, name: 'LinkedIn', url: 'https://linkedin.com', icon: 'fab fa-linkedin' },
+  ])),
+}));
 
 // Setup wrapper for components that use router
 const renderWithRouter = (ui: React.ReactElement) => {
@@ -16,7 +27,7 @@ describe('Header Component', () => {
   });
 
   it('renders the logo text', () => {
-    expect(screen.getByText('SecCodeSmith')).toBeInTheDocument();
+    expect(screen.getByText(PAGE_TITLE)).toBeInTheDocument();
   });
 
   it('renders navigation links', () => {
@@ -29,18 +40,20 @@ describe('Header Component', () => {
 });
 
 describe('Footer Component', () => {
-  beforeEach(() => {
-    render(<Footer />);
+  beforeEach(async () => {
+    await act(async () => {
+      render(<Footer />);
+    });
   });
 
-  it('renders social links', () => {
-    const socialLinks = document.querySelectorAll('.social-icon');
-    expect(socialLinks.length).toBeGreaterThan(0);
+  it('renders social links', async () => {
+    expect(await screen.findByLabelText('GitHub')).toBeInTheDocument();
+    expect(await screen.findByLabelText('LinkedIn')).toBeInTheDocument();
   });
 
   it('renders copyright text with current year', () => {
     const currentYear = new Date().getFullYear();
-    expect(screen.getByText(`© ${currentYear} SecCodeSmith. All rights forged in digital fire.`)).toBeInTheDocument();
+    expect(screen.getByText(`© ${currentYear} ${PAGE_TITLE}. All rights forged in digital fire.`)).toBeInTheDocument();
   });
 });
 

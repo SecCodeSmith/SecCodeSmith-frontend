@@ -4,8 +4,8 @@ import { lazy } from 'react';
 
 const TagField = lazy(() => import('../components/TagField'));
 
-import type {BlogPostProps} from '../untils/BlogPostProps';
-import { API_BASE_URL } from '../Config';
+import type {BlogPostProps} from '../utils/BlogPostProps';
+import { API_BASE_URL, USE_API, STATIC_IMAGE_URL } from '../Config';
 
 
 interface BlogCardProps {
@@ -18,7 +18,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, setSearchTag, searchTa
   return (
     <div className={`card ${styles.card} ${post.featured ? styles.featuredCard : ''}`}>
       <div className="position-relative">
-        <img src={`${API_BASE_URL}${post.image}`} className={`card-img-top ${post.featured ? styles.featuredImg : ''}`} alt={post.title} />
+        <img src={`${USE_API ? API_BASE_URL : STATIC_IMAGE_URL}${post.image}`} className={`card-img-top ${post.featured ? styles.featuredImg : ''}`} alt={post.title} />
         <div className={styles.categoryBadge}>{post.category.title}</div>
         
         {post.featured && (

@@ -130,7 +130,7 @@ export const ContactForm = () => {
               value={formData.projectType}
               onChange={handleChange}
             >
-              <option value="" selected disabled>Select a project type</option>
+              <option value="" disabled>Select a project type</option>
               <option value="embedded">Embedded Systems</option>
               <option value="web">Web Development</option>
               <option value="ml">Machine Learning</option>
@@ -167,7 +167,7 @@ export const ContactForm = () => {
               value={formData.budget}
               onChange={handleChange}
             >
-              <option value="" selected disabled>Select your budget range</option>
+              <option value="" disabled>Select your budget range</option>
               <option value="small">$1,000 - $5,000</option>
               <option value="medium">$5,000 - $15,000</option>
               <option value="large">$15,000 - $30,000</option>
