@@ -1,0 +1,19 @@
+@use './variables' as *;
+
+@mixin elevated-surface($padding: null) {
+  background-color: $card-bg;
+  border-radius: 8px;
+  border: 1px solid $card-border;
+  transition: all 0.3s ease;
+  position: relative;
+
+  @if $padding != null {
+    padding: $padding;
+  }
+}
+
+@mixin elevated-hover($lift: 5px) {
+  transform: translateY(-#{$lift});
+  border-color: rgba(255, 100, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
